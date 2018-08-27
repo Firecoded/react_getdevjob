@@ -1,0 +1,20 @@
+.sidebar {
+    margin-top: 50px;
+}
+
+.distance{
+    height:100px;
+}
+
+.checkboxArea{
+    font-size: 1em;
+}
+.sideTrigger {
+	position: fixed;
+	top: 1.8%;
+	z-index: 999;
+	left: 8%;
+}
+svg {
+	top: .25vh;
+}

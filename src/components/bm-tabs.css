@@ -1,0 +1,8 @@
+.bm-salary, .bm-more, .bm-details{
+    text-align: center;
+    margin-top:5vmin;
+}
+
+.tabs .indicator{
+    display:none !important;
+}

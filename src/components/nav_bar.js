@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
+import { Navbar, NavItem} from 'react-materialize';
 
 class NavBar extends Component {
+
 	render() {
 		return (
-			<div className='top-nav'>
-				<ul>
-                    <li>Filters</li>
-                    <li>Title/Location</li>
-                    <li> 4 out of 100 Jobs Found</li>
-                    <li>Saved</li>
-                </ul>
-			</div>
+			<Navbar className = 'black' fixed = {true} brand = '<GDJ/>' right>
+				<NavItem>Saved</NavItem>
+			</Navbar>
 		);
 	}
 }
 
 export default NavBar;
+
+
+

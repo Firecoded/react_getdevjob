@@ -4,8 +4,8 @@
 }
 .main-cont {
 	height: 100vh;
-	width: 100vw;
-	position: relative;
+	width: 93vw;
+    position: relative;
 }
 .top-nav {
 	height: 10%;
@@ -14,40 +14,46 @@
 	border: 1px solid red;
 	margin-bottom: 2%;
 }
-ul li{
+.top-nav ul li{
     display: inline-block;
     margin: 0% 5%;
 }
 
-ul li:nth-child(3){
+.top-nav ul li:nth-child(3){
     position: relative;
     left:6%;
 }
 
-ul li:nth-child(4){
+.top-nav ul li:nth-child(4){
     position: relative;
     left:25%;
 }
 .cardArea{
     width:100%;
-    top: 10%;
     height: 90%;
-    border: 2px dotted blue;
+    /* border: 2px dotted blue; */
     /*margin-top: 3%;*/
     display: block;
     position: relative;
+    margin-left: 3.3%;
     }
 .search-result{
     margin-left: 5%;
-    border:2px dashed green;
+    /* border:2px dashed green; */
     height: 45%;
     width: 100%;
     display: block;
 }
 .leftColumn, .rightColumn {
-    height:100%;
-    width: 45%;
-    margin-left: 1%;
+    height:44%;
+    width: 49%;
+    
     display: inline-block;
 
+}
+
+.leftColumn{
+    margin-right: 1%;
+    margin-left: 0.5%; 
+    vertical-align: top;
 }
