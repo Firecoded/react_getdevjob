@@ -16,9 +16,7 @@
 .orange-txt {
     color: #e65100;
 }
-.lp-form {
-    /*left: 25%;*/
-}
+
 .blue-txt {
     color: #0277bd;
     top: 0;
@@ -27,6 +25,9 @@
     position: absolute;
     top: -0%;
     color: #4B4C4D;
+}
+.lp-title{
+    font-size: 3em;
 }
 /* label focus color */
 .input-field input[type=text]:focus + label, .materialize-textarea:focus:not([readonly]) + label {

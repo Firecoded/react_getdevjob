@@ -44,7 +44,7 @@ class Card extends Component{
     <div>   
         <div className='sc-cardContainer card-panel'>
             <div className = 'sc-leftColumn'>
-                <div className ='BusinessInfo'>
+                <div className ='sc-businessInfo'>
                     <ul className='sc-jobDetailsList'>
                         <li>{title}</li>
                         <li>{company_name}</li>

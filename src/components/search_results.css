@@ -1,38 +1,17 @@
 * {
 	margin: 0;
 	box-sizing: border-box;
+
 }
 .main-cont {
 	height: 100vh;
 	width: 93vw;
     position: relative;
 }
-.top-nav {
-	height: 10%;
-	width: 100%;
-	position: fixed;
-	border: 1px solid red;
-	margin-bottom: 2%;
-}
-.top-nav ul li{
-    display: inline-block;
-    margin: 0% 5%;
-}
-
-.top-nav ul li:nth-child(3){
-    position: relative;
-    left:6%;
-}
-
-.top-nav ul li:nth-child(4){
-    position: relative;
-    left:25%;
-}
 .cardArea{
     width:100%;
     height: 90%;
-    /* border: 2px dotted blue; */
-    /*margin-top: 3%;*/
+    top: 10%;
     display: block;
     position: relative;
     margin-left: 3.3%;
@@ -47,7 +26,6 @@
 .leftColumn, .rightColumn {
     height:44%;
     width: 49%;
-    
     display: inline-block;
 
 }

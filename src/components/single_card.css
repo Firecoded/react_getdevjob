@@ -1,113 +1,94 @@
 .sc-cardContainer {
     height:40vmin;
-    border: 2px solid black;    
+    border: 2px solid black;   
+    position: relative; 
+    animation: appear 1.3s linear 1;
 }
 .sc-cardContainer:hover{
     background-color: lightgray;
 }
-
-.sc-leftColumn{
-    width:50%;
-    height:100%;
-    display: inline-block;
-}
-
-.sc-rightColumn{
-    width:35%;
-    height: 70%;
-    display: inline-block;
-    position: relative;
-}
-
 .sc-jobDetailsList {
     list-style-type: none;
+    font-size: 1.2rem;
     margin:0;
     margin-top: 0;
     position: relative;
 }
-.sc-jobDescription{    
-    /* styles for '...' */ 
-  /* hide text if it more than N lines  */
-  overflow: hidden;
-  /* for set '...' in absolute position */
-  position: relative; 
-  /* use this value to count block height */
-  line-height: 1.2em;
-  /* max-height = line-height (1.2) * lines max number (3) */
-  max-height: 8.6em; 
-  /* fix problem when last visible word doesn't adjoin right side  */
-  text-align: justify;  
-  /* place for '...' */
-  margin-right: -1em;
-  padding-right: 1em;
+.sc-jobDescription{   
+    font-size: 1rem;
+    overflow: hidden; 
+    max-height: 13.5em; 
+    text-align: justify;  
+    margin-right: -1em;
+    padding-right: 1em;
+    height: 70%;
+    width: 100%;
+    margin: 7% 0 0 0;
+    /*position: absolute;
+    right: 0;
+    bottom: 0;*/
 }
-/* create the ... */
 .sc-jobDescription:before {
-  /* points in the end */
-  /*content: '...';*/
-  /* absolute position */
-  position: absolute;
-  /* set position to right bottom corner of block */
-  right: 0;
-  bottom: 0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
-/* hide ... if we have text, which is less than or equal to max lines */
 .sc-jobDescription:after {
-  /* points in the end */
-  content: '';
-  /* absolute position */
+
   position: absolute;
-  /* set position to right bottom corner of text */
   right: 0;
-  /* set width and height */
   width: 1em;
   height: 1em;
   margin-top: 0.2em;
-  /* bg color = bg color under block */
   background: white;
 }
-
-
-
-.sc-jobDetailsList, .datePosted{
-    font-size: 2vmin;
+.datePosted{
+    font-size: 1rem;
 }
 .datePosted{
     color:green;
 }
+.sc-leftColumn{
+    width:75%;
+    height:100%;
+    float: left;
+    display: inline-block;
+}
 
-.buttonArea .btn-style, .appliedStatus{
-    display: block;
-    position:relative;
-    left:50%;
-   /* transform: translateX(-50%);*/
-    width: 60%;
-    top: -6vh;
-    
+.sc-rightColumn{
+    width:25%;
+    height: 80%;
+    float: left;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
 }
 .appliedStatus{
-    margin: 0 12%;
+    width: 50%;
+    left: 25%;
+    font-size: 1rem;
 }
-.buttonArea .btn-style{
-    margin-top: 10%;        
-    width: 60%;
+.buttonArea {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    flex-direction:column;
+}
+.btn-style{
+    margin-top: 8%; 
+    font-size: 1rem !important;       
+    width: 70%;
+    left: 15%;
+    text-transform: none;
 }
 
-.sc-jobDescription{
-    height: 70%;
-    width: 100%;
-    margin: 7% 0 0 0;
-    
+@keyframes appear{
+    0% {opacity: 0;}
+    100% {opacity: 1;}
 }
-.sc-jobDescription {
-    /*display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    display: -webkit-box;
-    -webkit-line-clamp: 7;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;*/  
-}
+
 h3 {
     font-size: 1rem;
 }

@@ -45,7 +45,7 @@ class SingleJobPage extends Component {
 
     render(){
         console.log("Right Here My Dude" , this.state.response[0].job[0]);
-        console.log("props?" , this.props);
+        // console.log("props?" , this.props);
         const { lat, lng} = this.state.response[0].job[0].location_id;
         // const {pullId}
         const {title, company_name, description, listing_url, company_id } = this.state.response[0].job[0];
@@ -56,7 +56,7 @@ class SingleJobPage extends Component {
                     <div className="row">
                         <div className='bm-leftColumn col s4'>
                             <div className="row">
-                                <Link to={LandingPage} className = "btn">Home</Link>
+                                
                                 <a href={listing_url} target ="_blank" className='btn col offset-s1 s2 green lighten-1'>Apply</a>
                                 
                             </div>
@@ -67,13 +67,13 @@ class SingleJobPage extends Component {
                             <div className='bm-jobTitle center'>
                                 {title}
                             </div>
-                            <TabsInfo {...this.props}/>
+                            <TabsInfo />
               
                         </div>
                         <div className='bm-rightColumn col s8'>
                             <div className='row'>   
                                 <div className ="bm-map">
-                                    <GoogleMap lat={lat} lng={lng} id={pullId} isOpen={isOpen} />
+                                    <GoogleMap lat={lat} lng={lng} id={company_id} isOpen={isOpen} />
                                 </div>
                                 <div className='bm-jobDetails'>
                                     <label>Job Description</label>

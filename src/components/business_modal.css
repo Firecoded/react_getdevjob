@@ -1,8 +1,15 @@
+.modalStyle {
+    height: 100%;
+    width: 80%;
+}
+.modal-footer{
+    position: absolute;
+    bottom:0;
+}
 .bm-map{
     height:35vmin;
     width: 100%;
 }
-
 .bm-companyName, .bm-jobTitle {
     position: relative;
     top:5%;

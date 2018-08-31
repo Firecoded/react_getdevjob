@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './landing_page.css';
 import { Link } from 'react-router-dom';
-import {Input} from 'react-materialize';
+import {Input, Col} from 'react-materialize';
 
 class LandingPage extends Component {
 	constructor(props){
@@ -91,22 +91,21 @@ class LandingPage extends Component {
 			            <div className="left-nums">50</div>
 		        	</div>
 			        <div className ='container input-container'>
-			            <h1 className="center-align title blue-txt ">getDevJob(<span className = 'orange-txt'>you</span>)</h1>
+			            <h1 className="center-align lp-title blue-txt ">getDevJob(<span className = 'orange-txt'>you</span>)</h1>
 			            <form className = 'lp-form '>
 			                <div className ='row '> 
-			                    <div className='input-field col offset-l3 offset-m2 l6 m6 s6 '>
-									<Input s={6} type ='select' label = 'Job Title' name="title" defaultValue = 'Web Developer' className = "white-text" onChange={this.handleInputChange.bind(this)}>
+			                    <Col s={12} m={8} l={6} offset="s1 m2 l3">
+									<Input s={11} m={10} l={6} type ='select' label = 'Job Title' name="title" defaultValue = 'Web Developer' className = "white-text" onChange={this.handleInputChange.bind(this)}>
                                 		<option value = 'Web Developer'> Web Developer</option>
                                 		<option value = 'Front End'> Front End</option>
                                 		<option value = 'Back End'> Back End</option>
                        				</Input>
-									{/* <input type='text' className ="autocomplete white-text" name = 'title' onChange = {this.handleInputChange}placeholder='Job Title '/> */}
-									<Input s={6} type ='select' label = 'City' name="location" defaultValue = 'Irvine' className = "white-text" onChange={this.handleInputChange.bind(this)}>
+									<Input s={11} m={10} l={6} type ='select' label = 'City' name="location" defaultValue = 'Irvine' className = "white-text" onChange={this.handleInputChange.bind(this)}>
                                 		<option value = 'Irvine'>Irvine</option>
                                 		<option value = 'San Diego'>San Diego</option>
                                 		<option value = 'Los Angeles'>Los Angeles</option>
                        				</Input>
-			                    </div>
+			                    </Col>
 			                </div>
 			                <div className='row'>
 			                	<Link className = "btn orange darken-4 col s2 offset-s5 waves-effect waves-light"to ={linkQuery}>Go	                		
