@@ -207,6 +207,7 @@ class SearchResults extends Component {
 	}
 
 	render() {
+		console.log("response from db: ", this.state);
 		return (
 			<div className = 'main-cont'>
 				<NavBar/>
