@@ -64,7 +64,7 @@ class TabsInfo extends Component{
         }
     }
     render(){
-
+        console.log("this.props.details: ", this.props.details);
         const {ocr_url, location} = this.props.details.company;
         const {street,city, state, zip} = location;
         let {city_salary, state_salary} = this.props.details.salary;
