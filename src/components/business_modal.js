@@ -52,7 +52,6 @@ class BusinessModal extends Component {
                                 {title}
                             </div>
                             <TabsInfo {...this.props} distance={this.state.distance} duration = {this.state.duration}/>
-              
                         </div>
                         <div className='bm-rightColumn'>
                             <div className='row'>   

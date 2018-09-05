@@ -3,6 +3,8 @@ import './filters.css';
 import {Row, Input} from 'react-materialize';
 import {formatPostData} from "../helpers";
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {setTheme} from '../actions';
 
 class Filters extends Component {
     constructor(props){
@@ -64,12 +66,7 @@ class Filters extends Component {
         const params = formatPostData(this.state);
         const resp = await axios.post("http://localhost:8000/api/get_joblist.php", params);
 
-        console.log("things sent: ", this.state);
         this.props.getFilterData(resp);
-        
-
-        console.log("AXIOS FILTER RESPONSE     :", resp);
-        this.props.getFilterData(resp);   
     }
 
     render(){
@@ -114,13 +111,6 @@ class Filters extends Component {
                             <option value = '15+'>15+ miles</option>
                         </Input>
                     </Row>
-                    {/* <Row>
-                        <Input s={12} type ='select' label = 'Experience' name='experience' defaultValue ='All Available' onChange={this.handleChange.bind(this)}>
-                            <option value = '0-2'>0-2 years</option>
-                            <option value = '2-5'>2-5 years</option>
-                            <option value = '5+'>5+ years</option>
-                        </Input>
-                    </Row> */}
                     <Row>
                         <Input s={12} type ='select' label = 'Posted Within' name='postedDate' defaultValue ='All' onChange={this.handleChange.bind(this)}>
                             <option value = ''> Posted Anytime </option>
@@ -142,5 +132,10 @@ class Filters extends Component {
             )
         }
     }
+function mapStateToProps(state){
+    return{
+        theme: state.theme.theme,
+    }
+}
 
-export default Filters;
+export default connect(mapStateToProps,{ setTheme })(Filters);

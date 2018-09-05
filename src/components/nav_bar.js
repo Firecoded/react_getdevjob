@@ -16,7 +16,7 @@ class NavBar extends Component {
 		}
 	}
 	componentDidMount(){
-		this.props.setTheme('dark');
+		this.props.setTheme(this.props.theme.current);
 	}
 	handleInputChange(event){
 		event.preventDefault();
@@ -41,18 +41,19 @@ class NavBar extends Component {
 	}
 	render() {
 		return (
-			<nav className = {`top-nav ${this.props.navColor} ${this.props.textColor}`}>
+			<nav className = {`top-nav ${this.props.theme.navColor} ${this.props.theme.text1}`}>
 				<div className = 'nav-wrapper'>
-					<Link to = '/' className = 'brand-logo tn-logo'>&lt;gDJ/&gt;</Link>
+					<Link to = '/' className = {`brand-logo tn-logo ${this.props.navColor}`}><span className={this.props.theme.titleText1}>&lt;gDJ</span><span className = {this.props.theme.titleText2}>/</span><span className = {this.props.theme.titleText1}>&gt;</span></Link>
 					<ul className = 'right nav-bar-items'>
-						<li onClick = {this.dropMenu.bind(this)} className = 'tn-theme row btn black white-text'>
+						<li onClick = {this.dropMenu.bind(this)} className = {`tn-theme row btn ${this.props.theme.navColor} ${this.props.theme.text1}`}>
 							Change Theme	
 						</li>
 						<div className = {this.state.dropStyle}>
 							<Input s={12} type ='select' label = 'Job Title' name="title" defaultValue = 'Web Developer' onChange={this.handleInputChange.bind(this)}>
 	                            <option value = 'dark'> Dark Theme</option>
 	                            <option value = 'light'> Light Theme</option>
-	                            <option value = 'Poop Brown'> Poop Brown Theme</option>
+	                            <option value = 'gotham'> Gotham Theme</option>
+								<option value = 'panda'> Panda Syntax</option>
 	                        </Input>
                         </div>
 					</ul>	
@@ -64,12 +65,7 @@ class NavBar extends Component {
 
 function mapStateToProps( state ){
 	return{
-		
-		theme: state.theme.themeName,
-		navColor: state.theme.theme.navColor,
-		textColor: state.theme.theme.text,
-		background: state.theme.theme.background,
-		functionText: state.theme.theme.functionText,
+		theme: state.theme.theme,
 		}
 }
 

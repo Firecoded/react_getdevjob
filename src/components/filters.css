@@ -10,10 +10,12 @@
     font-size: 1em;
 }
 .sideTrigger {
+	font-size: 1.2em;
 	position: fixed;
-	top: 1.8%;
+	top: 1.9%;
 	z-index: 999;
-	left: 8%;
+	left: 9%;
+	cursor: pointer;
 }
 svg {
 	top: .25vh;
