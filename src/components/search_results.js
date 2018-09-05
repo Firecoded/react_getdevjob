@@ -94,7 +94,7 @@ class SearchResults extends Component {
 					  	options={{closeOnClick:true}}
 						>
 							<SideNavItem>
-								<Filters getFilterData = {this.getFilterResponseData.bind(this)}/>
+							  <Filters getFilterData = {this.getFilterResponseData.bind(this)} job={this.props.match.params.job} city={this.props.match.params.city}/>
 							</SideNavItem>
 						</SideNav>
 					<div className = 'cardArea'>

@@ -11,17 +11,17 @@ class Filters extends Component {
         super(props);
         
         this.state = {
-            title:'Web Developer',
+            title:'',
             location:'Irvine',
             minSalary:'',
             maxSalary:'',
             distance:'',
             experience:'',
             postedDate:'',
-            employmentTypeContract: false,
-            employmentTypeInternship: false,
-            employmentTypePartTime: false,
-            employmentTypeFullTime: false,
+            employmentTypeContract: true,
+            employmentTypeInternship: true,
+            employmentTypePartTime: true,
+            employmentTypeFullTime: true,
             userLat:'',
             userLng:'',
         }
@@ -49,26 +49,43 @@ class Filters extends Component {
         }
     }
 
+    handleTitle(title){
+        if(title === "frontend"){
+            return "Front End";
+        }
+        else if(title === "backend"){
+            return "Back End";
+        }
+        else{
+            return "Web Developer";
+        }
+    }
+
     async submitFormData(event){
         event.preventDefault();
         const params = formatPostData(this.state);
         const resp = await axios.post("http://localhost:8000/api/get_joblist.php", params);
+
         this.props.getFilterData(resp);
     }
 
     render(){
         const minSalary = "All Available";
+        let job = this.handleTitle(this.props.job);
+        let city = this.props.city.charAt(0).toUpperCase() + this.props.city.slice(1);
         return (
                 <form className ="sidebar" onSubmit={this.submitFormData}>
                     <Row>
-                        <Input s={12} type ='select' label = 'Job Title' name="title" defaultValue = 'Web Developer' onChange={this.handleChange.bind(this)}>
+                        <Input s={12} type ='select' label = 'Job Title' name="title" defaultValue = {job} onChange={this.handleChange.bind(this)}>
+                                <option value = ''> All </option>    
                                 <option value = 'Web Developer'> Web Developer</option>
                                 <option value = 'Front End'> Front End</option>
                                 <option value = 'Back End'> Back End</option>
                         </Input>
                     </Row>
                     <Row>
-                        <Input s={12} type ='select' label = 'City' name="location" defaultValue = 'Irvine' onChange={this.handleChange.bind(this)}>
+                        <Input s={12} type ='select' label = 'City' name="location" defaultValue = {city} onChange={this.handleChange.bind(this)}>
+                                <option value = ''> All </option>    
                                 <option value = 'Irvine'>Irvine</option>
                                 <option value = 'San Diego'>San Diego</option>
                                 <option value = 'Los Angeles'>Los Angeles</option>
@@ -80,7 +97,7 @@ class Filters extends Component {
                             <option value = '60000'> $60K</option>
                             <option value = '90000'> $90K</option>
                         </Input>
-                        <Input s={6} type ='select' label = 'Max Salary' name='maxSalary'  defaultValue = {minSalary} onChange={this.handleChange.bind(this)} >
+                        <Input s={6} type ='select' label = 'Max Salary' name='maxSalary'  defaultValue = '200000' onChange={this.handleChange.bind(this)} >
                             <option value = '60000'> $60K</option>
                             <option value = '90000'> $90K</option>
                             <option value = '200000'> $90K+</option>
@@ -88,6 +105,7 @@ class Filters extends Component {
                     </Row>
                     <Row>
                         <Input s={12} type ='select' label = 'Distance' name='distance' defaultValue ='Nearby' onChange={this.handleChange.bind(this)}>
+                            <option value = ''> Any </option>
                             <option value = '5'>5 miles</option>
                             <option value = '15'>15 miles</option>
                             <option value = '15+'>15+ miles</option>
@@ -95,6 +113,7 @@ class Filters extends Component {
                     </Row>
                     <Row>
                         <Input s={12} type ='select' label = 'Posted Within' name='postedDate' defaultValue ='All' onChange={this.handleChange.bind(this)}>
+                            <option value = ''> Posted Anytime </option>
                             <option value = '7'>7 days</option>
                             <option value = '14'>14 days</option>
                             <option value = '30'>30 days</option>
