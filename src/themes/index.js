@@ -39,8 +39,8 @@ export default {
         titleText2: 'orange-text lighten-3',
         text1: 'white-text',
         text2: 'cyan-text lighten-2',
-        button: 'pink lighten-4',
-        buttonText: 'teal-text',
+        button: 'teal lighten-2',
+        buttonText: 'pink-text',
         current: 'panda',
     }
 }
