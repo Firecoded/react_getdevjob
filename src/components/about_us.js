@@ -30,7 +30,7 @@ export default () => {
 						<div className = 'indent-2'>linkedInURL: <a href ='https://www.linkedin.com/in/kris-chanthasiriphan-500339121/'>https://www.linkedin.com/in/kris-chanthasiriphan-500339121/</a>,</div>
 						<div className = 'indent-2'>gitHub: <a href = 'https://github.com/krischanthas'>https://github.com/krischanthas</a></div>
 					<div className = 'indent-1'>},&#x7b;</div>
-						<div className = 'indent-2'>name: 'Ryan Kang'',</div>
+						<div className = 'indent-2'>name: 'Ryan Kang',</div>
 						<div className = 'indent-2'>specialty: 'Back End',</div>
 						<div className = 'indent-2'>linkedInURL: <a href='https://www.linkedin.com/in/ryankang2/'>https://www.linkedin.com/in/ryankang2/ </a>,</div>
 						<div className = 'indent-2'>gitHub: <a href ='https://github.com/ryankang2'>https://github.com/ryankang2</a></div>
