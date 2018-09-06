@@ -71,8 +71,8 @@ class Card extends Component{
             <div className="sc-rightColumn">
                 <div className='buttonArea'> 
                     <button className={`btn btn-style ${this.props.theme.button} ${this.props.theme.buttonText}`} onClick={() => this.handleModalOpen()}>More</button>
-                    <Modal id={`modal-${this.props.pullId}`} className="modalStyle">
-                        <BusinessModal  lat={lat} lng={lng} isOpen={this.state.modalOpen} {...this.props}/>
+                    <Modal id={`modal-${this.props.pullId}`} className={`modalStyle ${this.props.theme.background}`}>
+                        <BusinessModal  lat={lat} lng={lng} isOpen={this.state.modalOpen} theme={this.props.theme} {...this.props}/>
                     </Modal>
                     <Link to = {linkQuery} target="_blank" className ={`btn btn-style ${this.props.theme.button} ${this.props.theme.buttonText}`}>Share</Link>
                 </div>
