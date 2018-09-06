@@ -40,7 +40,8 @@ class SingleJobPage extends Component {
     }
     
     componentDidMount(){
-        this.props.setTheme(this.state.theme.current);
+        let savedTheme = localStorage.getItem('theme');
+        this.props.setTheme(savedTheme);
         this.getSingleJobId(this.props.match.params.job_id, this.singleJobItem);
         this.submitSingleJobData();
     }
@@ -79,7 +80,8 @@ class SingleJobPage extends Component {
         }
        
         return (
-            <div className={`sp-Body ${this.props.theme.background}`}>
+            <div className = {`sp-Body card-panel ${this.props.theme.background}`}>
+            <div className={`${this.props.theme.background}`}>
                 <div className='sp-Position'>
                     <div className="row">
                         <div className='sp-leftColumn'>
@@ -110,6 +112,7 @@ class SingleJobPage extends Component {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         )
     }

@@ -17,6 +17,7 @@ class NavBar extends Component {
 	}
 	componentDidMount(){
 		this.props.setTheme(this.props.theme.current);
+		localStorage.setItem('theme',this.props.theme.current);
 	}
 	handleInputChange(event){
 		event.preventDefault();
@@ -25,6 +26,7 @@ class NavBar extends Component {
 			theme: value,
 		});
 		this.props.setTheme(value);
+		localStorage.setItem('theme',value);
 		this.dropMenu();
 	}
 	dropMenu(){
