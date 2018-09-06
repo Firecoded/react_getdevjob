@@ -40,7 +40,8 @@ class SingleJobPage extends Component {
     }
     
     componentDidMount(){
-        this.props.setTheme(this.state.theme.current);
+        let savedTheme = localStorage.getItem('theme');
+        this.props.setTheme(savedTheme);
         this.getSingleJobId(this.props.match.params.job_id, this.singleJobItem);
         this.submitSingleJobData();
     }
