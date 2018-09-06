@@ -1,0 +1,25 @@
+.main-404-cont {
+	height: 100vh;
+	margin: 0;
+	position: relative;
+	font-family: courier !important;
+}
+.pnf-cont {
+	animation: .6s showerror 0s 1 linear;
+	position: absolute;
+	left: 50%;
+	top: 30%;
+	transform: translate(-50%, -50%);
+}
+.pnf-home {
+	position: relative;
+	margin: 10px;
+
+}
+.pnf-message {
+	margin: 10px 10px;
+}
+@keyframes showerror{
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
