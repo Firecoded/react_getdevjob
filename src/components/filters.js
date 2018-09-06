@@ -22,8 +22,8 @@ class Filters extends Component {
             employmentTypeInternship: true,
             employmentTypePartTime: true,
             employmentTypeFullTime: true,
-            userLat:'',
-            userLng:'',
+            userLat:"33.634875",
+            userLng:"-117.740481",
         }
         this.submitFormData = this.submitFormData.bind(this);
 
@@ -65,7 +65,7 @@ class Filters extends Component {
         event.preventDefault();
         const params = formatPostData(this.state);
         const resp = await axios.post("http://localhost:8000/api/get_joblist.php", params);
-
+        console.log("things sent: ", this.state);
         this.props.getFilterData(resp);
     }
 

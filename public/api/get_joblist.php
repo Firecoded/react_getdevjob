@@ -4,7 +4,9 @@
     require_once("queries/post_date.php");
     require_once("queries/job_type.php");
     require_once("queries/get_single_job.php");
+    require_once("database/distance.php");
     require_once("mysql_connect.php");
+
    
     $output = [
         "success"=>false
@@ -69,6 +71,8 @@
         $single_page_id = $_POST['id'];
         $query = getSingleJob($single_page_id);
     }
+
+    
     $result = mysqli_query($conn, $query);
 
     if(mysqli_num_rows($result) > 0){
@@ -106,8 +110,24 @@
     else{
         $ouput["message"] = "fail";
     }
+
+    // SOME COMPANIES DONT HAVE VALID LOCATIONS, GETTING A WARNING->ERROR IN NETWORK TAB 
+    // if($_POST["userLat"] !== "" && $_POST["userLng"] !== "" && $_POST["distance"] !== ""){
+    //     $userLat = $_POST["userLat"];
+    //     $userLng = $_POST["userLng"];
+    //     for($i = 0; $i < count($output["jobs"]); $i++){
+    //         $companyLat = $output["jobs"][$i]["company"]["location"]["lat"];
+    //         $companyLng = $output["jobs"][$i]["company"]["location"]["lng"];
+    //         $distanceFromUserToCompany = getDistance($userLat, $userLng, $companyLat, $companyLng);
+    //         // echo $output["jobs"][$i]["company"]["name"];
+    //         if($distanceFromUserToCompany < intval($_POST["distance"])){
+    //             unset($output["jobs"][$i]);
+    //         }
+    //     }
+    // }
     
     $output = json_encode($output);
+
 
     print_r($output);
 ?>
