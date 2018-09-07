@@ -106,6 +106,15 @@ class GoogleMap extends Component {
     }
     
     render(){
+        if(isNaN(this.props.lat)|| isNaN(this.props.lng)){
+        return (
+            <div className ="googleContainer noMap">
+                <div ref={(e) => this.map = e} id = {"map" + this.state.key} className="map"></div>
+                <div id={"pano" + this.state.key} className="pano" ref={(e) => this.panorama = e}></div>
+                <button className = "mapStreetViewToggle btn" onClick={this.toggleMap.bind(this)} >Street View</button>
+            </div>
+            )
+        } else {
         return (
             <div className ="googleContainer">
                 <div ref={(e) => this.map = e} id = {"map" + this.state.key} className="map"></div>
@@ -113,7 +122,7 @@ class GoogleMap extends Component {
                 <button className = "mapStreetViewToggle btn" onClick={this.toggleMap.bind(this)} >Street View</button>
             </div>
         )
-    }
+    }}
 }
 
 export default GoogleMap;

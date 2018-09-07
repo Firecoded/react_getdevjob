@@ -93,3 +93,8 @@
   .mapStreetViewToggle{
     z-index:1000;
   }
+
+  .noMap{
+    display:none;
+    height:0vh !important;
+  }
