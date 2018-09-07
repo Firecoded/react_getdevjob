@@ -34,8 +34,7 @@ class SingleJobPage extends Component {
             employmentTypePartTime: false,
             employmentTypeFullTime: false,
             userLat:'',
-            userLng:'',
-            
+            userLng:'',   
         }
     }
     
