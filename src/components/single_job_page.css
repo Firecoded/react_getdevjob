@@ -35,16 +35,19 @@
 }
 
 .sp-companyName img {
-    width: 80%;
+    width: 40%;
     height: auto;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
 }
 
+.sp-companyName > p {
+    text-align: center;
+}
 .sp-jobTitle{
     margin:0% 0% 5%;
-    font-size: 1.25rem;
+    font-size: 1.75rem;
     width: 50%;
     position: relative;
     left: 50%;
@@ -87,4 +90,11 @@
     position: relative;
     margin: 3% 0;
     left: 10% !important;
+}
+
+.sp-buttonRow > *{
+    position: relative;
+    left:25%;
+    transform: translateX(-100%);
+    margin:0% 5%;
 }

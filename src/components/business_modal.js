@@ -24,16 +24,41 @@ class BusinessModal extends Component {
             })
     }
 
+    noMap(){
+        const { lat, lng, pullId, isOpen } = this.props;
+    
+        if(!isNaN(this.props.lat)){
+            return ( 
+            <div className ="bm-map">
+                <GoogleMap lat={lat} lng={lng} id={pullId} isOpen={isOpen} drivingInfo={this.getDrivingData}/>
+            </div>)
+        } else {
+            return ( 
+                <div className ="bm-map noMap">
+                    <GoogleMap lat={lat} lng={lng} id={pullId} isOpen={isOpen} drivingInfo={this.getDrivingData}/>
+                </div>)
+        }
+    }
+
+    noMapDescription(){
+        let {description} = this.props.details;
+        const { lat, lng } = this.props;
+        if(description===''){
+            description = "<h5>No Job Description Provided</h5>";
+        }
+        return (
+            <div className={`bm-jobDetails `}>
+                <label>Job Description</label>
+                <p className ={`bm-jobDescription ${this.props.theme.text1} ${(isNaN(lat) || isNaN(lng)) ? 'fullText' : ""}`} dangerouslySetInnerHTML={{__html:description}}></p>
+            </div>
+        )
+    }
    
 
     render(){
         console.log("WITNESS BM PROPS!@@@@@!", this.props);
         const { lat, lng, pullId, details, isOpen } = this.props;
         const {title, company_name, listing_url, company } = details;
-        let {description} = details;
-        if(description===''){
-            description = "<h5>No Job Description Provided</h5>";
-        }
         const {logo} = company;
 
         return (
@@ -56,14 +81,8 @@ class BusinessModal extends Component {
                         </div>
                         <div className='bm-rightColumn'>
                             <div className='row'>   
-                                <div className ="bm-map">
-                                    <GoogleMap lat={lat} lng={lng} id={pullId} isOpen={isOpen} drivingInfo={this.getDrivingData}/>
-                                </div>
-                               
-                                <div className='bm-jobDetails'>
-                                    <label>Job Description</label>
-                                    <p className ={`bm-jobDescription ${this.props.theme.text1}`} dangerouslySetInnerHTML={{__html:description}}></p>
-                                </div>
+                                {this.noMap()}
+                                {this.noMapDescription()}
                             </div>
                         </div>
                     </div>
