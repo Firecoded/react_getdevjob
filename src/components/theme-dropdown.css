@@ -1,0 +1,12 @@
+.theme-dropdown * , .selected *{
+    background-color: inherit !important;
+    color: inherit !important;
+}
+
+.dropdown-content.select-dropdown.active {
+	background-color: inherit !important;
+    color: inherit !important;
+}
+.theme-dropdown {
+	height: 5vh;
+}

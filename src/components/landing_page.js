@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import {Input, Col} from 'react-materialize';
 import {connect} from 'react-redux';
 import {setTheme} from '../actions';
+import ThemeDropDown from './theme_dropdown.js';
 
 class LandingPage extends Component {
 	constructor(props){
@@ -12,8 +13,6 @@ class LandingPage extends Component {
 		this.state = {
 			title: 'Web Developer',
 			location: 'Irvine',
-			theme: 'dark',
-			dropStyle: 'nb-drop-content'
 		}
 		this.handleInputChange = this.handleInputChange.bind(this);
 	}
@@ -27,29 +26,6 @@ class LandingPage extends Component {
 
 	componentDidMount(){
 		this.props.setTheme(this.props.theme.current);
-	}
-
-	dropMenu(){
-		if(this.state.dropStyle === 'nb-drop-content' || this.state.dropStyle === 'hidden nb-drop-content'){
-			this.setState({
-			dropStyle: 'shown nb-drop-content'
-			})
-		} else {
-			this.setState({
-			dropStyle: 'hidden nb-drop-content'
-			})
-		}	
-	}
-
-	handleThemeChange(event){
-		event.preventDefault();
-		const {value} = event.target;
-		this.setState({
-			theme: value,
-		});
-		
-		this.props.setTheme(value);
-		this.dropMenu();
 	}
 
 	render() {
@@ -112,20 +88,10 @@ class LandingPage extends Component {
 		        	</div>
 		        	<div className = {`lp-button-syntax ${this.props.theme.text2}`}>&lt;button type = &quot;button&quot; class = &quot;btn drop-down&quot;&gt;</div>
 		        	<div className = 'lp-theme-cont'>
-		            	<Col s={6} m={4} l={3} offset="s1 m2 l3">
-				            <div onClick = {this.dropMenu.bind(this)} className = {`lp-theme btn ${this.props.theme.button} ${this.props.theme.buttonText}`}>
-								Change Theme	
-							</div>
-							<div className = {`lp-button-syntax ${this.props.theme.text2}`}>&lt;/button&gt;</div>
-				            <div className = {this.state.dropStyle}>
-								<Input s={12} l={6} type ='select' name="theme" defaultValue = 'Dark Theme' onChange={this.handleThemeChange.bind(this)}>
-		                            <option value = 'dark'> Dark Theme</option>
-		                            <option value = 'light'> Light Theme</option>
-		                            <option value = 'gotham'> Gotham Theme</option>
-									<option value = 'panda'> Panda Syntax </option>
-		                        </Input>
-	                        </div>
-	                    </Col>    
+			            <div className = {`lp-drop-content ${this.props.theme.titleText1}`}>
+							<ThemeDropDown/>
+                        </div>
+                        <div className = {`lp-button-syntax ${this.props.theme.text2}`}>&lt;/button&gt;</div>  
                     </div>
 			        <div className ='container input-container'>
 			            <h1 className={`center-align lp-title ${this.props.theme.titleText1}`}>getDevJob(<span className = {this.props.theme.titleText2}>you</span>)</h1>
