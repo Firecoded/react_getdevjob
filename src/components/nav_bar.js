@@ -17,8 +17,9 @@ class NavBar extends Component {
 	}
 	componentDidMount(){
 		this.props.setTheme(this.props.theme.current);
+		localStorage.setItem('theme',this.props.theme.current);
 	}
-	
+
 	render() {
 		return (
 			<nav className = {`top-nav ${this.props.theme.navColor} ${this.props.theme.text1}`}>
