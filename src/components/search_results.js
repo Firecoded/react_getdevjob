@@ -22,7 +22,7 @@ class SearchResults extends Component {
 	}
 
 	async componentDidMount(){
-		if (navigator.geolocation) {
+		if (Object.keys(navigator.geolocation).length) {
             navigator.geolocation.getCurrentPosition(async (position) => {
 				var pos = {
 					lat: position.coords.latitude,
@@ -98,7 +98,6 @@ class SearchResults extends Component {
 
 
 	render() {
-		console.log("page 2 props 2", this.props)
 		return (
 			<div className = 'parent-div'>
 				<div className = 'spacer-div'></div>

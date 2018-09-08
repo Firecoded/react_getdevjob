@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './landing_page.css';
 import { Link } from 'react-router-dom';
-import {Input, Col} from 'react-materialize';
+import {Input, Col, Modal} from 'react-materialize';
 import {connect} from 'react-redux';
 import {setTheme} from '../actions';
 import ThemeDropDown from './theme_dropdown.js';
+
 
 class LandingPage extends Component {
 	constructor(props){
@@ -27,6 +28,10 @@ class LandingPage extends Component {
 	componentDidMount(){
 		this.props.setTheme(this.props.theme.current);
 	}
+
+	handleLPModalOpen(){
+        $(`#lpModal`).modal('open');
+    }
 
 	render() {
 		let {title, location} = this.state;
@@ -59,7 +64,7 @@ class LandingPage extends Component {
 			            <div className="left-nums">20</div>
 			            <div className="left-nums">21</div>
 			            <div className="left-nums">22</div>
-			            <div className="left-nums">23</div>
+			            <div className="left-nums">23<span className ={this.props.theme.text2}>&lt;a href = &quot;/why-share-geolocation&quot;&gt;<a className = {this.props.theme.titleText1} onClick={() =>this.handleLPModalOpen()}>How we use your location data</a>&lt;/a&gt;</span></div>
 			            <div className="left-nums">24</div>
 			            <div className="left-nums">25</div>
 			            <div className="left-nums">26 <span className ={this.props.theme.text2}>&lt;a href = &quot;/about-us&quot;&gt;<Link to ="/about-us" className = {this.props.theme.titleText1}>About Us</Link>&lt;/a&gt;</span></div>
@@ -85,6 +90,18 @@ class LandingPage extends Component {
 			            <div className="left-nums">48</div>
 			            <div className="left-nums">49</div>
 			            <div className="left-nums">50</div>
+						<Modal
+							id="lpModal"
+  							header='Why Share Your Location Data?'
+  							bottomSheet
+  						>
+						<p>We use your current location to provide the following data. Location data is not used for any other purposes than what is listed below</p>
+						<ul> 
+							<li>Filter by Distance : We can accurately provide job data based on their distance from you</li>
+							<li>Estimated Drive Time : We can provide an estimated drive time to help you see you estimated commute</li>
+							<li>Directions and distance in miles: We provide a Google map showing a recommended driving route </li>
+						</ul>
+						</Modal>
 		        	</div>
 		        	<div className = {`lp-button-syntax ${this.props.theme.text2}`}>&lt;button type = &quot;button&quot; class = &quot;btn drop-down&quot;&gt;</div>
 		        	<div className = 'lp-theme-cont'>
