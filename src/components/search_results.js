@@ -27,6 +27,16 @@ class SearchResults extends Component {
 		this.props.setTheme(this.props.theme.current);
 	}
 
+	
+	handleTitle(title){
+		let titleObj = {
+			"frontend": "Front End", 
+			"backend": "Back End",
+			"webdeveloper": "Web Developer"
+		};
+		return titleObj[title];
+    }
+
 	getFilterResponseData(respObj){
 		this.setState({
 			response: respObj
@@ -36,9 +46,11 @@ class SearchResults extends Component {
 	
 	async getJobData(){
 		const {city, job} = this.props.match.params;
+		let refinedJob = this.handleTitle(job);
+		console.log('refinded', refinedJob);
         event.preventDefault();   //will need to address isue with backend about querys accounting for spaces or no spaces
 		const initialSearchParams = {
-            title: 'web developer', 
+            title: refinedJob, 
 			location: city,
 			id:'',
             minSalary:'',

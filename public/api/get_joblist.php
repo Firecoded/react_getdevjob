@@ -64,7 +64,7 @@
     foreach($title as $val){
         $conds[] = "`title` LIKE '%".$val."%'";
     }
-    $query = $query . implode(" OR ", $conds);
+    $query = $query . implode(" AND ", $conds);
 
 // Single page
     if(isset($_POST['id']) && $_POST['id'] !== '' ){
@@ -72,6 +72,8 @@
         $query = getSingleJob($single_page_id);
     }
 
+// Sort query results by post date
+    $query = $query . " ORDER BY `post_date` DESC";
     
     $result = mysqli_query($conn, $query);
 
@@ -112,19 +114,26 @@
     }
 
     // SOME COMPANIES DONT HAVE VALID LOCATIONS, GETTING A WARNING->ERROR IN NETWORK TAB 
-    // if($_POST["userLat"] !== "" && $_POST["userLng"] !== "" && $_POST["distance"] !== ""){
-    //     $userLat = $_POST["userLat"];
-    //     $userLng = $_POST["userLng"];
-    //     for($i = 0; $i < count($output["jobs"]); $i++){
-    //         $companyLat = $output["jobs"][$i]["company"]["location"]["lat"];
-    //         $companyLng = $output["jobs"][$i]["company"]["location"]["lng"];
-    //         $distanceFromUserToCompany = getDistance($userLat, $userLng, $companyLat, $companyLng);
-    //         // echo $output["jobs"][$i]["company"]["name"];
-    //         if($distanceFromUserToCompany < intval($_POST["distance"])){
-    //             unset($output["jobs"][$i]);
-    //         }
-    //     }
-    // }
+
+    //check if user shared location and if user put distance in filter
+    if($_POST["userLat"] !== "" && $_POST["userLng"] !== "" && $_POST["distance"] !== ""){
+        $userLat = $_POST["userLat"];
+        $userLng = $_POST["userLng"];
+        $length = count($output["jobs"]);
+        for($i = 0; $i < $length; $i++){
+            $companyLat = $output["jobs"][$i]["company"]["location"]["lat"];
+            $companyLng = $output["jobs"][$i]["company"]["location"]["lng"];
+            $company = $output['jobs'][$i]['company']['name'];
+            echo "company: $company";   
+            $distanceFromUserToCompany = getDistance($userLat, $userLng, $companyLat, $companyLng);
+            // echo $output["jobs"][$i]["company"]["name"];
+
+            //if distance between company and user location is less than distance in filter, remove it from output array
+            if($distanceFromUserToCompany < intval($_POST["distance"])){
+                unset($output["jobs"][$i]);
+            }
+        }
+    }
     
     $output = json_encode($output);
 
