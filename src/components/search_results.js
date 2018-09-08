@@ -56,13 +56,13 @@ class SearchResults extends Component {
 		this.setState({
 			response: respObj
 		})
+		console.log("response Object: ", respObj);
 		this.populateCards(this.state.response.data.jobs);
 	}
 	
 	async getJobData(userLat , userLng){
 		const {city, job} = this.props.match.params;
 		let refinedJob = this.handleTitle(job);
-		console.log('refinded', refinedJob);
 		if(event){
 			event.preventDefault();   //will need to address isue with backend about querys accounting for spaces or no spaces
 		}
@@ -84,11 +84,11 @@ class SearchResults extends Component {
         }	
 		const params = formatPostData(initialSearchParams);
 		const resp = await axios.post("/api/get_joblist.php", params); 
+		console.log("things sent: ", initialSearchParams);
 		this.setState({response:resp, loaded: true})		   
     }
 
 	populateCards(array){
-		
 		let alt = 0;
 		let leftArray =[];
 		let rightArray =[];
