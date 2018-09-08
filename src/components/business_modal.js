@@ -53,10 +53,8 @@ class BusinessModal extends Component {
             </div>
         )
     }
-   
 
     render(){
-        console.log("WITNESS BM PROPS!@@@@@!", this.props);
         const { lat, lng, pullId, details, isOpen } = this.props;
         const {title, company_name, listing_url, company } = details;
         const {logo} = company;

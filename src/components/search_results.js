@@ -9,6 +9,7 @@ import {formatPostData} from "../helpers";
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {setTheme} from '../actions';
+import Loading from './loading';
 
 class SearchResults extends Component {
 	constructor(props){
@@ -17,7 +18,8 @@ class SearchResults extends Component {
 		this.state = {
 			left: '',
 			right: '',
-			response: [] 
+			response: [],
+			loaded: false
 		}
 	}
 
@@ -70,7 +72,7 @@ class SearchResults extends Component {
         }	
 		const params = formatPostData(initialSearchParams);
 		const resp = await axios.post("/api/get_joblist.php", params); 
-		this.setState({response:resp})		   
+		this.setState({response:resp, loaded: true})		   
     }
 
 	populateCards(array){
@@ -95,10 +97,7 @@ class SearchResults extends Component {
 		})
 	}
 
-
-
 	render() {
-		console.log("page 2 props 2", this.props)
 		return (
 			<div className = 'parent-div'>
 				<div className = 'spacer-div'></div>
@@ -111,8 +110,12 @@ class SearchResults extends Component {
 							<SideNavItem>
 							  <Filters getFilterData = {this.getFilterResponseData.bind(this)} job={this.props.match.params.job} city={this.props.match.params.city}/>
 							</SideNavItem>
-						</SideNav>
+						</SideNav>	
+					<div className = "load-cont" style = {this.state.loaded ? {'display':'none'} : {} }>						
+						{!this.state.loaded ? <Loading/> : '' }
+					</div>
 					<div className = 'cardArea'>
+					
 	                   	<div className='leftColumn'>
 		                    {this.state.left}
 		                </div>    
