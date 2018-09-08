@@ -24,9 +24,22 @@ class SearchResults extends Component {
 	}
 
 	async componentDidMount(){
-		await this.getJobData();
-		this.populateCards(this.state.response.data.jobs);
-		this.props.setTheme(this.props.theme.current);
+		if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(async (position) => {
+				var pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};				
+				let {lat,lng} = pos;
+				await this.getJobData(lat, lng);
+				this.populateCards(this.state.response.data.jobs);
+				this.props.setTheme(this.props.theme.current);
+			});
+		} else {
+				await this.getJobData(NaN, NaN);
+				this.populateCards(this.state.response.data.jobs);
+				this.props.setTheme(this.props.theme.current);
+		}	
 	}
 
 	getFilterResponseData(respObj){
@@ -36,9 +49,11 @@ class SearchResults extends Component {
 		this.populateCards(this.state.response.data.jobs);
 	}
 	
-	async getJobData(){
+	async getJobData(userLat , userLng){
 		const {city, job} = this.props.match.params;
-        event.preventDefault();   //will need to address isue with backend about querys accounting for spaces or no spaces
+		if(event){
+			event.preventDefault();   //will need to address isue with backend about querys accounting for spaces or no spaces
+		}
 		const initialSearchParams = {
             title: 'web developer', 
 			location: city,
@@ -52,8 +67,8 @@ class SearchResults extends Component {
             employmentTypeInternship: false,
             employmentTypePartTime: false,
             employmentTypeFullTime: false,
-            userLat:'',
-            userLng:'',
+            userLat:userLat,
+            userLng:userLng,
         }	
 		const params = formatPostData(initialSearchParams);
 		const resp = await axios.post("/api/get_joblist.php", params); 

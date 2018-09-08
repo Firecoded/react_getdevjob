@@ -24,20 +24,46 @@ class BusinessModal extends Component {
             })
     }
 
-    render(){
-        const { lat, lng, pullId, details, isOpen } = this.props;
-        const {title, company_name, listing_url, company } = details;
-        let {description} = details;
+    noMap(){
+        const { lat, lng, pullId, isOpen } = this.props;
+    
+        if(!isNaN(this.props.lat)){
+            return ( 
+            <div className ="bm-map">
+                <GoogleMap lat={lat} lng={lng} id={pullId} isOpen={isOpen} drivingInfo={this.getDrivingData}/>
+            </div>)
+        } else {
+            return ( 
+                <div className ="bm-map noMap">
+                    <GoogleMap lat={lat} lng={lng} id={pullId} isOpen={isOpen} drivingInfo={this.getDrivingData}/>
+                </div>)
+        }
+    }
+
+    noMapDescription(){
+        let {description} = this.props.details;
+        const { lat, lng } = this.props;
         if(description===''){
             description = "<h5>No Job Description Provided</h5>";
         }
+        return (
+            <div className={`bm-jobDetails `}>
+                <label>Job Description</label>
+                <p className ={`bm-jobDescription ${this.props.theme.text1} ${(isNaN(lat) || isNaN(lng)) ? 'fullText' : ""}`} dangerouslySetInnerHTML={{__html:description}}></p>
+            </div>
+        )
+    }
+
+    render(){
+        const { lat, lng, pullId, details, isOpen } = this.props;
+        const {title, company_name, listing_url, company } = details;
         const {logo} = company;
 
         return (
-            <div className={`container modalBody ${this.props.theme.background}`}>
+            <div className={`container modalBody ${this.props.theme.navColor}`}>
                 <div className='modalPosition'>
                     <div className="row bm-columnContainer">
-                        <div className='bm-leftColumn'>
+                        <div className={`bm-leftColumn card-panel hoverable ${this.props.theme.background}`}>
                             <div className="row bm-buttonRow">
                                 <a href={listing_url} target ="_blank" className={`btn ${this.props.theme.button}`}>Apply</a>
                                 <button className={`btn ${this.props.theme.button}`}>Share</button>
@@ -53,14 +79,8 @@ class BusinessModal extends Component {
                         </div>
                         <div className='bm-rightColumn'>
                             <div className='row'>   
-                                <div className ="bm-map">
-                                    <GoogleMap lat={lat} lng={lng} id={pullId} isOpen={isOpen} drivingInfo={this.getDrivingData}/>
-                                </div>
-                               
-                                <div className='bm-jobDetails'>
-                                    <label>Job Description</label>
-                                    <p className ={`bm-jobDescription ${this.props.theme.text1}`} dangerouslySetInnerHTML={{__html:description}}></p>
-                                </div>
+                                {this.noMap()}
+                                {this.noMapDescription()}
                             </div>
                         </div>
                     </div>

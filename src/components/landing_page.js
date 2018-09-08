@@ -16,25 +16,18 @@ class LandingPage extends Component {
 		}
 		this.handleInputChange = this.handleInputChange.bind(this);
 	}
+
 	handleInputChange(event){
 		const {name, value} = event.target;
 		this.setState({
 			[name]: value
 		});
 	}
-	// Get users current location on Landing Page to enable search by Distance
+
 	componentDidMount(){
 		this.props.setTheme(this.props.theme.current);
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(function(position) {
-			  var pos = {
-				lat: position.coords.latitude,
-				lng: position.coords.longitude
-			  }; 
-			})
-		}
 	}
-	
+
 	render() {
 		let {title, location} = this.state;
 		let locationLow = location.toLowerCase().split(' ').join('');
