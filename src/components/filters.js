@@ -65,7 +65,7 @@ class Filters extends Component {
 
     //grabs title from url and formats it
     handleTitle(title){
-		return this.titleObj[title];
+		  return this.titleObj[title];
     }
 
     async submitFormData(event){

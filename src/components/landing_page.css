@@ -35,7 +35,9 @@
 .lp-button-syntax{
     margin-left: 3%;
 }
-
+.lp-clickable {
+    cursor: pointer;
+}
 .lpModal{
     height:50%;
 }

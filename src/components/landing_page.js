@@ -94,6 +94,7 @@ class LandingPage extends Component {
 							id="lpModal"
   							bottomSheet
   						>
+
 						<p className ={`lp-modalText ${this.props.theme.text1}`}>We use your current location to provide the following data. Location data is not used for any other purposes than what is listed below</p>
 						<br></br>
 						<ul className = {`lp-modalTextList ${this.props.theme.text1}`}> 
