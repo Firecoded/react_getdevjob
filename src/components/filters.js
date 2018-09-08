@@ -20,8 +20,8 @@ class Filters extends Component {
         this.state = {
             title: "",
             location:'Irvine',
-            minSalary:'',
-            maxSalary:'',
+            minSalary:'0',
+            maxSalary:'200000',
             distance:'',
             experience:'',
             postedDate:'',
@@ -115,7 +115,7 @@ class Filters extends Component {
                             <option value = ''> Any </option>
                             <option value = '5'>5 miles</option>
                             <option value = '15'>15 miles</option>
-                            <option value = '15+'>15+ miles</option>
+                            <option value = '30'>30 miles</option>
                         </Input>
                     </Row>
                     <Row>
