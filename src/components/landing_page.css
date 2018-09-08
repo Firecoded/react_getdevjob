@@ -43,3 +43,7 @@
 .modal-content{
     height: 30vh !important;
 }
+
+#lp-ModalTrigger:hover {
+    cursor: pointer;
+}

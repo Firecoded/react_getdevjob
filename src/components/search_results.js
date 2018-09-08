@@ -3,7 +3,7 @@ import './search_results.css';
 import NavBar from './nav_bar';
 import Card from './single_card';
 import Filters from './filters';
-import { Button, SideNav,SideNavItem } from 'react-materialize';
+import {SideNav,SideNavItem } from 'react-materialize';
 import {FaEllipsisV} from 'react-icons/fa';
 import {formatPostData} from "../helpers";
 import axios from 'axios';
@@ -25,6 +25,7 @@ class SearchResults extends Component {
 
 	async componentDidMount(){
 		if (Object.keys(navigator.geolocation).length) {
+			console.log("Get location Data");
             navigator.geolocation.getCurrentPosition(async (position) => {
 				var pos = {
 					lat: position.coords.latitude,
@@ -36,6 +37,7 @@ class SearchResults extends Component {
 				this.props.setTheme(this.props.theme.current);
 			});
 		} else {
+			console.log(" did Not Get location Data");
 				await this.getJobData(NaN, NaN);
 				this.populateCards(this.state.response.data.jobs);
 				this.props.setTheme(this.props.theme.current);
