@@ -95,13 +95,14 @@ class LandingPage extends Component {
   							bottomSheet
   						>
 
-						<p className ={`lp-modalText ${this.props.theme.text1}`}>We use your current location to provide the following data. Location data is not used for any other purposes than what is listed below</p>
-						<br></br>
+						<p className ={`lp-modalText ${this.props.theme.text1}`}>Your current location will be used only to provide the following features:</p>
+						<br/>
 						<ul className = {`lp-modalTextList ${this.props.theme.text1}`}> 
-							<li><b>Filter by Distance :</b> We can accurately provide job data based on their distance from you</li>
-							<li><b>Estimated Drive Time :</b> We can provide an estimated drive time to help you see you estimated commute</li>
-							<li><b>Directions and distance in miles:</b> We provide a Google map showing a recommended driving route </li>
+							<li><b>• Filter by Distance:</b> Provide job listings based on distance from you in miles</li>
+							<li><b>• Estimated Drive Time:</b> Estimated drive time to help you see you anticipate daily commute</li>
+							<li><b>• Driving Directions:</b>  Show recommended driving routes powered by Google Maps </li>
 						</ul>
+						
 						</Modal>
 		        	</div>
 		        	<div className = {`lp-button-syntax ${this.props.theme.text2}`}>&lt;button type = &quot;button&quot; class = &quot;btn drop-down&quot;&gt;</div>
