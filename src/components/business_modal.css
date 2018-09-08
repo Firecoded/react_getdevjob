@@ -104,8 +104,8 @@
     display: none;
 }
 
-.modal-content{
-    height:0px;
+.modalStyle .modal-content{
+    height:0px !important;
 }
 
 .modal-footer{

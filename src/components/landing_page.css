@@ -36,3 +36,10 @@
     margin-left: 3%;
 }
 
+.lpModal{
+    height:50%;
+}
+
+.modal-content{
+    height: 30vh !important;
+}
