@@ -53,6 +53,7 @@
 
     $title = explode(" ", $title);
     $conds = array();
+    
 // checks by title
     if($andFlag){
         $query = $query . " AND ";

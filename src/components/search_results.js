@@ -116,8 +116,8 @@ class SearchResults extends Component {
 				<div className = {`main-cont ${this.props.theme.background}`}>
 						<NavBar/>
 						<SideNav
-					  	trigger = {<div className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>}
-					  	options={{closeOnClick:true}}
+					  		trigger = {<div className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>}
+					  		options={{closeOnClick:true}}
 						>
 							<SideNavItem>
 							  <Filters getFilterData = {this.getFilterResponseData.bind(this)} job={this.props.match.params.job} city={this.props.match.params.city}/>
