@@ -50,15 +50,11 @@ class Filters extends Component {
     }
 
     handleTitle(title){
-        if(title === "frontend"){
-            return "Front End";
-        }
-        else if(title === "backend"){
-            return "Back End";
-        }
-        else{
-            return "Web Developer";
-        }
+        const titleObj = 
+        {"frontend": "Front End", 
+         "backend": "Back End", 
+         "webdeveloper": "Web Developer"};
+        return titleObj[title];     
     }
 
     async submitFormData(event){

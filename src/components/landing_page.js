@@ -64,7 +64,7 @@ class LandingPage extends Component {
 			            <div className="left-nums">20</div>
 			            <div className="left-nums">21</div>
 			            <div className="left-nums">22</div>
-			            <div className="left-nums">23<span className ={this.props.theme.text2}>&lt;a href = &quot;/why-share-geolocation&quot;&gt;<a className = {this.props.theme.titleText1} onClick={() =>this.handleLPModalOpen()}>How we use your location data</a>&lt;/a&gt;</span></div>
+			            <div className="left-nums">23 <span className ={this.props.theme.text2}>&lt;a href = &quot;/share-geolocation&quot;&gt;<a className = {`lp-clickable ${this.props.theme.titleText1}`} onClick={() =>this.handleLPModalOpen()}><u>How we use your location</u></a>&lt;/a&gt;</span></div>
 			            <div className="left-nums">24</div>
 			            <div className="left-nums">25</div>
 			            <div className="left-nums">26 <span className ={this.props.theme.text2}>&lt;a href = &quot;/about-us&quot;&gt;<Link to ="/about-us" className = {this.props.theme.titleText1}><u>About Us</u></Link>&lt;/a&gt;</span></div>
@@ -96,7 +96,7 @@ class LandingPage extends Component {
   							bottomSheet
   						>
 						<p>We use your current location to provide the following data. Location data is not used for any other purposes than what is listed below</p>
-						<ul> 
+						<ul className = 'lp-location-list'> 
 							<li>Filter by Distance : We can accurately provide job data based on their distance from you</li>
 							<li>Estimated Drive Time : We can provide an estimated drive time to help you see you estimated commute</li>
 							<li>Directions and distance in miles: We provide a Google map showing a recommended driving route </li>

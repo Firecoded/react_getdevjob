@@ -43,19 +43,35 @@ class SearchResults extends Component {
 	}
 
 	getFilterResponseData(respObj){
+		if(!this.state.response.data.success){
+			this.setState({
+				loaded: false
+			})
+			return;
+		}
 		this.setState({
-			response: respObj
+			response: respObj,
+			loaded: true
 		})
+		console.log('respObj', respObj)
+
 		this.populateCards(this.state.response.data.jobs);
 	}
-	
+	handleTitle(title){
+        const titleObj = 
+        {"frontend": "Front End", 
+         "backend": "Back End", 
+         "webdeveloper": "Web Developer"};
+        return titleObj[title];     
+	}
 	async getJobData(userLat , userLng){
 		const {city, job} = this.props.match.params;
 		if(event){
 			event.preventDefault();   //will need to address isue with backend about querys accounting for spaces or no spaces
 		}
+		let formatedJob = this.handleTitle(job);
 		const initialSearchParams = {
-            title: 'web developer', 
+            title: formatedJob, 
 			location: city,
 			id:'',
             minSalary:'',
@@ -72,7 +88,8 @@ class SearchResults extends Component {
         }	
 		const params = formatPostData(initialSearchParams);
 		const resp = await axios.post("/api/get_joblist.php", params); 
-		this.setState({response:resp, loaded: true})		   
+		this.setState({response:resp, loaded: true})
+		console.log(resp)		   
     }
 
 	populateCards(array){
