@@ -59,13 +59,15 @@ class SearchResults extends Component {
 			this.setState({
 				loaded: false
 			})
+			console.log('Filter response false', this.state.response.data.success)
 			return;
+
 		}
 		this.setState({
 			response: respObj,
 			loaded: true
 		})
-		console.log('respObj', respObj)
+		console.log('get filter resp data respObj', respObj)
 
 		this.populateCards(this.state.response.data.jobs);
 	}
@@ -84,9 +86,9 @@ class SearchResults extends Component {
 			event.preventDefault();   //will need to address isue with backend about querys accounting for spaces or no spaces
 		}
 		const initialSearchParams = {
-           title: refinedJob, 
-			     location: city,
-			      id:'',
+            title: refinedJob, 
+			location: city,
+			id:'',
             minSalary:'',
             maxSalary:'',
             distance:'',
@@ -106,7 +108,11 @@ class SearchResults extends Component {
     }
 
 	populateCards(array){
-		
+		if(array.length < 1){
+			console.log('array given to populate cards has no length');
+			return;
+		}
+		console.log('populate cards function', array)
 		let alt = 0;
 		let leftArray =[];
 		let rightArray =[];
@@ -122,8 +128,8 @@ class SearchResults extends Component {
 			}
 		}
 		this.setState({
-				left:leftArray,
-				right: rightArray
+			left:leftArray,
+			right: rightArray
 		})
 	}
 

@@ -49,3 +49,7 @@
 #lp-ModalTrigger:hover {
     cursor: pointer;
 }
+.lp-title-city-input *, .selected *{
+    background-color: inherit !important;
+    color: inherit !important;
+}
