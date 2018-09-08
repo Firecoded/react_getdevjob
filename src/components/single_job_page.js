@@ -79,11 +79,11 @@ class SingleJobPage extends Component {
         }
        
         return (
-            <div className = {`sp-Body card-panel ${this.props.theme.background}`}>
-            <div className={`${this.props.theme.background}`}>
+            <div className = {`sp-Body card-panel ${this.props.theme.navColor}`}>
+            <div className={`${this.props.theme.navColor}`}>
                 <div className='sp-Position'>
                     <div className="row">
-                        <div className='sp-leftColumn'>
+                        <div className={`sp-leftColumn card-panel hoverable ${this.props.theme.background}`}>
                             <div className="row sp-buttonRow">
                                 <Link to='/' className={`btn ${this.props.theme.button}`}>Home</Link> 
                                 <a href={listing_url} target ="_blank" className={`btn ${this.props.theme.button}`}>Apply</a>

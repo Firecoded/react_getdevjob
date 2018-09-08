@@ -53,11 +53,11 @@ class Card extends Component{
         let lng = parseFloat(this.props.details.company.location.lng);
         return (
     <div>   
-        <div className={`sc-cardContainer card-panel ${this.props.theme.navColor}`}>
+        <div className={`sc-cardContainer card-panel hoverable ${this.props.theme.navColor}`}>
             <div className={`datePosted ${withinAWeek ?'green-text': this.props.theme.titleText2} `}>
                     Date Posted: {post_date};
                 </div>
-            <div className = 'sc-leftColumn'>
+            <div className = 'sc-leftColumn'>   
                 <div className ='sc-businessInfo'>
                     <ul className={`sc-jobDetailsList ${this.props.theme.text1}`}>
                         <li><strong>{title}</strong></li>

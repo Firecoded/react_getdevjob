@@ -62,10 +62,10 @@ class BusinessModal extends Component {
         const {logo} = company;
 
         return (
-            <div className={`container modalBody ${this.props.theme.background}`}>
+            <div className={`container modalBody ${this.props.theme.navColor}`}>
                 <div className='modalPosition'>
                     <div className="row bm-columnContainer">
-                        <div className='bm-leftColumn'>
+                        <div className={`bm-leftColumn card-panel hoverable ${this.props.theme.background}`}>
                             <div className="row bm-buttonRow">
                                 <a href={listing_url} target ="_blank" className={`btn ${this.props.theme.button}`}>Apply</a>
                                 <button className={`btn ${this.props.theme.button}`}>Share</button>
