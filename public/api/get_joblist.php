@@ -125,7 +125,7 @@
             $companyLat = $output["jobs"][$i]["company"]["location"]["lat"];
             $companyLng = $output["jobs"][$i]["company"]["location"]["lng"];
             $company = $output['jobs'][$i]['company']['name'];
-            echo "company: $company";   
+            // echo "company: $company";   
             $distanceFromUserToCompany = getDistance($userLat, $userLng, $companyLat, $companyLng);
             // echo $output["jobs"][$i]["company"]["name"];
 
