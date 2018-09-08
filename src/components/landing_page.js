@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './landing_page.css';
 import { Link } from 'react-router-dom';
 import {Input, Col} from 'react-materialize';
+import {connect} from 'react-redux';
+import {setTheme} from '../actions';
 
 class LandingPage extends Component {
 	constructor(props){
@@ -9,7 +11,9 @@ class LandingPage extends Component {
 
 		this.state = {
 			title: 'Web Developer',
-			location: 'Irvine'
+			location: 'Irvine',
+			theme: 'dark',
+			dropStyle: 'nb-drop-content'
 		}
 		this.handleInputChange = this.handleInputChange.bind(this);
 	}
@@ -21,27 +25,48 @@ class LandingPage extends Component {
 	}
 	// Get users current location on Landing Page to enable search by Distance
 	componentDidMount(){
+		this.props.setTheme(this.props.theme.current);
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function(position) {
 			  var pos = {
 				lat: position.coords.latitude,
 				lng: position.coords.longitude
-			  };
-			  
+			  }; 
 			})
 		}
+	}
+	dropMenu(){
+		if(this.state.dropStyle === 'nb-drop-content' || this.state.dropStyle === 'hidden nb-drop-content'){
+			this.setState({
+			dropStyle: 'shown nb-drop-content'
+			})
+		} else {
+			this.setState({
+			dropStyle: 'hidden nb-drop-content'
+			})
+		}	
+	}
+	handleThemeChange(event){
+		event.preventDefault();
+		const {value} = event.target;
+		this.setState({
+			theme: value,
+		});
+		
+		this.props.setTheme(value);
+		this.dropMenu();
 	}
 	render() {
 		let {title, location} = this.state;
 		let locationLow = location.toLowerCase().split(' ').join('');
 		let titleNoSpace = title.toLowerCase().split(' ').join('');
-		let linkQuery = titleNoSpace + '/' + locationLow;
-		
+		let linkQuery = 'listings/' + titleNoSpace + '/' + locationLow;
+		console.log('theme', this.props.theme)
 		
 		return (
-				<div className ='body-container'>
-					<div className ="left-numbers">
-			            <div className="left-nums">01 &lt;body&gt;</div>
+				<div className ={`body-container ${this.props.theme.navColor}`}>
+					<div className ={`left-numbers ${this.props.theme.text2}`}>
+			            <div className="left-nums">01</div>
 			            <div className="left-nums">02</div>
 			            <div className="left-nums">03</div>
 			            <div className="left-nums">04</div>
@@ -66,7 +91,7 @@ class LandingPage extends Component {
 			            <div className="left-nums">23</div>
 			            <div className="left-nums">24</div>
 			            <div className="left-nums">25</div>
-			            <div className="left-nums">26</div>
+			            <div className="left-nums">26 <span className ={this.props.theme.text2}>&lt;a href = &quot;/about-us&quot;&gt;<Link to ="/about-us" className = {this.props.theme.titleText1}>About Us</Link>&lt;/a&gt;</span></div>
 			            <div className="left-nums">27</div>
 			            <div className="left-nums">28</div>
 			            <div className="left-nums">29</div>
@@ -90,17 +115,34 @@ class LandingPage extends Component {
 			            <div className="left-nums">49</div>
 			            <div className="left-nums">50</div>
 		        	</div>
+		        	<div className = {`lp-button-syntax ${this.props.theme.text2}`}>&lt;button type = &quot;button&quot; class = &quot;btn drop-down&quot;&gt;</div>
+		        	<div className = 'lp-theme-cont'>
+		            	<Col s={6} m={4} l={3} offset="s1 m2 l3">
+				            <div onClick = {this.dropMenu.bind(this)} className = {`lp-theme btn ${this.props.theme.button} ${this.props.theme.buttonText}`}>
+								Change Theme	
+							</div>
+							<div className = {`lp-button-syntax ${this.props.theme.text2}`}>&lt;/button&gt;</div>
+				            <div className = {this.state.dropStyle}>
+								<Input s={12} l={6} type ='select' name="theme" defaultValue = 'Dark Theme' onChange={this.handleThemeChange.bind(this)}>
+		                            <option value = 'dark'> Dark Theme</option>
+		                            <option value = 'light'> Light Theme</option>
+		                            <option value = 'gotham'> Gotham Theme</option>
+									<option value = 'panda'> Panda Syntax </option>
+		                        </Input>
+	                        </div>
+	                    </Col>    
+                    </div>
 			        <div className ='container input-container'>
-			            <h1 className="center-align lp-title blue-txt ">getDevJob(<span className = 'orange-txt'>you</span>)</h1>
+			            <h1 className={`center-align lp-title ${this.props.theme.titleText1}`}>getDevJob(<span className = {this.props.theme.titleText2}>you</span>)</h1>
 			            <form className = 'lp-form '>
 			                <div className ='row '> 
 			                    <Col s={12} m={8} l={6} offset="s1 m2 l3">
-									<Input s={11} m={10} l={6} type ='select' label = 'Job Title' name="title" defaultValue = 'Web Developer' className = "white-text" onChange={this.handleInputChange.bind(this)}>
+									<Input s={11} m={10} l={6} type ='select' label = 'Job Title' name="title" defaultValue = 'Web Developer' className = {this.props.theme.text1} onChange={this.handleInputChange.bind(this)}>
                                 		<option value = 'Web Developer'> Web Developer</option>
                                 		<option value = 'Front End'> Front End</option>
                                 		<option value = 'Back End'> Back End</option>
                        				</Input>
-									<Input s={11} m={10} l={6} type ='select' label = 'City' name="location" defaultValue = 'Irvine' className = "white-text" onChange={this.handleInputChange.bind(this)}>
+									<Input s={11} m={10} l={6} type ='select' label = 'City' name="location" defaultValue = 'Irvine' className = {this.props.theme.text1} onChange={this.handleInputChange.bind(this)}>
                                 		<option value = 'Irvine'>Irvine</option>
                                 		<option value = 'San Diego'>San Diego</option>
                                 		<option value = 'Los Angeles'>Los Angeles</option>
@@ -108,14 +150,19 @@ class LandingPage extends Component {
 			                    </Col>
 			                </div>
 			                <div className='row'>
-			                	<Link className = "btn orange darken-4 col s2 offset-s5 waves-effect waves-light"to ={linkQuery}>Go	                		
+			                	<Link to ={linkQuery} className = {`btn col s2 offset-s5 waves-effect waves-light ${this.props.theme.button}`}><span className = {this.props.theme.buttonText}>Go</span>	                		
 			                    </Link>	
 			                </div>
-			            </form>
+			            </form>    
 			        </div>    
 				</div>	
 		);
 	}
 }
+function mapStateToProps( state ){
+	return{
+		theme: state.theme.theme,
+		}
+}
 
-export default LandingPage;
+export default connect(mapStateToProps,{ setTheme })(LandingPage);

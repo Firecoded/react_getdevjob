@@ -12,25 +12,24 @@ class SalaryPercentage extends Component{
     }
 
     componentDidMount(){
-        const {city_salary,state_salary} = this.props.details.company.salary;
+        const {city_salary,state_salary} = this.props.details.salary;
         this.findThePercentageDifference(city_salary, state_salary)
     }
 
     findThePercentageDifference(cityAvg , stateAvg){
         let difference = parseInt(stateAvg) - parseInt(cityAvg);
-        let percentageDifference = ((difference / stateAvg).toFixed(4)*100);
-        this.setState(
-            {
-              percentageDifference:  percentageDifference
-            })
+        let percentageDifference = ((difference / stateAvg)*100).toFixed(2);
         if(percentageDifference < 0){
             this.setState(
-                {
+                {   
+                    percentageDifference:  Math.abs(percentageDifference),
                     payStatus:"higher",
             });
+          
         } else {
             this.setState(
-                {
+                {   
+                    percentageDifference:  percentageDifference,
                     payStatus:"lower",
                 }
             )   

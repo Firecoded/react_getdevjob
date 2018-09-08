@@ -1,9 +1,9 @@
-.map,#pano {
-    width: 89vmin; 
-    height: 35vmin;
+.map,.pano {
+    width: 100%; 
+    height: 100%;
     z-index: 1;
   }
-  #pano{
+  .pano{
     position: absolute;
     top:0;
     left:0;
@@ -12,8 +12,8 @@
   
   /* Optional: Makes the sample page fill the window. */
   .googleContainer {
-    height: 75%;
-    width:75%;
+    height: 85%;
+    width:100%;
     margin: 0;
     padding: 0;
     position: relative;
@@ -32,7 +32,7 @@
     display: none;
   }
 
-  #map #infowindow-content {
+  .map #infowindow-content {
     display: inline;
   }
 
@@ -88,4 +88,8 @@
   }
   #target {
     width: 345px;
+  }
+
+  .mapStreetViewToggle{
+    z-index:1000;
   }

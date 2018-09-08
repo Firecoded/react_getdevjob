@@ -9,7 +9,7 @@ class BusinessModal extends Component {
 
         this.state={
             distance:'',
-            duration:'' 
+            duration:'', 
         }
     }
     componentDidMount(){
@@ -24,6 +24,8 @@ class BusinessModal extends Component {
             })
     }
 
+   
+
     render(){
         const { lat, lng, pullId, details, isOpen } = this.props;
         const {title, company_name, listing_url, company } = details;
@@ -36,29 +38,27 @@ class BusinessModal extends Component {
         return (
             <div className="container modalBody">
                 <div className='modalPosition'>
-                    <div className="row">
-                        <div className='bm-leftColumn col s4'>
-                            <div className="row">
-                                <button className='btn col offset-s2 s2 green lighten-1 waves-light'>Save</button>
-                                <a href={listing_url} target ="_blank" className='btn col offset-s1 s2 green lighten-1'>Apply</a>
-                                <button className='btn col offset-s1 s2'>Share</button>
+                    <div className="row bm-columnContainer">
+                        <div className='bm-leftColumn'>
+                            <div className="row bm-buttonRow">
+                                <a href={listing_url} target ="_blank" className='btn green lighten-1'>Apply</a>
+                                <button className='btn '>Share</button>
                             </div>
-                            <div className='bm-companyName center'>
+                            <div className='bm-companyName'>
                                 <img src={logo} />
                                 <p> {company_name}</p>
                             </div>
-                            <div className='bm-jobTitle center'>
+                            <div className='bm-jobTitle'>
                                 {title}
                             </div>
                             <TabsInfo {...this.props} distance={this.state.distance} duration = {this.state.duration}/>
-              
                         </div>
-                        <div className='bm-rightColumn col s8'>
+                        <div className='bm-rightColumn'>
                             <div className='row'>   
                                 <div className ="bm-map">
                                     <GoogleMap lat={lat} lng={lng} id={pullId} isOpen={isOpen} drivingInfo={this.getDrivingData}/>
-                                    <button className = "mapStreetViewToggle">Street View</button>
                                 </div>
+                               
                                 <div className='bm-jobDetails'>
                                     <label>Job Description</label>
                                     <p className ="bm-jobDescription" dangerouslySetInnerHTML={{__html:description}}></p>

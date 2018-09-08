@@ -1,0 +1,90 @@
+.sp-Style {
+    height: 100%;
+    width: 80%;
+    max-height: 85%;
+    top:0;
+}
+.sp-footer{
+    position: absolute;
+    bottom:0;
+}
+.sp-map{
+    height:35vmin;
+    width: 100%;
+}
+.sp-buttonRow{
+    position: relative;
+    left:15%;   
+}
+
+.sp-buttonRow > a {
+    margin-left: 5%;
+}
+.sp-companyName, .sp-jobTitle {
+    position: relative;
+    top:5%;
+    font-size: 2rem;
+}
+
+.sp-companyName{
+    display: inline-block;
+    position: relative;
+    left:50%;
+    margin: 5% 0% 0%;
+    transform: translateX(-50%);
+}
+
+.sp-companyName img {
+    width: 80%;
+    height: auto;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.sp-jobTitle{
+    margin:0% 0% 5%;
+    font-size: 1.25rem;
+    width: 50%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.sp-Body{
+    position: relative;
+    height: 100%;
+    width: 92%;
+    margin: 0% 4%;
+    z-index:4;
+}
+
+.sp-leftColumn{
+    width: 40%;
+    height: 100%;
+    display:inline-block;
+    vertical-align: top;
+}
+.sp-rightColumn{
+    width:58%;
+    height: 100%;
+    display: inline-block;
+    margin-left: 2%;
+}
+
+.sp-jobDescription{
+    overflow: scroll;
+    width:100%;
+    height:60vh;
+}
+
+.sp-tabs li{
+  z-index: 2;
+}
+
+.sp-btn-style{
+    position: relative;
+    margin: 3% 0;
+    left: 10% !important;
+}
