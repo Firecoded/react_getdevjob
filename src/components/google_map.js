@@ -74,7 +74,6 @@ class GoogleMap extends Component {
 
     componentDidMount(){
         if(this.props.isOpen){
-            console.log('==========Create map called on load============');
             this.createMap();
         }
     }

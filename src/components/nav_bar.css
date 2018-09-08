@@ -5,22 +5,14 @@
 	margin-bottom: 2%;
     z-index: 998;
     font-size: 2vmin;
+    top: 0;
 }
-.tn-theme{
-    position: relative;
-    text-transform: none;
-    margin-top: 6%;
-    z-index: 999;
-    background-color: inherit !important;
-    color: inherit !important;
-}
+
 .inherit-class{
     background-color: inherit !important;
     color: inherit !important;
 }
-.nav-theme {
-    margin-right: 5%;
-}
+
 .nav-bar-items{
     text-transform: none;
 }
@@ -30,20 +22,7 @@
 .tn-logo{
     padding: 0 5px;
 }
-.mui-drpdown{
-    position: absolute;
-}
-.nb-drop-content {
-    background-color: inherit;
-    color: inherit ;
-    margin-right: 5%;
-    opacity: 0;
-}
-.tn-theme *, .tn-theme * :hover, .tn-theme * :active{
-    background-color: inherit;
-    color: inherit ;
-    z-index: 998;
-}
+
 
 .hidden{
     opacity: 0;

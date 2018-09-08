@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import {Input, Col} from 'react-materialize';
 import {connect} from 'react-redux';
 import {setTheme} from '../actions';
+import ThemeDropDown from './theme_dropdown.js';
 
 class LandingPage extends Component {
 	constructor(props){
@@ -12,8 +13,6 @@ class LandingPage extends Component {
 		this.state = {
 			title: 'Web Developer',
 			location: 'Irvine',
-			theme: 'dark',
-			dropStyle: 'nb-drop-content'
 		}
 		this.handleInputChange = this.handleInputChange.bind(this);
 	}
@@ -25,7 +24,7 @@ class LandingPage extends Component {
 	}
 	// Get users current location on Landing Page to enable search by Distance
 	componentDidMount(){
-		this.props.setTheme('dark');
+		this.props.setTheme(this.props.theme.current);
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function(position) {
 			  var pos = {
@@ -35,34 +34,12 @@ class LandingPage extends Component {
 			})
 		}
 	}
-	dropMenu(){
-		if(this.state.dropStyle === 'nb-drop-content' || this.state.dropStyle === 'hidden nb-drop-content'){
-			this.setState({
-			dropStyle: 'shown nb-drop-content'
-			})
-		} else {
-			this.setState({
-			dropStyle: 'hidden nb-drop-content'
-			})
-		}	
-	}
-	handleThemeChange(event){
-		event.preventDefault();
-		const {value} = event.target;
-		this.setState({
-			theme: value,
-		});
-		
-		this.props.setTheme(value);
-		this.dropMenu();
-	}
+	
 	render() {
 		let {title, location} = this.state;
 		let locationLow = location.toLowerCase().split(' ').join('');
 		let titleNoSpace = title.toLowerCase().split(' ').join('');
 		let linkQuery = 'listings/' + titleNoSpace + '/' + locationLow;
-		console.log(this.props)
-		
 		
 		return (
 				<div className ={`body-container ${this.props.theme.navColor}`}>
@@ -92,7 +69,7 @@ class LandingPage extends Component {
 			            <div className="left-nums">23</div>
 			            <div className="left-nums">24</div>
 			            <div className="left-nums">25</div>
-			            <div className="left-nums">26 <span className ={this.props.theme.text2}>&lt;a href = &quot;/about-us&quot;&gt;<Link to ="/about-us" className = {this.props.theme.titleText1}>About Us</Link>&lt;/a&gt;</span></div>
+			            <div className="left-nums">26 <span className ={this.props.theme.text2}>&lt;a href = &quot;/about-us&quot;&gt;<Link to ="/about-us" className = {this.props.theme.titleText1}><u>About Us</u></Link>&lt;/a&gt;</span></div>
 			            <div className="left-nums">27</div>
 			            <div className="left-nums">28</div>
 			            <div className="left-nums">29</div>
@@ -118,19 +95,10 @@ class LandingPage extends Component {
 		        	</div>
 		        	<div className = {`lp-button-syntax ${this.props.theme.text2}`}>&lt;button type = &quot;button&quot; class = &quot;btn drop-down&quot;&gt;</div>
 		        	<div className = 'lp-theme-cont'>
-		            	<Col s={6} m={4} l={3} offset="s1 m2 l3">
-				            <div onClick = {this.dropMenu.bind(this)} className = {`lp-theme btn ${this.props.theme.button} ${this.props.theme.buttonText}`}>
-								Change Theme	
-							</div>
-							<div className = {`lp-button-syntax ${this.props.theme.text2}`}>&lt;/button&gt;</div>
-				            <div className = {this.state.dropStyle}>
-								<Input s={12} l={6} type ='select' name="theme" defaultValue = 'Dark Theme' onChange={this.handleThemeChange.bind(this)}>
-		                            <option value = 'dark'> Dark Theme</option>
-		                            <option value = 'light'> Light Theme</option>
-		                            <option value = 'gotham'> Gotham Theme</option>
-		                        </Input>
-	                        </div>
-	                    </Col>    
+			            <div className = {`lp-drop-content ${this.props.theme.titleText1}`}>
+							<ThemeDropDown/>
+                        </div>
+                        <div className = {`lp-button-syntax ${this.props.theme.text2}`}>&lt;/button&gt;</div>  
                     </div>
 			        <div className ='container input-container'>
 			            <h1 className={`center-align lp-title ${this.props.theme.titleText1}`}>getDevJob(<span className = {this.props.theme.titleText2}>you</span>)</h1>
@@ -150,7 +118,7 @@ class LandingPage extends Component {
 			                    </Col>
 			                </div>
 			                <div className='row'>
-			                	<Link className = {`btn col s2 offset-s5 waves-effect waves-light ${this.props.theme.button}`} to ={linkQuery}><span className = {this.props.theme.buttonText}>Go</span>	                		
+			                	<Link to ={linkQuery} className = {`btn col s2 offset-s5 waves-effect waves-light ${this.props.theme.button}`}><span className = {this.props.theme.buttonText}>Go</span>	                		
 			                    </Link>	
 			                </div>
 			            </form>    

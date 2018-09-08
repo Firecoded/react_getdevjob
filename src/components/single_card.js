@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import './single_card.css';
 import BusinessModal from './business_modal';
 import {Modal, Input} from 'react-materialize';
+import {connect} from 'react-redux';
+import {setTheme} from '../actions';
 
 class Card extends Component{
     constructor(props){
@@ -51,29 +53,28 @@ class Card extends Component{
         let lng = parseFloat(this.props.details.company.location.lng);
         return (
     <div>   
-        <div className='sc-cardContainer card-panel'>
-            <div className={`datePosted ${withinAWeek?'green-text':'black-text'} `}>
+        <div className={`sc-cardContainer card-panel ${this.props.theme.navColor}`}>
+            <div className={`datePosted ${withinAWeek ?'green-text': this.props.theme.titleText2} `}>
                     Date Posted: {post_date};
                 </div>
             <div className = 'sc-leftColumn'>
                 <div className ='sc-businessInfo'>
-                    <ul className='sc-jobDetailsList'>
+                    <ul className={`sc-jobDetailsList ${this.props.theme.text1}`}>
                         <li><strong>{title}</strong></li>
                         <li><strong>{company_name}</strong></li>
                     </ul>
                 </div>
-                <div className='sc-jobDescription'>
+                <div className={`sc-jobDescription ${this.props.theme.titleText2}`}>
                         <p dangerouslySetInnerHTML={{__html:description}}></p>     
                 </div>    
             </div>
             <div className="sc-rightColumn">
                 <div className='buttonArea'> 
-                    <button className='btn btn-style indigo'>Save</button>
-                    <button className="btn" onClick={() => this.handleModalOpen()} className='btn btn-style'>More</button>
-                    <Modal id={`modal-${this.props.pullId}`} className="modalStyle">
-                        <BusinessModal  lat={lat} lng={lng} isOpen={this.state.modalOpen} {...this.props}/>
+                    <button className={`btn btn-style ${this.props.theme.button} ${this.props.theme.buttonText}`} onClick={() => this.handleModalOpen()}>More</button>
+                    <Modal id={`modal-${this.props.pullId}`} className={`modalStyle ${this.props.theme.background}`}>
+                        <BusinessModal  lat={lat} lng={lng} isOpen={this.state.modalOpen} theme={this.props.theme} {...this.props}/>
                     </Modal>
-                    <Link to = {linkQuery} target="_blank" className ='btn btn-style'>Share</Link>
+                    <Link to = {linkQuery} target="_blank" className ={`btn btn-style ${this.props.theme.button} ${this.props.theme.buttonText}`}>Share</Link>
                 </div>
             </div>
         </div>
@@ -82,8 +83,13 @@ class Card extends Component{
         )
     }
 }
+function mapStateToProps(state){
+    return{
+        theme: state.theme.theme,
+    }
+}
 
-export default Card;
+export default connect(mapStateToProps,{ setTheme })(Card);
 
     
 

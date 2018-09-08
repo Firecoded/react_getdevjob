@@ -24,8 +24,6 @@ class BusinessModal extends Component {
             })
     }
 
-   
-
     render(){
         const { lat, lng, pullId, details, isOpen } = this.props;
         const {title, company_name, listing_url, company } = details;
@@ -36,22 +34,22 @@ class BusinessModal extends Component {
         const {logo} = company;
 
         return (
-            <div className="container modalBody">
+            <div className={`container modalBody ${this.props.theme.background}`}>
                 <div className='modalPosition'>
                     <div className="row bm-columnContainer">
                         <div className='bm-leftColumn'>
                             <div className="row bm-buttonRow">
-                                <a href={listing_url} target ="_blank" className='btn green lighten-1'>Apply</a>
-                                <button className='btn '>Share</button>
+                                <a href={listing_url} target ="_blank" className={`btn ${this.props.theme.button}`}>Apply</a>
+                                <button className={`btn ${this.props.theme.button}`}>Share</button>
                             </div>
                             <div className='bm-companyName'>
                                 <img src={logo} />
-                                <p> {company_name}</p>
+                                <p className = {`${this.props.theme.titleText1}`}> {company_name}</p>
                             </div>
-                            <div className='bm-jobTitle'>
+                            <div className={`bm-jobTitle ${this.props.theme.titleText2}`}>
                                 {title}
                             </div>
-                            <TabsInfo {...this.props} distance={this.state.distance} duration = {this.state.duration}/>
+                            <TabsInfo {...this.props} distance={this.state.distance} duration = {this.state.duration} theme={this.props.theme} />
                         </div>
                         <div className='bm-rightColumn'>
                             <div className='row'>   
@@ -61,7 +59,7 @@ class BusinessModal extends Component {
                                
                                 <div className='bm-jobDetails'>
                                     <label>Job Description</label>
-                                    <p className ="bm-jobDescription" dangerouslySetInnerHTML={{__html:description}}></p>
+                                    <p className ={`bm-jobDescription ${this.props.theme.text1}`} dangerouslySetInnerHTML={{__html:description}}></p>
                                 </div>
                             </div>
                         </div>
