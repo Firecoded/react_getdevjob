@@ -69,7 +69,7 @@ class LandingPage extends Component {
 			            <div className="left-nums">23</div>
 			            <div className="left-nums">24</div>
 			            <div className="left-nums">25</div>
-			            <div className="left-nums">26 <span className ={this.props.theme.text2}>&lt;a href = &quot;/about-us&quot;&gt;<Link to ="/about-us" className = {this.props.theme.titleText1}>About Us</Link>&lt;/a&gt;</span></div>
+			            <div className="left-nums">26 <span className ={this.props.theme.text2}>&lt;a href = &quot;/about-us&quot;&gt;<Link to ="/about-us" className = {this.props.theme.titleText1}><u>About Us</u></Link>&lt;/a&gt;</span></div>
 			            <div className="left-nums">27</div>
 			            <div className="left-nums">28</div>
 			            <div className="left-nums">29</div>
