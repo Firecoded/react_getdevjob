@@ -11,12 +11,10 @@
 .sp-map{
     height:35vmin;
     width: 100%;
-    border: 3px dotted green;
 }
 .sp-buttonRow{
     position: relative;
-    left:50%;
-    transform: translateX(-25%);
+    left:15%;   
 }
 
 .sp-buttonRow > a {
@@ -26,7 +24,6 @@
     position: relative;
     top:5%;
     font-size: 2rem;
-    border: 2px solid black;
 }
 
 .sp-companyName{
@@ -38,33 +35,38 @@
 }
 
 .sp-companyName img {
-    height:auto;
+    width: 40%;
+    height: auto;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
+.sp-companyName > p {
+    text-align: center;
+}
 .sp-jobTitle{
     margin:0% 0% 5%;
-    font-size: 1.25rem;
+    font-size: 1.75rem;
     width: 50%;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+    text-align: center;
 }
 
 .sp-Body{
     position: relative;
     height: 100%;
     width: 92%;
-    margin: 4% 4% 0;
+    margin: 0% 4%;
     z-index:4;
-    border: 2px solid red;
-    top: 5%;
 }
 
 .sp-leftColumn{
     width: 40%;
     height: 100%;
     display:inline-block;
-    border: 1px dotted blue;
     vertical-align: top;
 }
 .sp-rightColumn{
@@ -72,17 +74,15 @@
     height: 100%;
     display: inline-block;
     margin-left: 2%;
+    padding: 3%;
 }
 
 .sp-jobDescription{
     overflow: scroll;
     width:100%;
-    height: 37vmin;
-    border:2px dashed blue;
+    height:60vh;
 }
-.sp-tabs{
-    border: 2px inset purple;
-}
+
 .sp-tabs li{
   z-index: 2;
 }
@@ -91,4 +91,11 @@
     position: relative;
     margin: 3% 0;
     left: 10% !important;
+}
+
+.sp-buttonRow > *{
+    position: relative;
+    left:25%;
+    transform: translateX(-100%);
+    margin:0% 5%;
 }

@@ -10,3 +10,7 @@
 .tabsBar {
     width: 90% !important;
 }
+
+.tab.col a {
+    color:inherit;
+}

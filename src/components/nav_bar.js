@@ -4,6 +4,7 @@ import {Input, Col} from 'react-materialize';
 import './nav_bar.css';
 import {connect} from 'react-redux';
 import {setTheme} from '../actions';
+import ThemeDropDown from './theme_dropdown.js';
 
 
 class NavBar extends Component {
@@ -11,50 +12,23 @@ class NavBar extends Component {
 		super(props)
 
 		this.state = {
-			theme: 'light',
-			dropStyle: 'nb-drop-content'
+			theme: 'light'
 		}
 	}
 	componentDidMount(){
-		this.props.setTheme('dark');
+		this.props.setTheme(this.props.theme.current);
+		localStorage.setItem('theme',this.props.theme.current);
 	}
-	handleInputChange(event){
-		event.preventDefault();
-		const {value} = event.target;
-		this.setState({
-			theme: value,
-		});
-		this.props.setTheme(value);
-		this.dropMenu();
-	}
-	dropMenu(){
-		if(this.state.dropStyle === 'nb-drop-content' || this.state.dropStyle === 'hidden nb-drop-content'){
-			this.setState({
-			dropStyle: 'shown nb-drop-content'
-			})
-		} else {
-			this.setState({
-			dropStyle: 'hidden nb-drop-content'
-		})
-		}
-		
-	}
+
 	render() {
 		return (
-			<nav className = {`top-nav ${this.props.navColor} ${this.props.textColor}`}>
+			<nav className = {`top-nav ${this.props.theme.navColor} ${this.props.theme.text1}`}>
 				<div className = 'nav-wrapper'>
-					<Link to = '/' className = 'brand-logo tn-logo'>&lt;gDJ/&gt;</Link>
-					<ul className = 'right nav-bar-items'>
-						<li onClick = {this.dropMenu.bind(this)} className = 'tn-theme row btn black white-text'>
-							Change Theme	
-						</li>
-						<div className = {this.state.dropStyle}>
-							<Input s={12} type ='select' label = 'Job Title' name="title" defaultValue = 'Web Developer' onChange={this.handleInputChange.bind(this)}>
-	                            <option value = 'dark'> Dark Theme</option>
-	                            <option value = 'light'> Light Theme</option>
-	                            <option value = 'Poop Brown'> Poop Brown Theme</option>
-	                        </Input>
-                        </div>
+					<Link to = '/' className = {`brand-logo tn-logo ${this.props.theme.navColor}`}><span className={this.props.theme.titleText1}>&lt;gDJ</span><span className = {this.props.theme.titleText2}>/</span><span className = {this.props.theme.titleText1}>&gt;</span></Link>
+					<ul className = {`right nav-bar-items ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
+						<li className = 'nb-drop-content'>
+							<ThemeDropDown/>
+                        </li>
 					</ul>	
 				</div>
 			</nav>
@@ -64,12 +38,7 @@ class NavBar extends Component {
 
 function mapStateToProps( state ){
 	return{
-		
-		theme: state.theme.themeName,
-		navColor: state.theme.theme.navColor,
-		textColor: state.theme.theme.text,
-		background: state.theme.theme.background,
-		functionText: state.theme.theme.functionText,
+		theme: state.theme.theme,
 		}
 }
 

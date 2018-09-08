@@ -7,6 +7,9 @@ import { Button, SideNav,SideNavItem } from 'react-materialize';
 import {FaEllipsisV} from 'react-icons/fa';
 import {formatPostData} from "../helpers";
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {setTheme} from '../actions';
+import Loading from './loading';
 
 class SearchResults extends Component {
 	constructor(props){
@@ -15,13 +18,28 @@ class SearchResults extends Component {
 		this.state = {
 			left: '',
 			right: '',
-			response: [] 
+			response: [],
+			loaded: false
 		}
 	}
 
 	async componentDidMount(){
-		await this.getJobData();
-		this.populateCards(this.state.response.data.jobs);
+		if (Object.keys(navigator.geolocation).length) {
+            navigator.geolocation.getCurrentPosition(async (position) => {
+				var pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};				
+				let {lat,lng} = pos;
+				await this.getJobData(lat, lng);
+				this.populateCards(this.state.response.data.jobs);
+				this.props.setTheme(this.props.theme.current);
+			});
+		} else {
+				await this.getJobData(NaN, NaN);
+				this.populateCards(this.state.response.data.jobs);
+				this.props.setTheme(this.props.theme.current);
+		}	
 	}
 
 	getFilterResponseData(respObj){
@@ -31,9 +49,11 @@ class SearchResults extends Component {
 		this.populateCards(this.state.response.data.jobs);
 	}
 	
-	async getJobData(){
+	async getJobData(userLat , userLng){
 		const {city, job} = this.props.match.params;
-        event.preventDefault();   //will need to address isue with backend about querys accounting for spaces or no spaces
+		if(event){
+			event.preventDefault();   //will need to address isue with backend about querys accounting for spaces or no spaces
+		}
 		const initialSearchParams = {
             title: 'web developer', 
 			location: city,
@@ -47,12 +67,12 @@ class SearchResults extends Component {
             employmentTypeInternship: false,
             employmentTypePartTime: false,
             employmentTypeFullTime: false,
-            userLat:'',
-            userLng:'',
+            userLat:userLat,
+            userLng:userLng,
         }	
 		const params = formatPostData(initialSearchParams);
-		const resp = await axios.post("http://localhost:8000/api/get_joblist.php", params); 
-		this.setState({response:resp})		   
+		const resp = await axios.post("/api/get_joblist.php", params); 
+		this.setState({response:resp, loaded: true})		   
     }
 
 	populateCards(array){
@@ -77,35 +97,44 @@ class SearchResults extends Component {
 		})
 	}
 
-
-
 	render() {
 		return (
-			<div className = 'main-cont'>
-					<NavBar/>
-					<SideNav
-				  	trigger = {<Button className ="black sideTrigger"><FaEllipsisV/>Filters</Button>}
-				  	options={{closeOnClick:true}}
-					>
-						<SideNavItem>
-							<Filters getFilterData = {this.getFilterResponseData.bind(this)}/>
-						</SideNavItem>
-					</SideNav>
-				<div className = 'cardArea'>
-                   	<div className='leftColumn'>
-	                    {this.state.left}
-	                </div>    
-                	<div className='rightColumn'>
-						{this.state.right}
-                	</div>
-                </div>	
-			</div>
+			<div className = 'parent-div'>
+				<div className = 'spacer-div'></div>
+				<div className = {`main-cont ${this.props.theme.background}`}>
+						<NavBar/>
+						<SideNav
+					  	trigger = {<div className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>}
+					  	options={{closeOnClick:true}}
+						>
+							<SideNavItem>
+							  <Filters getFilterData = {this.getFilterResponseData.bind(this)} job={this.props.match.params.job} city={this.props.match.params.city}/>
+							</SideNavItem>
+						</SideNav>	
+					<div className = "load-cont" style = {this.state.loaded ? {'display':'none'} : {} }>						
+						{!this.state.loaded ? <Loading/> : '' }
+					</div>
+					<div className = 'cardArea'>
+					
+	                   	<div className='leftColumn'>
+		                    {this.state.left}
+		                </div>    
+	                	<div className='rightColumn'>
+							{this.state.right}
+	                	</div>
+	                </div>	
+				</div>
+			</div>	
 		);
 	}
 }
+function mapStateToProps( state ){
+	return{
+		theme: state.theme.theme,
+		}
+}
 
-
-export default SearchResults;
+export default connect(mapStateToProps,{ setTheme })(SearchResults);
 
 
 

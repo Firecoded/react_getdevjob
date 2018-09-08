@@ -12,42 +12,58 @@
     $title = $_POST["title"];
 // start query
     $query = "SELECT * FROM `jobs`";
-    $flag = false;
+    $andFlag = false;
+    $orFlag = false;
 // salary
     if($_POST["minSalary"] != "" && $_POST["maxSalary"] !== ""){
         $max = (INT)$_POST["maxSalary"];
         $min = (INT)$_POST["minSalary"];
-        $flag = true;
+        $andFlag = true;
         $query = $query . salaryQuery($min ,$max);
     }
 //post date
     if($_POST["postedDate"] !== ""){
         $numberOfDays = $_POST["postedDate"];
-        $query = $query.postDateQuery($numberOfDays, $flag);
-        $flag = true;
+        $query = $query.postDateQuery($numberOfDays, $andFlag);
+        $andFlag = true;
     }
 // job type
     if($_POST["employmentTypeFullTime"] == "true"){
-        $query = $query.jobTypeQuery("1", $flag);
-        $flag = true;
+        $query = $query.jobTypeQuery("1", $andFlag, $orFlag);
+        $andFlag = true;
+        $orFlag = true;
     }
     if($_POST["employmentTypeContract"] == "true" || $_POST["employmentTypePartTime"] == "true"){
-        $query = $query.jobTypeQuery("2", $flag);
-        $flag = true;
-
+        $query = $query.jobTypeQuery("2", $andFlag, $orFlag);
+        $andFlag = true;
+        $orFlag = true;
     }
     if($_POST["employmentTypeInternship"] == "true"){
-        $query = $query.jobTypeQuery("3", $flag);
-        $flag = true;
-
+        $query = $query.jobTypeQuery("3", $andFlag, $orFlag);
+        $andFlag = true;
+        $orFlag = true;
     }
+//  add ending ')' to query if needed
+    if($orFlag){
+        $query = $query.")";
+    }
+
+
+    $title = explode(" ", $title);
+    $conds = array();
 // checks by title
-    if($flag){
-        $query = $query . " AND `title` LIKE '%$title%'";
+    if($andFlag){
+        $query = $query . " AND ";
     }
     else{
-        $query = $query . " WHERE `title` LIKE '%$title%'";
+        // $query = $query . " WHERE `title` LIKE '%web developer%'";
+        $query = $query . " WHERE ";
     }
+    foreach($title as $val){
+        $conds[] = "`title` LIKE '%".$val."%'";
+    }
+    $query = $query . implode(" OR ", $conds);
+
 // Single page
     if(isset($_POST['id']) && $_POST['id'] !== '' ){
         $single_page_id = $_POST['id'];
