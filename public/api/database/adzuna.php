@@ -1,14 +1,15 @@
 <?php
-    require_once('../mysql_connect.php');
-    require_once('api_calls/clearBit.php');
-    require_once('scrape/adzuna_scrape.php');
-    require_once('api_calls/googlePlace.php');
-    require_once('scrape/salary_scrape.php');
+    require_once("../mysql_connect.php");
+    require_once("scrape/adzuna_scrape.php");
+    require_once("scrape/salary_scrape.php");
+    require_once("scrape/scraper.php");
+    require_once("api_calls/clear_bit.php");
+    require_once("api_calls/google_location.php");
+    require_once("../api_keys.php");
 
+    $url = "https://api.adzuna.com:443/v1/api/jobs/us/search/1?app_id={$adzunaAppID}&app_key={$adzunaAppKey}&results_per_page=1&what=front%20end%20developer&location0=US&location1=California&location2=San%20Diego%20County";   
 
-    $url = "https://api.adzuna.com:443/v1/api/jobs/us/search/1?app_id=79a0aa3c&app_key=c80d29a4d0a23378b7b0f66c95e5aaaf&results_per_page=1&what=back%20end%20developer&location0=US&location1=California&location2=Orange%20County";   
-
-    //create request object
+//create request object
     header('Content-Type: application/json');
     $ch = curl_init();                      
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -22,11 +23,10 @@
 
     $output = [
         'success' => false,
-        'errors' =>[],
         'message'=> []
     ];
-    // loop through the results array and get the title, postDate and listingURL
-    for($i = 0;  $i < count((array)$server_output->results); $i++){
+// loop through the results array and get the title, postDate and listingURL
+    for($i = 0;  $i < count((array)$server_output -> results); $i++){
         // variables for JOBS table
         $currentResultIndex = $server_output->results[$i];
         $company_name = $currentResultIndex->company->display_name;
@@ -38,52 +38,32 @@
         $type_id = getJobType($currentResultIndex);
         $urlEncodedName= encodeName($company_name);
        
-
-        $city = $currentResultIndex->location->area[3];
-        $address_query = $urlEncodedName." ".$city;
-             
+        $cityFromApi = $currentResultIndex-> location->area[3];
+        $address_query = $urlEncodedName." ".$cityFromApi;
+            
         $ocr_url = "https://www.ocregister.com/?s=".$company_name."&orderby=date&order=desc";
-        $company_website = getDomain($urlEncodedName);    
-        $clearbitObject = getClearbitObj($company_website);
+        $company_website = getCompanySite($company_name);    
         
-        // linkedIn: 
-        if(isset($clearbitObject["linkedin"]["handle"])=== true){
-            $linkedin_url= "www.linkedin.com/".$clearbitObject["linkedin"]["handle"];
-        }
-        else {
-            $linkedin_url = NULL;
-        }
-        
-        //logo:
-        if(isset( $clearbitObject["logo"])=== true){
-            $logo = $clearbitObject["logo"];
-        }
-        else{
-            $logo = NULL;
-        }
-
-        // crunchbase:
-
-        if(isset($clearbitObject["crunchbase"]["handle"])===true){
-            $crunchbase = "www.crunchbase.com/".$clearbitObject["crunchbase"]["handle"];
-        }
-        else{
-            $crunchbase = NULL;
-        }
-
         // run query to check companies table if current index exists in the database
-        $checkCompanyExistance = "SELECT * FROM `companies` WHERE `name` = '$company_name'";
+        $checkCompanyExistance = "SELECT `name` FROM `companies` WHERE `name` = '$company_name'";
         $companyCheckQueryResult = mysqli_query($conn, $checkCompanyExistance);
 
         if(mysqli_num_rows($companyCheckQueryResult) === 0){
-            $query2 = "INSERT INTO `companies` (`name`, `company_website`, `linkedIn_url`, `ocr_url`, `logo`,`crunchbase`) VALUES ('$company_name', '$company_website', '$linkedin_url','$ocr_url', '$logo', '$crunchbase')";
+            $clearBitObj = getClearBitObj($company_website);
+            $linkedin_url = $clearBitObj["linkedin"];
+            $ocr_url = $clearBitObj["ocr"];
+            $crunchbase_url = $clearBitObj["crunch"];
+            $logo = $clearBitObj["logo"];
+           
+            $query2 = "INSERT INTO `companies` (`name`, `company_website`, `linkedin_url`, `ocr_url`, `logo`,`crunchbase_url`) 
+            VALUES ('$company_name', '$company_website', '$linkedin_url','$ocr_url', '$logo', '$crunchbase')";
             $companyInsertQueryResult = mysqli_query($conn, $query2);
-            // check if results from company insert query is empty/encountered an error    
+        // check if results from company insert query is empty/encountered an error    
             if(mysqli_affected_rows($conn)=== -1){
                 $output['error'][]= "## Company insert query error";
             }
-            // add locations query
-            $addressObject = getAddress($address_query);
+// add locations query
+            $addressObject = getGoogleObj($address_query);
             $fullAddress = $addressObject["fullAddress"];
             $lat = $addressObject["lat"];
             $long = $addressObject["long"];
@@ -93,24 +73,24 @@
             $zip = $addressObject["zip"]; 
 
             $company_id = mysqli_insert_id($conn);
-            $location_query = "INSERT INTO `locations`(`company_id`, `street`,`city`,`state`,`lat`,`lng`,`full_address`) VALUES
-            ($company_id, '$street','$city','$state','$lat','$long','$fullAddress')";
+            $location_query = "INSERT INTO `locations`(`company_id`, `street`,`city`,`state`,`zip`,`lat`,`lng`,`full_address`) VALUES
+            ($company_id, '$street','$city','$state','$zip','$lat','$long','$fullAddress')";
             $locationInsertQueryResult = mysqli_query($conn, $location_query);
             if(mysqli_affected_rows($conn)=== -1){
                 $output['error'][]= "## Locations insert query error";
             }
         }
-        // Salary:
+// Salary:
 
         //fill up salaries table
-        $titleCity = "$listing_title"."-"."$city";
+        $titleCity = "$listing_title"."-"."$cityFromApi";
         $checkDuplicateSalary = "SELECT `title_city` FROM `salaries` WHERE `title_city`='$titleCity'";
         $salaryCheckQueryResult = mysqli_query($conn, $checkDuplicateSalary);
         
         if(mysqli_num_rows($salaryCheckQueryResult) === 0){
         //if salary is not in salaries table, insert salary into it
     
-            $citySalary = (INT)getSalary($title, $city, false);
+            $citySalary = (INT)getSalary($title, $cityFromApi, false);
             $stateSalary = (INT)getSalary($title, false, false);
             $nationalSalary = (INT)getSalary($title, false, true);
 
@@ -119,35 +99,45 @@
             VALUES ($citySalary, $stateSalary, '$titleCity', $nationalSalary)";
             $salaryInsertQueryResult = mysqli_query($conn, $salaryInsertQuery);
             if(mysqli_affected_rows($conn)=== -1){
-                $output["errors"][] = "failed to query salaries"; 
+                $output["error"][] = "failed to query salaries"; 
             }
             $salary_id = mysqli_insert_id($conn);
         }
- 
-        // write query to select titles that are repeated
-        $checkJobExistance = "SELECT * FROM `jobs` WHERE `title_name` = '$title_name'";
+
+
+ // write query to select titles that are repeated
+        $checkJobExistance = "SELECT * FROM `jobs` WHERE `title_comp` = '$title_name'";
         $jobCheckQueryResult = mysqli_query($conn, $checkJobExistance);
-            
-        if(mysqli_num_rows($jobCheckQueryResult)=== 0 && $description !== NULL){ 
+        $description = scrapeDescription($listing_url);    
+
+        if(mysqli_num_rows($jobCheckQueryResult) === 0 && $description !== NULL){ 
 
             $companyIDQuery = "SELECT c.ID FROM companies AS c WHERE c.name = '$company_name'";
             $companySelectQueryResult = mysqli_query($conn, $companyIDQuery);
             $row = mysqli_fetch_assoc($companySelectQueryResult);
             $company_id = $row["ID"];
-            $description = scrapeDescription($listing_url);
-            
+           
+            print("Title: $titleCity");
+            $salaryQuery = "SELECT `ID` FROM `salaries` WHERE `title_city`='$titleCity'";
+            $result = mysqli_query($conn, $salaryQuery);
+            $rowFromSalaryTable = mysqli_fetch_assoc($result);
+            $salary_id = (INT)$rowFromSalaryTable["ID"];
+
             $jobsInsertQuery = "INSERT INTO `jobs`
-            (`title`, `company_id`, `description`, `post_date`, `listing_url`, `type_id`, `company_name`, `title_name`, `salary_id`) 
-            VALUES ('$listing_title', $company_id, '$description', '$post_date', '$listing_url', $type_id, '$company_name', '$title_name', $salary_id)";
+            (`title`, `company_name`, `company_id`, `post_date`, `listing_url`, `type_id`, `description`, `title_comp`, `salary_id`) 
+            VALUES ('$listing_title', '$company_name', $company_id, '$post_date', '$listing_url', $type_id, '$description', '$title_name', $salary_id)";
+            // print($jobsInsertQuery);
+
             $jobsInsertQueryResult = mysqli_query($conn, $jobsInsertQuery);  
-            if(mysqli_affected_rows($conn)=== -1){
-                if($description === null){
-                    $output['error'][]= "## Jobs description is unavailable, did not insert job";
-                }
-                else{
-                    $output['error'][]= "## Jobs insert query error";
-                }   
-            } 
+                if(mysqli_affected_rows($conn)=== -1){
+                    if($description === null){
+                        $output['error'][]= "## Jobs description is unavailable, did not insert job";
+                    }
+                    else {
+                        print("TITLE: $title_name");
+                        $output['error'][]= "## Jobs insert query error";
+                    }   
+                } 
         }
     }
     print_r($output);

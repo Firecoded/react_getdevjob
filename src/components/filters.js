@@ -7,11 +7,18 @@ import {connect} from 'react-redux';
 import {setTheme} from '../actions';
 
 class Filters extends Component {
+
     constructor(props){
         super(props);
+
+        this.titleObj = {
+			"frontend": "Front End", 
+			"backend": "Back End",
+			"webdeveloper": "Web Developer"
+        };
         
         this.state = {
-            title:'',
+            title: "",
             location:'Irvine',
             minSalary:'',
             maxSalary:'',
@@ -22,11 +29,18 @@ class Filters extends Component {
             employmentTypeInternship: true,
             employmentTypePartTime: true,
             employmentTypeFullTime: true,
-            userLat:'',
-            userLng:'',
+            userLat:"33.634875",
+            userLng:"-117.740481",
         }
         this.submitFormData = this.submitFormData.bind(this);
 
+    }
+
+    //once component did mount, change the state to appropriate title
+    componentDidMount(){
+        this.setState({
+            title: this.handleTitle(this.props.job)
+        })
     }
 
     handleChange(event){
@@ -40,7 +54,7 @@ class Filters extends Component {
         const {name, checked} = event.currentTarget;
         if(checked !== false){
             this.setState({
-            [name]:true
+                [name]:true
         })
         }else{
             this.setState({
@@ -49,23 +63,16 @@ class Filters extends Component {
         }
     }
 
+    //grabs title from url and formats it
     handleTitle(title){
-        if(title === "frontend"){
-            return "Front End";
-        }
-        else if(title === "backend"){
-            return "Back End";
-        }
-        else{
-            return "Web Developer";
-        }
+		return this.titleObj[title];
     }
 
     async submitFormData(event){
         event.preventDefault();
         const params = formatPostData(this.state);
         const resp = await axios.post("http://localhost:8000/api/get_joblist.php", params);
-
+        console.log("things sent: ", this.state);
         this.props.getFilterData(resp);
     }
 
@@ -119,7 +126,7 @@ class Filters extends Component {
                             <option value = '30'>30 days</option>
                         </Input>
                     </Row>
-                    <Row className="checkboxArea">
+                    <Row className="checkboxArea" >
                         <Input s={6} name='employmentTypeContract' type='checkbox' checked={this.state.employmentTypeContract} value = 'contract' label='Contract'  onChange={this.handleCheckBox.bind(this)} />
                         <Input s={6} name='employmentTypeInternship' type='checkbox' checked={this.state.employmentTypeInternship} value = 'internship' label='Internship'  onChange={this.handleCheckBox.bind(this)} />
                         <Input s={6} name='employmentTypePartTime' type='checkbox' checked={this.state.employmentTypePartTime} value = 'partTime' label='Part'  onChange={this.handleCheckBox.bind(this)}/>

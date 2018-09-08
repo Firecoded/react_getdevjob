@@ -42,6 +42,16 @@ class SearchResults extends Component {
 		}	
 	}
 
+	
+	handleTitle(title){
+		let titleObj = {
+			"frontend": "Front End", 
+			"backend": "Back End",
+			"webdeveloper": "Web Developer"
+		};
+		return titleObj[title];
+    }
+
 	getFilterResponseData(respObj){
 		this.setState({
 			response: respObj
@@ -51,11 +61,13 @@ class SearchResults extends Component {
 	
 	async getJobData(userLat , userLng){
 		const {city, job} = this.props.match.params;
+		let refinedJob = this.handleTitle(job);
+		console.log('refinded', refinedJob);
 		if(event){
 			event.preventDefault();   //will need to address isue with backend about querys accounting for spaces or no spaces
 		}
 		const initialSearchParams = {
-            title: 'web developer', 
+            title: refinedJob, 
 			location: city,
 			id:'',
             minSalary:'',
@@ -104,8 +116,8 @@ class SearchResults extends Component {
 				<div className = {`main-cont ${this.props.theme.background}`}>
 						<NavBar/>
 						<SideNav
-					  	trigger = {<div className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>}
-					  	options={{closeOnClick:true}}
+					  		trigger = {<div className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>}
+					  		options={{closeOnClick:true}}
 						>
 							<SideNavItem>
 							  <Filters getFilterData = {this.getFilterResponseData.bind(this)} job={this.props.match.params.job} city={this.props.match.params.city}/>
