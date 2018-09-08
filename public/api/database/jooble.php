@@ -2,18 +2,17 @@
 require_once("../mysql_connect.php");
 require_once("scrape/jooble_scrape.php");
 require_once("scrape/salary_scrape.php");
+require_once("scrape/scraper.php");
 require_once("api_calls/clear_bit.php");
 require_once("api_calls/google_location.php");
-include("scrape/scraper.php");
+require_once("../api_keys.php");
 
 $url = "https://us.jooble.org/api/";
-$key = "3fb7e81e-bb94-45d0-af8f-0df47f82bc31";
 
-// $key = "205d18d5-59ca-474f-b770-b8e8fa04fca2";
 //create request object
 $ch = curl_init();
 header('Content-Type: application/json');
-curl_setopt($ch, CURLOPT_URL, $url."".$key);
+curl_setopt($ch, CURLOPT_URL, $url."".$joobleKey);
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, '{ "keywords": "software", "location": "Irvine", "radius":"25", "page": 3}');
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
@@ -41,7 +40,7 @@ for($i = 0; $i < count((array)$server_output->jobs); $i++){
     $location = $server_output->jobs[$i]->location;
     $cityFromApi = preg_replace("/, CA/", "", $location);
     $revisedCompanyName = cleanCompanyName($companyName);
-    $companySite = getCompanySite($revisedCompanyName);
+    $companySite = getCompanySite($companyName);
     $revisedCompanyName = str_replace(" ", "", $revisedCompanyName);
     $revisedCompanyName = str_replace(",", "", $revisedCompanyName);
     //check if company site is invalid, if so, give it a .com concat
@@ -69,7 +68,7 @@ for($i = 0; $i < count((array)$server_output->jobs); $i++){
         $zip = $locationObj["zip"];
         $lat = $locationObj["lat"];
         $long = $locationObj["long"];
-        $address = $locationObj["address"];
+        $address = $locationObj["fullAddress"];
         $location_id = mysqli_insert_id($conn);
         $query = "INSERT INTO `locations`(`company_id`, `street`, `city`, `state`, `zip`, `lat`, `lng`, `full_address`)
         VALUES ($location_id, '$street','$city','$state', '$zip', '$lat', '$long', '$address')";
@@ -114,6 +113,14 @@ for($i = 0; $i < count((array)$server_output->jobs); $i++){
         $company_id = $row["ID"];
         if($description == "No description available"){
             continue;
+        }
+
+        //handles case where salary is already in database, get salary ID of that specific salary
+        if(!$salary_id){
+            $salaryQuery = "SELECT `ID` FROM `salaries` WHERE `title_city`='$titleCity'";
+            $result = mysqli_query($conn, $salaryQuery);
+            $rowFromSalaryTable = mysqli_fetch_assoc($result);
+            $salary_id = $rowFromSalaryTable["ID"];
         }
         $query = "INSERT INTO `jobs`(`title`, `company_name`, `company_id`, `description`, `post_date`, `listing_url`, `type_id`, `title_comp`, `salary_id`) 
         VALUES ('$title', '$companyName', $company_id, '$description', '$postDate', '$link', $type, '$titleCompany', $salary_id)";

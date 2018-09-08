@@ -3,7 +3,7 @@ import './search_results.css';
 import NavBar from './nav_bar';
 import Card from './single_card';
 import Filters from './filters';
-import { Button, SideNav,SideNavItem } from 'react-materialize';
+import {SideNav,SideNavItem } from 'react-materialize';
 import {FaEllipsisV} from 'react-icons/fa';
 import {formatPostData} from "../helpers";
 import axios from 'axios';
@@ -25,6 +25,7 @@ class SearchResults extends Component {
 
 	async componentDidMount(){
 		if (Object.keys(navigator.geolocation).length) {
+			console.log("Get location Data");
             navigator.geolocation.getCurrentPosition(async (position) => {
 				var pos = {
 					lat: position.coords.latitude,
@@ -36,11 +37,22 @@ class SearchResults extends Component {
 				this.props.setTheme(this.props.theme.current);
 			});
 		} else {
+			console.log(" did Not Get location Data");
 				await this.getJobData(NaN, NaN);
 				this.populateCards(this.state.response.data.jobs);
 				this.props.setTheme(this.props.theme.current);
 		}	
 	}
+
+	
+	handleTitle(title){
+		let titleObj = {
+			"frontend": "Front End", 
+			"backend": "Back End",
+			"webdeveloper": "Web Developer"
+		};
+		return titleObj[title];
+    }
 
 	getFilterResponseData(respObj){
 		if(!this.state.response.data.success){
@@ -66,14 +78,15 @@ class SearchResults extends Component {
 	}
 	async getJobData(userLat , userLng){
 		const {city, job} = this.props.match.params;
+		let refinedJob = this.handleTitle(job);
+		console.log('refinded', refinedJob);
 		if(event){
 			event.preventDefault();   //will need to address isue with backend about querys accounting for spaces or no spaces
 		}
-		let formatedJob = this.handleTitle(job);
 		const initialSearchParams = {
-            title: formatedJob, 
-			location: city,
-			id:'',
+           title: refinedJob, 
+			     location: city,
+			      id:'',
             minSalary:'',
             maxSalary:'',
             distance:'',
@@ -121,8 +134,8 @@ class SearchResults extends Component {
 				<div className = {`main-cont ${this.props.theme.background}`}>
 						<NavBar/>
 						<SideNav
-					  	trigger = {<div className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>}
-					  	options={{closeOnClick:true}}
+					  		trigger = {<div className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>}
+					  		options={{closeOnClick:true}}
 						>
 							<SideNavItem>
 							  <Filters getFilterData = {this.getFilterResponseData.bind(this)} job={this.props.match.params.job} city={this.props.match.params.city}/>
