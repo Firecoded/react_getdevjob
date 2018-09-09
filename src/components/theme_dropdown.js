@@ -26,7 +26,7 @@ class ThemeDropDown extends Component {
 	render() {
 		return (
 			<div className = {` theme-dropdown ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>	
-				<Input s={12} type ='select'  name="theme" defaultValue = 'Dark Theme' onChange={this.handleInputChange.bind(this)}>
+				<Input s={12} type ='select'  name="theme" defaultValue = {this.props.theme.current} onChange={this.handleInputChange.bind(this)}>
 	                <option value = 'dark'> Dark Theme</option>
 	                <option value = 'light'> Light Theme</option>
 	                <option value = 'gotham'> Gotham Theme</option>
