@@ -24,6 +24,7 @@ class SearchResults extends Component {
 	}
 
 	async componentDidMount(){
+		$('.side-nav-control').sideNav();
 		if (Object.keys(navigator.geolocation).length) {
 			console.log("Get location Data");
             navigator.geolocation.getCurrentPosition(async (position) => {
@@ -111,20 +112,22 @@ class SearchResults extends Component {
 		})
 	}
 
+	openSideNav(){
+		$('.side-nav-control').sideNav('show');
+	}
+
 	render() {
 		return (
 			<div className = 'parent-div'>
 				<div className = 'spacer-div'></div>
 				<div className = {`main-cont ${this.props.theme.background}`}>
 						<NavBar/>
-						<SideNav
-					  		trigger = {<div className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>}
-					  		options={{closeOnClick:true}}
-						>
-							<SideNavItem>
-							  <Filters getFilterData = {this.getFilterResponseData.bind(this)} job={this.props.match.params.job} city={this.props.match.params.city}/>
-							</SideNavItem>
-						</SideNav>	
+						<div onClick={this.openSideNav} className="side-nav-control" data-activates="filterSideNav" className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>
+						<ul id="filterSideNav" className="side-nav">
+							<li>
+								<Filters getFilterData = {this.getFilterResponseData.bind(this)} job={this.props.match.params.job} city={this.props.match.params.city}/>
+							</li>
+						</ul>
 					<div className = "load-cont" style = {this.state.loaded ? {'display':'none'} : {} }>						
 						{!this.state.loaded ? <Loading/> : '' }
 					</div>

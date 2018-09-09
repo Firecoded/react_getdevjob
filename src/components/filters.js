@@ -33,11 +33,11 @@ class Filters extends Component {
             userLng:"-117.740481",
         }
         this.submitFormData = this.submitFormData.bind(this);
-
     }
 
     //once component did mount, change the state to appropriate title
     componentDidMount(){
+        // $('#close-btn').sideNav();
         this.setState({
             title: this.handleTitle(this.props.job)
         })
@@ -74,6 +74,7 @@ class Filters extends Component {
         const resp = await axios.post("http://localhost:8000/api/get_joblist.php", params);
         console.log("things sent: ", this.state);
         this.props.getFilterData(resp);
+        $('.side-nav-control').sideNav('hide');
     }
 
     render(){
@@ -133,7 +134,7 @@ class Filters extends Component {
                         <Input s={6} name='employmentTypeFullTime' type='checkbox' checked={this.state.employmentTypeFullTime} value = 'fullTime' label='Full'  onChange={this.handleCheckBox.bind(this)}/>
                     </Row>
                     <Row>
-                        <button className='btn col offset-s2'>Submit Filters</button>
+                        <button data-activates="filterSideNav" className='side-nav-control btn col offset-s2'>Submit Filters</button>
                     </Row>
                 </form>
             )

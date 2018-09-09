@@ -26,7 +26,12 @@ class LandingPage extends Component {
 	}
 
 	componentDidMount(){
+		if(localStorage.getItem('theme')){
+			this.props.setTheme(localStorage.getItem('theme'));
+		} else {
 		this.props.setTheme(this.props.theme.current);
+
+		}		
 	}
 
 	handleLPModalOpen(){
