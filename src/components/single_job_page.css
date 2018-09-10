@@ -99,3 +99,10 @@
     transform: translateX(-100%);
     margin:0% 5%;
 }
+.sp-load-cont{
+    height: 100vh;
+}
+.sp-load-position{
+    display: flex;
+    justify-content: center;
+}
