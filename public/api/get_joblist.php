@@ -131,6 +131,7 @@
                 $i--;   
                 continue;
             }
+
             // echo "company: $company";   
             $distanceFromUserToCompany = getDistance($userLat, $userLng, $companyLat, $companyLng);
             // echo $output["jobs"][$i]["company"]["name"];
