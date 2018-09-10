@@ -68,6 +68,7 @@ class SearchResults extends Component {
 			response: respObj,
 			loaded: true
 		})
+
 		console.log('get filter resp data respObj', respObj)
 
 		this.populateCards(this.state.response.data.jobs);
@@ -82,7 +83,6 @@ class SearchResults extends Component {
 	async getJobData(userLat , userLng){
 		const {city, job} = this.props.match.params;
 		let refinedJob = this.handleTitle(job);
-		console.log('refinded', refinedJob);
 		if(event){
 			event.preventDefault();   //will need to address isue with backend about querys accounting for spaces or no spaces
 		}
@@ -103,7 +103,7 @@ class SearchResults extends Component {
             userLng:userLng,
         }	
 		const params = formatPostData(initialSearchParams);
-		const resp = await axios.post("/api/get_joblist.php", params); 
+		const resp = await axios.post("/api/get_joblist.php", params);
 		this.setState({response:resp, loaded: true})
 		console.log(resp)		   
     }
@@ -114,7 +114,8 @@ class SearchResults extends Component {
 			return;
 		}
 		console.log('populate cards function', array)
-		let alt = 0;
+
+    let alt = 0;
 		let leftArray =[];
 		let rightArray =[];
 		for (var index=0; index < array.length; index++){
