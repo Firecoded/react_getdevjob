@@ -3,7 +3,7 @@ import './search_results.css';
 import NavBar from './nav_bar';
 import Card from './single_card';
 import Filters from './filters';
-import { Button, SideNav,SideNavItem } from 'react-materialize';
+import {SideNav,SideNavItem } from 'react-materialize';
 import {FaEllipsisV} from 'react-icons/fa';
 import {formatPostData} from "../helpers";
 import axios from 'axios';
@@ -24,7 +24,9 @@ class SearchResults extends Component {
 	}
 
 	async componentDidMount(){
+		$('.side-nav-control').sideNav();
 		if (Object.keys(navigator.geolocation).length) {
+			console.log("Get location Data");
             navigator.geolocation.getCurrentPosition(async (position) => {
 				var pos = {
 					lat: position.coords.latitude,
@@ -36,6 +38,7 @@ class SearchResults extends Component {
 				this.props.setTheme(this.props.theme.current);
 			});
 		} else {
+			console.log(" did Not Get location Data");
 				await this.getJobData(NaN, NaN);
 				this.populateCards(this.state.response.data.jobs);
 				this.props.setTheme(this.props.theme.current);
@@ -53,13 +56,30 @@ class SearchResults extends Component {
     }
 
 	getFilterResponseData(respObj){
+		if(!this.state.response.data.success){
+			this.setState({
+				loaded: false
+			})
+			console.log('Filter response false', this.state.response.data.success)
+			return;
+
+		}
 		this.setState({
-			response: respObj
+			response: respObj,
+			loaded: true
 		})
-		console.log("response Object: ", respObj);
+
+		console.log('get filter resp data respObj', respObj)
+
 		this.populateCards(this.state.response.data.jobs);
 	}
-	
+	handleTitle(title){
+        const titleObj = 
+        {"frontend": "Front End", 
+         "backend": "Back End", 
+         "webdeveloper": "Web Developer"};
+        return titleObj[title];     
+	}
 	async getJobData(userLat , userLng){
 		const {city, job} = this.props.match.params;
 		let refinedJob = this.handleTitle(job);
@@ -83,13 +103,19 @@ class SearchResults extends Component {
             userLng:userLng,
         }	
 		const params = formatPostData(initialSearchParams);
-		const resp = await axios.post("/api/get_joblist.php", params); 
-		console.log("things sent: ", initialSearchParams);
-		this.setState({response:resp, loaded: true})		   
+		const resp = await axios.post("/api/get_joblist.php", params);
+		this.setState({response:resp, loaded: true})
+		console.log(resp)		   
     }
 
 	populateCards(array){
-		let alt = 0;
+		if(array.length < 1){
+			console.log('array given to populate cards has no length');
+			return;
+		}
+		console.log('populate cards function', array)
+
+    let alt = 0;
 		let leftArray =[];
 		let rightArray =[];
 		for (var index=0; index < array.length; index++){
@@ -104,9 +130,13 @@ class SearchResults extends Component {
 			}
 		}
 		this.setState({
-				left:leftArray,
-				right: rightArray
+			left:leftArray,
+			right: rightArray
 		})
+	}
+
+	openSideNav(){
+		$('.side-nav-control').sideNav('show');
 	}
 
 	render() {
@@ -115,14 +145,12 @@ class SearchResults extends Component {
 				<div className = 'spacer-div'></div>
 				<div className = {`main-cont ${this.props.theme.background}`}>
 						<NavBar/>
-						<SideNav
-					  		trigger = {<div className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>}
-					  		options={{closeOnClick:true}}
-						>
-							<SideNavItem>
-							  <Filters getFilterData = {this.getFilterResponseData.bind(this)} job={this.props.match.params.job} city={this.props.match.params.city}/>
-							</SideNavItem>
-						</SideNav>	
+						<div onClick={this.openSideNav} className="side-nav-control" data-activates="filterSideNav" className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>
+						<ul id="filterSideNav" className="side-nav">
+							<li>
+								<Filters getFilterData = {this.getFilterResponseData.bind(this)} job={this.props.match.params.job} city={this.props.match.params.city}/>
+							</li>
+						</ul>
 					<div className = "load-cont" style = {this.state.loaded ? {'display':'none'} : {} }>						
 						{!this.state.loaded ? <Loading/> : '' }
 					</div>
