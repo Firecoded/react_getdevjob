@@ -3,7 +3,6 @@ import './search_results.css';
 import NavBar from './nav_bar';
 import Card from './single_card';
 import Filters from './filters';
-import {SideNav,SideNavItem } from 'react-materialize';
 import {FaEllipsisV} from 'react-icons/fa';
 import {formatPostData} from "../helpers";
 import axios from 'axios';
@@ -35,13 +34,25 @@ class SearchResults extends Component {
 				let {lat,lng} = pos;
 				await this.getJobData(lat, lng);
 				this.populateCards(this.state.response.data.jobs);
+				if(localStorage.getItem('theme')){
+					console.log("THEME ITEM",localStorage.getItem('theme'));
+					this.props.setTheme(localStorage.getItem('theme'));
+				} else {
+					console.log("No THEME SET", this.props.theme.current);
 				this.props.setTheme(this.props.theme.current);
+				}
 			});
 		} else {
 			console.log(" did Not Get location Data");
 				await this.getJobData(NaN, NaN);
 				this.populateCards(this.state.response.data.jobs);
+				if(localStorage.getItem('theme')){
+					console.log("THEME ITEM",localStorage.getItem('theme'));
+					this.props.setTheme(localStorage.getItem('theme'));
+				} else {
+					console.log("No THEME SET", this.props.theme.current);
 				this.props.setTheme(this.props.theme.current);
+				}
 		}	
 	}
 
@@ -82,7 +93,6 @@ class SearchResults extends Component {
 	async getJobData(userLat , userLng){
 		const {city, job} = this.props.match.params;
 		let refinedJob = this.handleTitle(job);
-		console.log('refinded', refinedJob);
 		if(event){
 			event.preventDefault();   //will need to address isue with backend about querys accounting for spaces or no spaces
 		}
@@ -104,16 +114,15 @@ class SearchResults extends Component {
         }	
 		const params = formatPostData(initialSearchParams);
 		const resp = await axios.post("/api/get_joblist.php", params); 
-		this.setState({response:resp, loaded: true})
-		console.log(resp)		   
+		this.setState({response:resp, loaded: true})		   
     }
 
 	populateCards(array){
 		if(array.length < 1){
 			return;
 		}
-		console.log('populate cards function', array)
-		let alt = 0;
+		
+		let alt = 1;
 		let leftArray =[];
 		let rightArray =[];
 		for (var index=0; index < array.length; index++){

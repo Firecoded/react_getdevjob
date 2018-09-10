@@ -87,21 +87,20 @@ class GoogleMap extends Component {
     toggleMap(event){
         let modalMap = document.getElementById("map" + this.state.key);
         let modalStreetview = document.getElementById("pano" + this.state.key);
-        debugger;
         if(this.state.map === true){
            this.setState({
                map:false
            }) ;
-            modalMap.style.zIndex = 1;
-            modalStreetview.style.zIndex = 2;
+            modalMap.style.zIndex = 2;
+            modalStreetview.style.zIndex = 1;
 
             return;
         } else {
             this.setState({
                 map:true
             }) ;
-            modalMap.style.zIndex = 2;
-            modalStreetview.style.zIndex = 1;
+            modalMap.style.zIndex = 1;
+            modalStreetview.style.zIndex = 2;
         }
     }
     

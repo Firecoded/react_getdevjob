@@ -16,8 +16,13 @@ class NavBar extends Component {
 		}
 	}
 	componentDidMount(){
+		if(localStorage.getItem('theme')){
+			this.props.setTheme(localStorage.getItem('theme'));
+		} else {
 		this.props.setTheme(this.props.theme.current);
-		localStorage.setItem('theme',this.props.theme.current);
+		}
+		console.log("WITNESS MEEEEEE : ", this.props);
+		// localStorage.setItem('theme',this.props.theme.current);
 	}
 
 	render() {

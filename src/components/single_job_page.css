@@ -48,7 +48,7 @@
 .sp-jobTitle{
     margin:0% 0% 5%;
     font-size: 1.75rem;
-    width: 50%;
+    width: 85%;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -98,4 +98,8 @@
     left:25%;
     transform: translateX(-100%);
     margin:0% 5%;
+}
+
+.sp-fullText{
+    height: 78vh !important;
 }

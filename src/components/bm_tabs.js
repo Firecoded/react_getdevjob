@@ -38,7 +38,7 @@ class TabsInfo extends Component{
         } else {
             return(
                 <div className='row'>
-                    <p className='center'>Company website unavailable at this time</p>
+                    <p className={`center ${titleText1}`} >Company website unavailable at this time</p>
                     <a className='btn col offset-s4 s4 blue disabled' >Company</a>
                 </div>
             )
@@ -57,7 +57,7 @@ class TabsInfo extends Component{
             linkedin_url = null;
             return (
                 <div className='row'>
-                    <p className='center'>LinkedIn info unavailable at this time</p>
+                    <p className={`center ${titleText1}`}>LinkedIn info unavailable at this time</p>
                     <a className='btn col offset-s4 s4 blue disabled' >LinkedIn</a>
                 </div>
             )
@@ -91,12 +91,11 @@ class TabsInfo extends Component{
                         <div className='col s12' id='Details'>
                             <ul className = "bm-details center">
                                 <li className={`${titleText1}`}>companyAddress()</li>
-                                <li className={`${text1}`}>{full_address}</li>
+                                <li className={`${text1}`}>{full_address ? full_address : "Location info unavailable"}</li>
                                 <li className={`${titleText1}`}>estDriveTime()</li>
-                                <li className={`${text1}`}>{this.props.duration}</li>
+                                <li className={`${text1}`}>{this.props.duration ? this.props.duration : "Feature requires geolocation sharing"}</li>
                                 <li className={`${titleText1}`}>distanceFromMe()</li>
-                                <li className={`${text1}`}>{this.props.distance}</li>
-
+                                <li className={`${text1}`}>{this.props.distance ? this.props.distance : "Feature requires geolocation sharing"}</li>
                             </ul>
                         </div>
                     </div>
