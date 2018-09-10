@@ -32,7 +32,7 @@ class TabsInfo extends Component{
             return (
                 <div className='row'>
                     <p className={`center ${titleText1}`}>Learn about the company through their website</p>
-                    <a href = {company_website}  target ="_blank" className={`btn col offset-s4 s4 ${buttonStyle}`} >Company</a>
+                    <a href = {company_website}  target ="_blank" className={`btn col offset-s4 s4 ${buttonStyle} ${this.props.theme.buttonText}`} >Company</a>
                 </div>
             )
         } else {
@@ -50,7 +50,7 @@ class TabsInfo extends Component{
             return (
                 <div className='row'>
                     <p className={`center ${titleText1}`}>Do you know anyone working here?</p>
-                    <a href = {linkedin_url} target= '_blank' className={`btn col offset-s4 s4 ${buttonStyle}`} >LinkedIn</a>
+                    <a href = {linkedin_url} target= '_blank' className={`btn col offset-s4 s4 ${buttonStyle} ${this.props.theme.buttonText}`} >LinkedIn</a>
                 </div>
             )
         } else{
@@ -107,7 +107,7 @@ class TabsInfo extends Component{
                             {this.validateLinkedIn(titleText1, this.props.theme.button)}
                             <div className='row'>
                                 <p className={`center ${titleText1}`}>Any new or relavent business articles?</p>
-                                <a href = {ocr_url} target= '_blank' className={`btn col offset-s4 s4 ${this.props.theme.button}`} >Check OCR</a>
+                                <a href = {ocr_url} target= '_blank' className={`btn col offset-s4 s4 ${this.props.theme.button} ${this.props.theme.buttonText}`} >Check OCR</a>
                             </div>
                         </div>
                     </div>

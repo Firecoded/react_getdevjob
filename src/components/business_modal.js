@@ -30,12 +30,12 @@ class BusinessModal extends Component {
         if(!isNaN(this.props.lat)){
             return ( 
             <div className ="bm-map">
-                <GoogleMap lat={lat} lng={lng} id={pullId} isOpen={isOpen} drivingInfo={this.getDrivingData}/>
+                <GoogleMap lat={lat} lng={lng} id={pullId} isOpen={isOpen} drivingInfo={this.getDrivingData} theme={this.props.theme} />
             </div>)
         } else {
             return ( 
                 <div className ="bm-map noMap">
-                    <GoogleMap lat={lat} lng={lng} id={pullId} isOpen={isOpen} drivingInfo={this.getDrivingData}/>
+                    <GoogleMap lat={lat} lng={lng} id={pullId} isOpen={isOpen} drivingInfo={this.getDrivingData} theme={this.props.theme}/>
                 </div>)
         }
     }
@@ -65,8 +65,8 @@ class BusinessModal extends Component {
                     <div className="row bm-columnContainer">
                         <div className={`bm-leftColumn card-panel hoverable ${this.props.theme.background}`}>
                             <div className="row bm-buttonRow">
-                                <a href={listing_url} target ="_blank" className={`btn ${this.props.theme.button}`}>Apply</a>
-                                <button className={`btn ${this.props.theme.button}`}>Share</button>
+                                <a href={listing_url} target ="_blank" className={`btn ${this.props.theme.button} ${this.props.theme.buttonText}`}>Apply</a>
+                                <button className={`btn ${this.props.theme.button} ${this.props.theme.buttonText}`}>Share</button>
                             </div>
                             <div className='bm-companyName'>
                                 <img src={logo} />

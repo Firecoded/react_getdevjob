@@ -90,7 +90,7 @@ class SingleJobPage extends Component {
         return (
             <div className={`bm-jobDetails `}>
                 <label>Job Description</label>
-                <p className ={`bm-jobDescription ${this.props.theme.text1} ${(!isNaN(lat) || !isNaN(lng)) ? 'sp-fullText' : ""}`} dangerouslySetInnerHTML={{__html:description}}></p>
+                <p className ={`bm-jobDescription ${this.props.theme.text1} ${(lat == '') ? 'sp-fullText' : ""}`} dangerouslySetInnerHTML={{__html:description}}></p>
             </div>
         )
     }
@@ -124,8 +124,8 @@ class SingleJobPage extends Component {
                     <div className="row">
                         <div className={`sp-leftColumn card-panel hoverable ${this.props.theme.background}`}>
                             <div className="row sp-buttonRow">
-                                <Link to='/' className={`btn ${this.props.theme.button}`}>Home</Link> 
-                                <a href={listing_url} target ="_blank" className={`btn ${this.props.theme.button}`}>Apply</a>
+                                <Link to='/' className={`btn ${this.props.theme.button} ${this.props.theme.buttonText}`}>Home</Link> 
+                                <a href={listing_url} target ="_blank" className={`btn ${this.props.theme.button} ${this.props.theme.buttonText}`}>Apply</a>
                                 
                             </div>
                             <div className='sp-companyName'>
