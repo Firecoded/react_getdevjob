@@ -110,7 +110,6 @@ class SearchResults extends Component {
 
 	populateCards(array){
 		if(array.length < 1){
-			console.log('array given to populate cards has no length');
 			return;
 		}
 		console.log('populate cards function', array)
