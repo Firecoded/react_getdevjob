@@ -12,6 +12,22 @@
         "success"=>false
     ];
     $title = $_POST["title"];
+    $locationFromSearch = $_POST["location"];
+    $locationObject = [
+        "losangeles"=>[
+            "lat"=>34.0522,
+            "lng"=>-118.2437
+        ],
+        "sandiego"=>[
+            "lat"=>32.7157,
+            "lng"=>-117.1611
+        ],
+        "irvine"=>[
+            "lat"=>33.6846,
+            "lng"=>-117.8265
+        ]
+    ];
+
 // start query
     $query = "SELECT * FROM `jobs`";
     $andFlag = false;
@@ -123,7 +139,7 @@
         for($i = 0; $i < count($output["jobs"]); $i++){
             $companyLat = $output["jobs"][$i]["company"]["location"]["lat"];
             $companyLng = $output["jobs"][$i]["company"]["location"]["lng"];
-            $company = $output['jobs'][$i]['company']['name'];
+            $company = $output["jobs"][$i]["company"]["name"];
             //if company location not available, remove from output array
             if(!$companyLat){
                 array_splice($output["jobs"], $i, 1);
@@ -132,10 +148,7 @@
                 continue;
             }
 
-            // echo "company: $company";   
             $distanceFromUserToCompany = getDistance($userLat, $userLng, $companyLat, $companyLng);
-            // echo $output["jobs"][$i]["company"]["name"];
-
             //if distance between company and user location is greater than distance in filter, remove it from output array
             if($distanceFromUserToCompany > intval($_POST["distance"])){
                 array_splice($output["jobs"], $i, 1);
@@ -147,7 +160,5 @@
 
     
     $output = json_encode($output);
-
-
     print_r($output);
 ?>

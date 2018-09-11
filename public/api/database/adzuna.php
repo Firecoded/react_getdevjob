@@ -62,7 +62,7 @@
             if(mysqli_affected_rows($conn)=== -1){
                 $output['error'][]= "## Company insert query error";
             }
-// add locations query
+        // add locations query
             $addressObject = getGoogleObj($address_query);
             $fullAddress = $addressObject["fullAddress"];
             $lat = $addressObject["lat"];

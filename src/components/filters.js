@@ -16,6 +16,12 @@ class Filters extends Component {
 			"backend": "Back End",
 			"webdeveloper": "Web Developer"
         };
+
+        this.cityObj = {
+            "Losangeles": "Los Angeles",
+            "Sandiego": "San Diego",
+            "Irvine": "Irvine"
+        }
         
         this.state = {
             title: "",
@@ -68,6 +74,11 @@ class Filters extends Component {
 		  return this.titleObj[title];
     }
 
+    //grabs city from url and formats it
+    handleCity(city){
+        return this.cityObj[city];
+    }
+
     async submitFormData(event){
         event.preventDefault();
         const params = formatPostData(this.state);
@@ -80,7 +91,7 @@ class Filters extends Component {
     render(){
         const minSalary = "All Available";
         let job = this.handleTitle(this.props.job);
-        let city = this.props.city.charAt(0).toUpperCase() + this.props.city.slice(1);
+        let city = this.handleCity(this.props.city.charAt(0).toUpperCase() + this.props.city.slice(1));
         return (
                 <form className ="sidebar" onSubmit={this.submitFormData}>
                     <Row>
