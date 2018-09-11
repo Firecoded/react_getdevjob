@@ -104,6 +104,15 @@
             $salary_id = mysqli_insert_id($conn);
         }
 
+        //skip appcast.io -> cant scape description
+        if($server_output->jobs[$i]->source === "appcast.io"  ){
+            continue;
+         }
+        // Checks if listing was posted within 2 months of current date
+        $dateTwoMonthsAgo = date("m/d/Y", strtotime("-2 months"));
+         if($post_date < $dateTwoMonthsAgo){
+             continue;
+         }
 
  // write query to select titles that are repeated
         $checkJobExistance = "SELECT * FROM `jobs` WHERE `title_comp` = '$title_name'";
