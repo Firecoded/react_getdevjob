@@ -30,7 +30,6 @@ class LandingPage extends Component {
 			this.props.setTheme(localStorage.getItem('theme'));
 		} else {
 		this.props.setTheme(this.props.theme.current);
-
 		}		
 	}
 

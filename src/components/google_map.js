@@ -87,21 +87,20 @@ class GoogleMap extends Component {
     toggleMap(event){
         let modalMap = document.getElementById("map" + this.state.key);
         let modalStreetview = document.getElementById("pano" + this.state.key);
-        debugger;
         if(this.state.map === true){
            this.setState({
                map:false
            }) ;
-            modalMap.style.zIndex = 1;
-            modalStreetview.style.zIndex = 2;
+            modalMap.style.zIndex = 2;
+            modalStreetview.style.zIndex = 1;
 
             return;
         } else {
             this.setState({
                 map:true
             }) ;
-            modalMap.style.zIndex = 2;
-            modalStreetview.style.zIndex = 1;
+            modalMap.style.zIndex = 1;
+            modalStreetview.style.zIndex = 2;
         }
     }
     
@@ -119,7 +118,7 @@ class GoogleMap extends Component {
             <div className ="googleContainer">
                 <div ref={(e) => this.map = e} id = {"map" + this.state.key} className="map"></div>
                 <div id={"pano" + this.state.key} className="pano" ref={(e) => this.panorama = e}></div>
-                <button className = "mapStreetViewToggle btn" onClick={this.toggleMap.bind(this)} >Street View</button>
+                <button className = {`mapStreetViewToggle btn ${this.props.theme.button} ${this.props.theme.buttonText}`} onClick={this.toggleMap.bind(this)} >Street View</button>
             </div>
         )
     }}
