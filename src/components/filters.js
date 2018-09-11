@@ -46,7 +46,8 @@ class Filters extends Component {
     componentDidMount(){
         // $('#close-btn').sideNav();
         this.setState({
-            title: this.handleTitle(this.props.job)
+            title: this.handleTitle(this.props.job),
+            location: this.handleCity(this.props.city)
         })
     }
 
