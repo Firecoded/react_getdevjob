@@ -31,7 +31,6 @@ class ThemeDropDown extends Component {
 		localStorage.setItem('theme' , value);
 	}
 	render() {
-		console.log("This props", '')
 		return (
 			<div className = {` theme-dropdown ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>	
 				<Input s={12} type ='select'  name="theme" defaultValue = {localStorage.getItem('theme')? localStorage.getItem('theme'): "dark"} onChange={this.handleInputChange.bind(this)}>
@@ -39,6 +38,8 @@ class ThemeDropDown extends Component {
 	                <option value = 'light'> Light Theme</option>
 	                <option value = 'gotham'> Gotham Theme</option>
 					<option value = 'panda'> Panda Syntax</option>
+					<option value = 'monokai'>Monokai</option>
+					<option value = 'soldark'>Solarized Dark</option>
 	            </Input>
 	        </div>    
 		);
