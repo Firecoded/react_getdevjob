@@ -7,6 +7,7 @@ import { formatPostData } from '../helpers';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import {setTheme} from '../actions';
+import Loading from './loading';
 
 
 
@@ -109,7 +110,13 @@ class SingleJobPage extends Component {
     render(){
         console.log('theme', this.props)
         if(!this.state.response){
-            return <h1> Loading </h1>;  // loading animation
+            return ( 
+                    <div className = {`sp-load-cont ${this.props.theme.background}`}>
+                        <div className = 'sp-load-position'> 
+                            <Loading/> 
+                        </div>
+                    </div> 
+                    )
         } else {
         let {company_name, description, listing_url, title } = this.state.response;
         const { logo } = this.state.response.company;  

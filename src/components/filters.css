@@ -23,3 +23,14 @@ svg {
 .side-nav a:hover {
      background-color: transparent !important; 
 }
+.input-row * {
+	background-color: inherit !important;
+	color: inherit !important;
+}
+.input-field label:not(.label-icon).active{
+	margin-top:23px;
+}
+.input-row button {
+	background-color: initial !important;
+	color: initial !important;
+}

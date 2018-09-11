@@ -120,21 +120,31 @@
     if($_POST["userLat"] !== "" && $_POST["userLng"] !== "" && $_POST["distance"] !== ""){
         $userLat = $_POST["userLat"];
         $userLng = $_POST["userLng"];
-        $length = count($output["jobs"]);
-        for($i = 0; $i < $length; $i++){
+        for($i = 0; $i < count($output["jobs"]); $i++){
             $companyLat = $output["jobs"][$i]["company"]["location"]["lat"];
             $companyLng = $output["jobs"][$i]["company"]["location"]["lng"];
             $company = $output['jobs'][$i]['company']['name'];
+            //if company location not available, remove from output array
+            if(!$companyLat){
+                array_splice($output["jobs"], $i, 1);
+                //reindex i to hold last position
+                $i--;   
+                continue;
+            }
+
             // echo "company: $company";   
             $distanceFromUserToCompany = getDistance($userLat, $userLng, $companyLat, $companyLng);
             // echo $output["jobs"][$i]["company"]["name"];
 
-            //if distance between company and user location is less than distance in filter, remove it from output array
-            if($distanceFromUserToCompany < intval($_POST["distance"])){
-                unset($output["jobs"][$i]);
+            //if distance between company and user location is greater than distance in filter, remove it from output array
+            if($distanceFromUserToCompany > intval($_POST["distance"])){
+                array_splice($output["jobs"], $i, 1);
+                $i--;
             }
         }
     }
+
+
     
     $output = json_encode($output);
 

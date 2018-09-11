@@ -79,6 +79,7 @@ class SearchResults extends Component {
 			response: respObj,
 			loaded: true
 		})
+
 		console.log('get filter resp data respObj', respObj)
 
 		this.populateCards(this.state.response.data.jobs);
@@ -120,8 +121,7 @@ class SearchResults extends Component {
 	populateCards(array){
 		if(array.length < 1){
 			return;
-		}
-		
+		}		
 		let alt = 1;
 		let leftArray =[];
 		let rightArray =[];
@@ -153,7 +153,7 @@ class SearchResults extends Component {
 				<div className = {`main-cont ${this.props.theme.background}`}>
 						<NavBar/>
 						<div onClick={this.openSideNav} className="side-nav-control" data-activates="filterSideNav" className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>
-						<ul id="filterSideNav" className="side-nav">
+						<ul id="filterSideNav" className={`side-nav ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
 							<li>
 								<Filters getFilterData = {this.getFilterResponseData.bind(this)} job={this.props.match.params.job} city={this.props.match.params.city}/>
 							</li>
