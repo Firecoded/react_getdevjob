@@ -97,8 +97,14 @@ for($i = 0; $i < count((array)$server_output->jobs); $i++){
     }
 
     //skip appcast.io -> cant scape description
-    if($server_output->jobs[$i]->source === "appcast.io"){
+    if($server_output->jobs[$i]->source === "appcast.io"  ){
        continue;
+    }
+
+    // Checks if listing was posted within 2 months of current date
+    $dateTwoMonthsAgo = date("m/d/Y", strtotime("-2 months"));
+    if($post_date < $dateTwoMonthsAgo){
+        continue;
     }
 
     //insert into jobs table

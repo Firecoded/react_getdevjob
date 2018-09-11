@@ -98,6 +98,8 @@
         $count = 0;
         while($row = mysqli_fetch_assoc($result)){
             $output["jobs"][] = $row;
+
+
             //get company/salary id to relate to jobs
             $companyID = $row["company_id"];
             $salaryID = $row["salary_id"];

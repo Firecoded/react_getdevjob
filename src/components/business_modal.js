@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import GoogleMap from './google_map';
 import './business_modal.css';
 import TabsInfo from './bm_tabs';
+import { Link } from 'react-router-dom';
 
 class BusinessModal extends Component {
     constructor(props){
@@ -30,12 +31,12 @@ class BusinessModal extends Component {
         if(!isNaN(this.props.lat)){
             return ( 
             <div className ="bm-map">
-                <GoogleMap lat={lat} lng={lng} id={pullId} isOpen={isOpen} drivingInfo={this.getDrivingData}/>
+                <GoogleMap lat={lat} lng={lng} id={pullId} isOpen={isOpen} drivingInfo={this.getDrivingData} theme={this.props.theme} />
             </div>)
         } else {
             return ( 
                 <div className ="bm-map noMap">
-                    <GoogleMap lat={lat} lng={lng} id={pullId} isOpen={isOpen} drivingInfo={this.getDrivingData}/>
+                    <GoogleMap lat={lat} lng={lng} id={pullId} isOpen={isOpen} drivingInfo={this.getDrivingData} theme={this.props.theme}/>
                 </div>)
         }
     }
@@ -47,7 +48,7 @@ class BusinessModal extends Component {
             description = "<h5>No Job Description Provided</h5>";
         }
         return (
-            <div className={`bm-jobDetails `}>
+            <div className={`bm-jobDetails hoverable`}>
                 <label>Job Description</label>
                 <p className ={`bm-jobDescription ${this.props.theme.text1} ${(isNaN(lat) || isNaN(lng)) ? 'fullText' : ""}`} dangerouslySetInnerHTML={{__html:description}}></p>
             </div>
@@ -55,18 +56,18 @@ class BusinessModal extends Component {
     }
 
     render(){
-        const { lat, lng, pullId, details, isOpen } = this.props;
+        const { details} = this.props;
         const {title, company_name, listing_url, company } = details;
         const {logo} = company;
-
+        let linkQuery = this.props.match.url + '/' + this.props.details.ID;
         return (
             <div className={`container modalBody ${this.props.theme.navColor}`}>
                 <div className='modalPosition'>
                     <div className="row bm-columnContainer">
                         <div className={`bm-leftColumn card-panel hoverable ${this.props.theme.background}`}>
                             <div className="row bm-buttonRow">
-                                <a href={listing_url} target ="_blank" className={`btn ${this.props.theme.button}`}>Apply</a>
-                                <button className={`btn ${this.props.theme.button}`}>Share</button>
+                                <a href={listing_url} target ="_blank" className={`btn ${this.props.theme.button} ${this.props.theme.buttonText}`}>Apply</a>
+                                <Link to = {linkQuery} target="_blank" className ={`btn ${this.props.theme.button} ${this.props.theme.buttonText}`}>Share</Link>
                             </div>
                             <div className='bm-companyName'>
                                 <img src={logo} />

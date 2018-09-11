@@ -7,6 +7,7 @@ import { formatPostData } from '../helpers';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import {setTheme} from '../actions';
+import Loading from './loading';
 
 
 
@@ -39,8 +40,13 @@ class SingleJobPage extends Component {
     }
     
     componentDidMount(){
-        let savedTheme = localStorage.getItem('theme');
-        this.props.setTheme(savedTheme);
+        if(localStorage.getItem('theme')){
+            console.log("THEME ITEM",localStorage.getItem('theme'));
+            this.props.setTheme(localStorage.getItem('theme'));
+        } else {
+            console.log("No THEME SET", this.props.theme.current);
+        this.props.setTheme(this.props.theme.current);
+        }
         this.getSingleJobId(this.props.match.params.job_id, this.singleJobItem);
         this.submitSingleJobData();
     }
@@ -58,6 +64,40 @@ class SingleJobPage extends Component {
         jobObject.id = id;
     }
 
+    noMapSinglePage(){
+        const {lat} = this.state.response.company.location;
+        console.log("STTTAAAAATTTE ", this.state.response.company.location);
+        if(lat !== ""){
+            console.log("TRUE");
+            return ( 
+            <div className ="bm-map">
+                <GoogleMap lat={parseFloat(this.state.response.company.location.lat)} lng={parseFloat(this.state.response.company.location.lng)} isOpen={true} drivingInfo={this.getDrivingData}  theme = {this.props.theme}/>
+            </div>)
+        } else {
+            console.log("False");
+            return ( 
+                <div className ="bm-map noMap">
+                    <GoogleMap lat={parseFloat(this.state.response.company.location.lat)} lng={parseFloat(this.state.response.company.location.lng)} isOpen={true} drivingInfo={this.getDrivingData}  theme = {this.props.theme}/>
+                </div>)
+        }
+    }
+
+    noMapDescriptionSinglePage(){
+        let {description} = this.state.response;
+        const { lat, lng } = this.state.response.company.location;
+        if(description===''){
+            description = "<h5>No Job Description Provided</h5>";
+        }
+        return (
+            <div className={`sp-jobDetails hoverable`}>
+                <label>Job Description</label>
+                <p className ={`sp-jobDescription ${this.props.theme.text1} ${(lat == '') ? 'sp-fullText' : ""}`} dangerouslySetInnerHTML={{__html:description}}></p>
+            </div>
+        )
+    }
+
+
+
     async submitSingleJobData(event){
         const params = formatPostData(this.singleJobItem);
         
@@ -70,7 +110,13 @@ class SingleJobPage extends Component {
     render(){
         console.log('theme', this.props)
         if(!this.state.response){
-            return <h1> Loading </h1>;  // loading animation
+            return ( 
+                    <div className = {`sp-load-cont ${this.props.theme.background}`}>
+                        <div className = 'sp-load-position'> 
+                            <Loading/> 
+                        </div>
+                    </div> 
+                    )
         } else {
         let {company_name, description, listing_url, title } = this.state.response;
         const { logo } = this.state.response.company;  
@@ -85,8 +131,8 @@ class SingleJobPage extends Component {
                     <div className="row">
                         <div className={`sp-leftColumn card-panel hoverable ${this.props.theme.background}`}>
                             <div className="row sp-buttonRow">
-                                <Link to='/' className={`btn ${this.props.theme.button}`}>Home</Link> 
-                                <a href={listing_url} target ="_blank" className={`btn ${this.props.theme.button}`}>Apply</a>
+                                <Link to='/' className={`btn ${this.props.theme.button} ${this.props.theme.buttonText}`}>Home</Link> 
+                                <a href={listing_url} target ="_blank" className={`btn ${this.props.theme.button} ${this.props.theme.buttonText}`}>Apply</a>
                                 
                             </div>
                             <div className='sp-companyName'>
@@ -100,13 +146,8 @@ class SingleJobPage extends Component {
                         </div>
                         <div className='sp-rightColumn'>
                             <div className='row'>   
-                                <div className ="sp-map">
-                                  <GoogleMap lat={parseFloat(this.state.response.company.location.lat)} lng={parseFloat(this.state.response.company.location.lng)} isOpen={true} drivingInfo={this.getDrivingData}  theme = {this.props.theme}/>
-                                </div>
-                                <div className='sp-jobDetails'>
-                                    <label>Job Description</label>
-                                    <p className ={`sp-jobDescription ${this.props.theme.text1}`} dangerouslySetInnerHTML={{__html:description}}></p>
-                                </div>
+                                {this.noMapSinglePage()}
+                                {this.noMapDescriptionSinglePage()}
                             </div>
                         </div>
                     </div>

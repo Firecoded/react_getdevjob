@@ -3,7 +3,6 @@ import './search_results.css';
 import NavBar from './nav_bar';
 import Card from './single_card';
 import Filters from './filters';
-import {SideNav,SideNavItem } from 'react-materialize';
 import {FaEllipsisV} from 'react-icons/fa';
 import {formatPostData} from "../helpers";
 import axios from 'axios';
@@ -35,13 +34,25 @@ class SearchResults extends Component {
 				let {lat,lng} = pos;
 				await this.getJobData(lat, lng);
 				this.populateCards(this.state.response.data.jobs);
+				if(localStorage.getItem('theme')){
+					console.log("THEME ITEM",localStorage.getItem('theme'));
+					this.props.setTheme(localStorage.getItem('theme'));
+				} else {
+					console.log("No THEME SET", this.props.theme.current);
 				this.props.setTheme(this.props.theme.current);
+				}
 			});
 		} else {
 			console.log(" did Not Get location Data");
 				await this.getJobData(NaN, NaN);
 				this.populateCards(this.state.response.data.jobs);
+				if(localStorage.getItem('theme')){
+					console.log("THEME ITEM",localStorage.getItem('theme'));
+					this.props.setTheme(localStorage.getItem('theme'));
+				} else {
+					console.log("No THEME SET", this.props.theme.current);
 				this.props.setTheme(this.props.theme.current);
+				}
 		}	
 	}
 
@@ -98,20 +109,15 @@ class SearchResults extends Component {
             userLng:userLng,
         }	
 		const params = formatPostData(initialSearchParams);
-		const resp = await axios.post("/api/get_joblist.php", params);
-		console.log("search params: ", initialSearchParams);
-		this.setState({response:resp, loaded: true})
-		console.log(resp)		   
+		const resp = await axios.post("/api/get_joblist.php", params); 
+		this.setState({response:resp, loaded: true})		   
     }
 
 	populateCards(array){
 		if(array.length < 1){
-			console.log('array given to populate cards has no length');
 			return;
-		}
-		console.log('populate cards function', array)
-
-    let alt = 0;
+		}		
+		let alt = 1;
 		let leftArray =[];
 		let rightArray =[];
 		for (var index=0; index < array.length; index++){
@@ -142,7 +148,7 @@ class SearchResults extends Component {
 				<div className = {`main-cont ${this.props.theme.background}`}>
 						<NavBar/>
 						<div onClick={this.openSideNav} className="side-nav-control" data-activates="filterSideNav" className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>
-						<ul id="filterSideNav" className="side-nav">
+						<ul id="filterSideNav" className={`side-nav ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
 							<li>
 								<Filters getFilterData = {this.getFilterResponseData.bind(this)} job={this.props.match.params.job} city={this.props.match.params.city}/>
 							</li>
