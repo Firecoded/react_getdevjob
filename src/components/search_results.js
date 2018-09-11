@@ -98,7 +98,7 @@ class SearchResults extends Component {
 			id:'',
             minSalary:'',
             maxSalary:'',
-            distance:'',
+            distance:30,
             experience:'',
             postedDate:'',
             employmentTypeContract: false,
@@ -107,9 +107,11 @@ class SearchResults extends Component {
             employmentTypeFullTime: false,
             userLat:userLat,
             userLng:userLng,
-        }	
+		}	
+		console.log("params: ", initialSearchParams);
 		const params = formatPostData(initialSearchParams);
 		const resp = await axios.post("/api/get_joblist.php", params); 
+		console.log("response: ", resp);
 		this.setState({response:resp, loaded: true})		   
     }
 
