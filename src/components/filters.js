@@ -25,7 +25,7 @@ class Filters extends Component {
         
         this.state = {
             title: "",
-            location:'Irvine',
+            location:"",
             minSalary:'0',
             maxSalary:'200000',
             distance:'',

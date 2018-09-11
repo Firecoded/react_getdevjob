@@ -113,7 +113,7 @@ class SearchResults extends Component {
 			id:'',
             minSalary:'',
             maxSalary:'',
-            distance:'',
+            distance:30,
             experience:'',
             postedDate:'',
             employmentTypeContract: false,

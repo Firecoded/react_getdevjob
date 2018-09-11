@@ -127,7 +127,8 @@ class LandingPage extends Component {
                                 		<option value = 'Back End'> Back End</option>
                        				</Input>
 									<Input s={11} m={10} l={6} type ='select' label = 'City' name="location" defaultValue = 'Irvine' className = {this.props.theme.text1} onChange={this.handleInputChange.bind(this)}>
-                                		<option value = 'Irvine'>Irvine</option>
+										{/* <option value = ''> All </option>     */}
+										<option value = 'Irvine'>Irvine</option>
                                 		<option value = 'San Diego'>San Diego</option>
                                 		<option value = 'Los Angeles'>Los Angeles</option>
                        				</Input>

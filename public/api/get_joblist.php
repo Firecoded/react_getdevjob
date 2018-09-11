@@ -135,22 +135,23 @@
     // SOME COMPANIES DONT HAVE VALID LOCATIONS, GETTING A WARNING->ERROR IN NETWORK TAB 
 
     //check if user shared location and if user put distance in filter
-    if($_POST["userLat"] !== "" && $_POST["userLng"] !== "" && $_POST["distance"] !== ""){
-        $userLat = $_POST["userLat"];
-        $userLng = $_POST["userLng"];
+    if($locationFromSearch !== ""  && $_POST["distance"] !== ""){
+        $cityLat = $locationObject[$locationFromSearch]["lat"];
+        $cityLng = $locationObject[$locationFromSearch]["lng"];
         for($i = 0; $i < count($output["jobs"]); $i++){
             $companyLat = $output["jobs"][$i]["company"]["location"]["lat"];
             $companyLng = $output["jobs"][$i]["company"]["location"]["lng"];
             $company = $output["jobs"][$i]["company"]["name"];
+
             //if company location not available, remove from output array
-            if(!$companyLat){
+            if(empty($companyLat)){
                 array_splice($output["jobs"], $i, 1);
                 //reindex i to hold last position
                 $i--;   
                 continue;
             }
 
-            $distanceFromUserToCompany = getDistance($userLat, $userLng, $companyLat, $companyLng);
+            $distanceFromUserToCompany = getDistance($cityLat, $cityLng, $companyLat, $companyLng);
             //if distance between company and user location is greater than distance in filter, remove it from output array
             if($distanceFromUserToCompany > intval($_POST["distance"])){
                 array_splice($output["jobs"], $i, 1);
@@ -158,6 +159,8 @@
             }
         }
     }
+
+
 
 
     
