@@ -82,29 +82,30 @@
         }
 // Salary:
 
-        //fill up salaries table
+        //check salaries table to see if the job-title in a specific city is already in the DB
         $titleCity = "$listing_title"."-"."$cityFromApi";
         $checkDuplicateSalary = "SELECT `title_city` FROM `salaries` WHERE `title_city`='$titleCity'";
         $salaryCheckQueryResult = mysqli_query($conn, $checkDuplicateSalary);
         
+        // if the query results return zero rows, proceed..
         if(mysqli_num_rows($salaryCheckQueryResult) === 0){
-        //if salary is not in salaries table, insert salary into it
-    
             $citySalary = (INT)getSalary($title, $cityFromApi, false);
             $stateSalary = (INT)getSalary($title, false, false);
             $nationalSalary = (INT)getSalary($title, false, true);
 
-
+            // insert the into $ into salaries table
             $salaryInsertQuery = "INSERT INTO `salaries`(`city_salary`, `state_salary`, `title_city`, `national_salary`)
             VALUES ($citySalary, $stateSalary, '$titleCity', $nationalSalary)";
             $salaryInsertQueryResult = mysqli_query($conn, $salaryInsertQuery);
+            // if the query failed
             if(mysqli_affected_rows($conn)=== -1){
                 $output["error"][] = "failed to query salaries"; 
             }
+            // retrieves the last primary ID of the last row inserted into the salaries table
             $salary_id = mysqli_insert_id($conn);
         }
 
-        //skip appcast.io -> cant scape description
+        //checks redirect link, if appcast.io skip -> cant scape description
         if($server_output->jobs[$i]->source === "appcast.io"  ){
             continue;
          }
