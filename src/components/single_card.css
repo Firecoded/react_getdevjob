@@ -42,13 +42,15 @@
     cursor: pointer;
 }
 .sc-jobDescription:after {
-
   position: absolute;
   right: 0;
   width: 1em;
   height: 1em;
   margin-top: 0.2em;
   background: white;
+}
+.sc-jobDescription *{
+    color: inherit !important;
 }
 .datePosted{
     font-size: .8rem;
