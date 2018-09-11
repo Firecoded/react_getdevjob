@@ -1,5 +1,5 @@
 .sc-cardContainer {
-    height:40vmin;
+    height:75vmin;
     border: 2px solid black;   
     position: relative; 
     animation: appear 1.3s linear 1;
@@ -122,3 +122,12 @@ h5, h4, h3, h2, h1 {
     bottom:0;
 }
 
+@media screen and (min-width: 576px){
+    .sc-cardContainer{
+        height:40vmin;
+        border: 2px solid black;   
+        position: relative; 
+        animation: appear 1.3s linear 1;
+    }
+ 
+ }

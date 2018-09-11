@@ -85,6 +85,7 @@ class GoogleMap extends Component {
     }
 
     toggleMap(event){
+        console.log("WITNESS THIS EVENT   :", event);
         let modalMap = document.getElementById("map" + this.state.key);
         let modalStreetview = document.getElementById("pano" + this.state.key);
         if(this.state.map === true){
@@ -115,7 +116,7 @@ class GoogleMap extends Component {
             )
         } else {
         return (
-            <div className ="googleContainer">
+            <div className ="googleContainer hoverable">
                 <div ref={(e) => this.map = e} id = {"map" + this.state.key} className="map"></div>
                 <div id={"pano" + this.state.key} className="pano" ref={(e) => this.panorama = e}></div>
                 <button className = {`mapStreetViewToggle btn ${this.props.theme.button} ${this.props.theme.buttonText}`} onClick={this.toggleMap.bind(this)} >Street View</button>

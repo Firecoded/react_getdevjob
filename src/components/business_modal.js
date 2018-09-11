@@ -47,7 +47,7 @@ class BusinessModal extends Component {
             description = "<h5>No Job Description Provided</h5>";
         }
         return (
-            <div className={`bm-jobDetails `}>
+            <div className={`bm-jobDetails hoverable`}>
                 <label>Job Description</label>
                 <p className ={`bm-jobDescription ${this.props.theme.text1} ${(isNaN(lat) || isNaN(lng)) ? 'fullText' : ""}`} dangerouslySetInnerHTML={{__html:description}}></p>
             </div>

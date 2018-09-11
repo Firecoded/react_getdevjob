@@ -89,9 +89,9 @@ class SingleJobPage extends Component {
             description = "<h5>No Job Description Provided</h5>";
         }
         return (
-            <div className={`bm-jobDetails `}>
+            <div className={`sp-jobDetails hoverable`}>
                 <label>Job Description</label>
-                <p className ={`bm-jobDescription ${this.props.theme.text1} ${(lat == '') ? 'sp-fullText' : ""}`} dangerouslySetInnerHTML={{__html:description}}></p>
+                <p className ={`sp-jobDescription ${this.props.theme.text1} ${(lat == '') ? 'sp-fullText' : ""}`} dangerouslySetInnerHTML={{__html:description}}></p>
             </div>
         )
     }

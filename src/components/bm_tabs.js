@@ -64,7 +64,7 @@ class TabsInfo extends Component{
         }
     }
     render(){
-        const {ocr_url, location} = this.props.details.company;
+        const {crunchbase_url, location} = this.props.details.company;
         const {full_address, city} = location;
         let {city_salary, state_salary} = this.props.details.salary;
         let titleText1 = this.props.theme.titleText1;
@@ -106,8 +106,8 @@ class TabsInfo extends Component{
                             {this.validateCompanySite(titleText1, this.props.theme.button)}
                             {this.validateLinkedIn(titleText1, this.props.theme.button)}
                             <div className='row'>
-                                <p className={`center ${titleText1}`}>Any new or relavent business articles?</p>
-                                <a href = {ocr_url} target= '_blank' className={`btn col offset-s4 s4 ${this.props.theme.button} ${this.props.theme.buttonText}`} >Check OCR</a>
+                                <p className={`center ${titleText1}`}>Company Crunchbase text?</p>
+                                <a href = {crunchbase_url} target= '_blank' className={`btn col offset-s4 s4 ${this.props.theme.button} ${this.props.theme.buttonText}`} >Crunchbase</a>
                             </div>
                         </div>
                     </div>

@@ -42,5 +42,27 @@ export default {
         button: 'teal lighten-2',
         buttonText: 'pink-text',
         current: 'panda',
+    },
+    monokai: {
+        navColor: 'grey darken-3',
+        background: 'grey darken-1',
+        titleText1: 'pink-text accent-3',
+        titleText2: 'light-green-text accent-3',
+        text1: 'white-text',
+        text2: 'orange-text darken-1',
+        button: 'light-blue lighten-2',
+        buttonText: 'yellow-text lighten-2',
+        current: 'monokai',
+    },
+    soldark: {
+        navColor: 'light-blue darken-3',
+        background: 'light-blue darken-4',
+        titleText1: 'light-green-text darken-2',
+        titleText2: 'blue-text lighten-1',
+        text1: 'white-text',
+        text2: 'cyan-text lighten-1',
+        button: 'deep-purple lighten-1',
+        buttonText: 'grey-text',
+        current: 'soldark',
     }
 }
