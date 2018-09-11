@@ -62,7 +62,7 @@
             if(mysqli_affected_rows($conn)=== -1){
                 $output['error'][]= "## Company insert query error";
             }
-// add locations query
+        // add locations query
             $addressObject = getGoogleObj($address_query);
             $fullAddress = $addressObject["fullAddress"];
             $lat = $addressObject["lat"];
@@ -82,28 +82,38 @@
         }
 // Salary:
 
-        //fill up salaries table
+        //check salaries table to see if the job-title in a specific city is already in the DB
         $titleCity = "$listing_title"."-"."$cityFromApi";
         $checkDuplicateSalary = "SELECT `title_city` FROM `salaries` WHERE `title_city`='$titleCity'";
         $salaryCheckQueryResult = mysqli_query($conn, $checkDuplicateSalary);
         
+        // if the query results return zero rows, proceed..
         if(mysqli_num_rows($salaryCheckQueryResult) === 0){
-        //if salary is not in salaries table, insert salary into it
-    
             $citySalary = (INT)getSalary($title, $cityFromApi, false);
             $stateSalary = (INT)getSalary($title, false, false);
             $nationalSalary = (INT)getSalary($title, false, true);
 
-
+            // insert the into $ into salaries table
             $salaryInsertQuery = "INSERT INTO `salaries`(`city_salary`, `state_salary`, `title_city`, `national_salary`)
             VALUES ($citySalary, $stateSalary, '$titleCity', $nationalSalary)";
             $salaryInsertQueryResult = mysqli_query($conn, $salaryInsertQuery);
+            // if the query failed
             if(mysqli_affected_rows($conn)=== -1){
                 $output["error"][] = "failed to query salaries"; 
             }
+            // retrieves the last primary ID of the last row inserted into the salaries table
             $salary_id = mysqli_insert_id($conn);
         }
 
+        //checks redirect link, if appcast.io skip -> cant scape description
+        if($server_output->jobs[$i]->source === "appcast.io"  ){
+            continue;
+         }
+        // Checks if listing was posted within 2 months of current date
+        $dateTwoMonthsAgo = date("m/d/Y", strtotime("-2 months"));
+         if($post_date < $dateTwoMonthsAgo){
+             continue;
+         }
 
  // write query to select titles that are repeated
         $checkJobExistance = "SELECT * FROM `jobs` WHERE `title_comp` = '$title_name'";

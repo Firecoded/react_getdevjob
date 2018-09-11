@@ -1,4 +1,5 @@
 <?php
+    //get distance between 2 points of interest, return in miles
     function getDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo){
         $earthRadius = 3958.755866;
         $latFrom = floatval(deg2rad($latitudeFrom));

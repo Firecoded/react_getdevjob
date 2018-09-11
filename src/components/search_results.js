@@ -59,6 +59,7 @@ class SearchResults extends Component {
 		}	
 	}
 
+
 	handleTitle(title){
 		let titleObj = {
 			"frontend": "Front End", 
@@ -67,6 +68,7 @@ class SearchResults extends Component {
 		};
 		return titleObj[title];
     }
+
 
 	getFilterResponseData(respObj){
 		if(!this.state.response.data.success){
@@ -88,13 +90,17 @@ class SearchResults extends Component {
 		this.offset = 0;
 		this.populateCards(this.state.response.data.jobs);
 	}
+
+	//returns modified title in format we need to send to backend 
 	handleTitle(title){
-        const titleObj = 
-        {"frontend": "Front End", 
-         "backend": "Back End", 
-         "webdeveloper": "Web Developer"};
+        const titleObj = {
+			"frontend": "Front End", 
+        	"backend": "Back End", 
+			"webdeveloper": "Web Developer"
+		};
         return titleObj[title];     
 	}
+
 	async getJobData(userLat , userLng, offset){
 		const {city, job} = this.props.match.params;
 		let refinedJob = this.handleTitle(job);
