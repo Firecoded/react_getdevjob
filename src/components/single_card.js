@@ -65,8 +65,9 @@ class Card extends Component{
                     </ul>
                 </div>
                 <div className={`sc-jobDescription ${this.props.theme.titleText2}`}>
-                        <p dangerouslySetInnerHTML={{__html:description}}></p>     
-                </div>    
+                    <p dangerouslySetInnerHTML={{__html:description}}></p>   
+                </div>
+                <div className = {`sc-read-more ${this.props.theme.navColor} ${this.props.theme.buttonText}`} onClick={() => this.handleModalOpen()}><u>...Read More</u></div>  
             </div>
             <div className="sc-rightColumn">
                 <div className='buttonArea'> 

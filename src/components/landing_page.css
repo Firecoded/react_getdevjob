@@ -1,5 +1,5 @@
 *{
-    font-family: courier !important;
+    font-family: courier new !important;
     position: relative;
     margin: 0;
 }    
@@ -35,11 +35,21 @@
 .lp-button-syntax{
     margin-left: 3%;
 }
-
+.lp-clickable {
+    cursor: pointer;
+}
 .lpModal{
     height:50%;
 }
 
 .modal-content{
     height: 30vh !important;
+}
+
+#lp-ModalTrigger:hover {
+    cursor: pointer;
+}
+.lp-title-city-input *, .selected *{
+    background-color: inherit !important;
+    color: inherit !important;
 }

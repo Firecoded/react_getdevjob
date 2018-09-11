@@ -2,3 +2,4 @@
 .DS_Store
 node_modules
 public/api/mysql_connect.php
+public/api/api_keys.php

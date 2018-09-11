@@ -7,14 +7,27 @@ import {connect} from 'react-redux';
 import {setTheme} from '../actions';
 
 class Filters extends Component {
+
     constructor(props){
         super(props);
+
+        this.titleObj = {
+			"frontend": "Front End", 
+			"backend": "Back End",
+			"webdeveloper": "Web Developer"
+        };
+
+        this.cityObj = {
+            "Losangeles": "Los Angeles",
+            "Sandiego": "San Diego",
+            "Irvine": "Irvine"
+        }
         
         this.state = {
-            title:'',
+            title: "",
             location:'Irvine',
-            minSalary:'',
-            maxSalary:'',
+            minSalary:'0',
+            maxSalary:'200000',
             distance:'',
             experience:'',
             postedDate:'',
@@ -22,11 +35,18 @@ class Filters extends Component {
             employmentTypeInternship: true,
             employmentTypePartTime: true,
             employmentTypeFullTime: true,
-            userLat:'',
-            userLng:'',
+            userLat:"33.634875",
+            userLng:"-117.740481",
         }
         this.submitFormData = this.submitFormData.bind(this);
+    }
 
+    //once component did mount, change the state to appropriate title
+    componentDidMount(){
+        // $('#close-btn').sideNav();
+        this.setState({
+            title: this.handleTitle(this.props.job)
+        })
     }
 
     handleChange(event){
@@ -40,7 +60,7 @@ class Filters extends Component {
         const {name, checked} = event.currentTarget;
         if(checked !== false){
             this.setState({
-            [name]:true
+                [name]:true
         })
         }else{
             this.setState({
@@ -49,33 +69,33 @@ class Filters extends Component {
         }
     }
 
+    //grabs title from url and formats it
     handleTitle(title){
-        if(title === "frontend"){
-            return "Front End";
-        }
-        else if(title === "backend"){
-            return "Back End";
-        }
-        else{
-            return "Web Developer";
-        }
+		  return this.titleObj[title];
+    }
+
+    //grabs city from url and formats it
+    handleCity(city){
+        return this.cityObj[city];
     }
 
     async submitFormData(event){
+        console.log('filters submitted')
         event.preventDefault();
         const params = formatPostData(this.state);
         const resp = await axios.post("http://localhost:8000/api/get_joblist.php", params);
-
+        console.log("things sent: ", this.state);
         this.props.getFilterData(resp);
+        $('.side-nav-control').sideNav('hide');
     }
 
     render(){
         const minSalary = "All Available";
         let job = this.handleTitle(this.props.job);
-        let city = this.props.city.charAt(0).toUpperCase() + this.props.city.slice(1);
+        let city = this.handleCity(this.props.city.charAt(0).toUpperCase() + this.props.city.slice(1));
         return (
                 <form className ="sidebar" onSubmit={this.submitFormData}>
-                    <Row>
+                    <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
                         <Input s={12} type ='select' label = 'Job Title' name="title" defaultValue = {job} onChange={this.handleChange.bind(this)}>
                                 <option value = ''> All </option>    
                                 <option value = 'Web Developer'> Web Developer</option>
@@ -83,7 +103,7 @@ class Filters extends Component {
                                 <option value = 'Back End'> Back End</option>
                         </Input>
                     </Row>
-                    <Row>
+                    <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
                         <Input s={12} type ='select' label = 'City' name="location" defaultValue = {city} onChange={this.handleChange.bind(this)}>
                                 <option value = ''> All </option>    
                                 <option value = 'Irvine'>Irvine</option>
@@ -91,7 +111,7 @@ class Filters extends Component {
                                 <option value = 'Los Angeles'>Los Angeles</option>
                         </Input>
                     </Row>
-                    <Row>
+                    <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
                         <Input s={6} type ='select' label = 'Min Salary' name="minSalary" defaultValue = {minSalary} onChange={this.handleChange.bind(this)}>
                             <option value = '0'> $0</option>
                             <option value = '60000'> $60K</option>
@@ -103,15 +123,15 @@ class Filters extends Component {
                             <option value = '200000'> $90K+</option>
                         </Input>
                     </Row>
-                    <Row>
+                    <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
                         <Input s={12} type ='select' label = 'Distance' name='distance' defaultValue ='Nearby' onChange={this.handleChange.bind(this)}>
                             <option value = ''> Any </option>
                             <option value = '5'>5 miles</option>
                             <option value = '15'>15 miles</option>
-                            <option value = '15+'>15+ miles</option>
+                            <option value = '30'>30 miles</option>
                         </Input>
                     </Row>
-                    <Row>
+                    <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
                         <Input s={12} type ='select' label = 'Posted Within' name='postedDate' defaultValue ='All' onChange={this.handleChange.bind(this)}>
                             <option value = ''> Posted Anytime </option>
                             <option value = '7'>7 days</option>
@@ -119,14 +139,14 @@ class Filters extends Component {
                             <option value = '30'>30 days</option>
                         </Input>
                     </Row>
-                    <Row className="checkboxArea">
+                    <Row className = {`checkboxArea input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
                         <Input s={6} name='employmentTypeContract' type='checkbox' checked={this.state.employmentTypeContract} value = 'contract' label='Contract'  onChange={this.handleCheckBox.bind(this)} />
                         <Input s={6} name='employmentTypeInternship' type='checkbox' checked={this.state.employmentTypeInternship} value = 'internship' label='Internship'  onChange={this.handleCheckBox.bind(this)} />
                         <Input s={6} name='employmentTypePartTime' type='checkbox' checked={this.state.employmentTypePartTime} value = 'partTime' label='Part'  onChange={this.handleCheckBox.bind(this)}/>
                         <Input s={6} name='employmentTypeFullTime' type='checkbox' checked={this.state.employmentTypeFullTime} value = 'fullTime' label='Full'  onChange={this.handleCheckBox.bind(this)}/>
                     </Row>
-                    <Row>
-                        <button className='btn col offset-s2'>Submit Filters</button>
+                    <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
+                        <button data-activates="filterSideNav" className={`side-nav-control btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText}`}>Submit Filters</button>
                     </Row>
                 </form>
             )

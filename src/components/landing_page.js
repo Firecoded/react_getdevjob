@@ -26,7 +26,11 @@ class LandingPage extends Component {
 	}
 
 	componentDidMount(){
+		if(localStorage.getItem('theme')){
+			this.props.setTheme(localStorage.getItem('theme'));
+		} else {
 		this.props.setTheme(this.props.theme.current);
+		}		
 	}
 
 	handleLPModalOpen(){
@@ -64,7 +68,7 @@ class LandingPage extends Component {
 			            <div className="left-nums">20</div>
 			            <div className="left-nums">21</div>
 			            <div className="left-nums">22</div>
-			            <div className="left-nums">23<span className ={this.props.theme.text2}>&lt;a href = &quot;/why-share-geolocation&quot;&gt;<a className = {this.props.theme.titleText1} onClick={() =>this.handleLPModalOpen()}>How we use your location data</a>&lt;/a&gt;</span></div>
+			            <div className="left-nums">23 <span className ={this.props.theme.text2}>&lt;a href = &quot;/why-share-geolocation&quot;&gt;<a id='lp-ModalTrigger' className = {this.props.theme.titleText1} onClick={() =>this.handleLPModalOpen()}><u>How we use your location data</u></a>&lt;/a&gt;</span></div>
 			            <div className="left-nums">24</div>
 			            <div className="left-nums">25</div>
 			            <div className="left-nums">26 <span className ={this.props.theme.text2}>&lt;a href = &quot;/about-us&quot;&gt;<Link to ="/about-us" className = {this.props.theme.titleText1}><u>About Us</u></Link>&lt;/a&gt;</span></div>
@@ -90,17 +94,19 @@ class LandingPage extends Component {
 			            <div className="left-nums">48</div>
 			            <div className="left-nums">49</div>
 			            <div className="left-nums">50</div>
-						<Modal
+						<Modal className={`${this.props.theme.background}`}
 							id="lpModal"
-  							header='Why Share Your Location Data?'
   							bottomSheet
   						>
-						<p>We use your current location to provide the following data. Location data is not used for any other purposes than what is listed below</p>
-						<ul> 
-							<li>Filter by Distance : We can accurately provide job data based on their distance from you</li>
-							<li>Estimated Drive Time : We can provide an estimated drive time to help you see you estimated commute</li>
-							<li>Directions and distance in miles: We provide a Google map showing a recommended driving route </li>
+
+						<p className ={`lp-modalText ${this.props.theme.text1}`}>Your current location will be used only to provide the following features:</p>
+						<br/>
+						<ul className = {`lp-modalTextList ${this.props.theme.text1}`}> 
+							<li><b>• Filter by Distance:</b> Provide job listings based on distance from you in miles</li>
+							<li><b>• Estimated Drive Time:</b> Estimated drive time to help you see you anticipate daily commute</li>
+							<li><b>• Driving Directions:</b>  Show recommended driving routes powered by Google Maps </li>
 						</ul>
+						
 						</Modal>
 		        	</div>
 		        	<div className = {`lp-button-syntax ${this.props.theme.text2}`}>&lt;button type = &quot;button&quot; class = &quot;btn drop-down&quot;&gt;</div>
@@ -113,7 +119,7 @@ class LandingPage extends Component {
 			        <div className ='container input-container'>
 			            <h1 className={`center-align lp-title ${this.props.theme.titleText1}`}>getDevJob(<span className = {this.props.theme.titleText2}>you</span>)</h1>
 			            <form className = 'lp-form '>
-			                <div className ='row '> 
+			                <div className ={`row lp-title-city-input ${this.props.theme.titleText1} ${this.props.theme.navColor}`}> 
 			                    <Col s={12} m={8} l={6} offset="s1 m2 l3">
 									<Input s={11} m={10} l={6} type ='select' label = 'Job Title' name="title" defaultValue = 'Web Developer' className = {this.props.theme.text1} onChange={this.handleInputChange.bind(this)}>
                                 		<option value = 'Web Developer'> Web Developer</option>

@@ -13,7 +13,13 @@ class ThemeDropDown extends Component {
 		}
 	}
 	componentDidMount(){
+		if(localStorage.getItem('theme')){
+			this.props.setTheme(localStorage.getItem('theme'));
+			this.defaultListValue = localStorage.getItem('theme');
+		} else {
 		this.props.setTheme(this.props.theme.current);
+		this.defaultListValue = this.props.theme.current;
+		}
 	}
 	handleInputChange(event){
 		event.preventDefault();
@@ -22,15 +28,18 @@ class ThemeDropDown extends Component {
 			theme: value,
 		});
 		this.props.setTheme(value);
+		localStorage.setItem('theme' , value);
 	}
 	render() {
 		return (
 			<div className = {` theme-dropdown ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>	
-				<Input s={12} type ='select'  name="theme" defaultValue = 'Dark Theme' onChange={this.handleInputChange.bind(this)}>
+				<Input s={12} type ='select'  name="theme" defaultValue = {localStorage.getItem('theme')? localStorage.getItem('theme'): "dark"} onChange={this.handleInputChange.bind(this)}>
 	                <option value = 'dark'> Dark Theme</option>
 	                <option value = 'light'> Light Theme</option>
 	                <option value = 'gotham'> Gotham Theme</option>
 					<option value = 'panda'> Panda Syntax</option>
+					<option value = 'monokai'>Monokai</option>
+					<option value = 'soldark'>Solarized Dark</option>
 	            </Input>
 	        </div>    
 		);
