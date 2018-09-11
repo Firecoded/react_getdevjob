@@ -31,6 +31,7 @@ class Filters extends Component {
             employmentTypeFullTime: true,
             userLat:"33.634875",
             userLng:"-117.740481",
+            offset: 0
         }
         this.submitFormData = this.submitFormData.bind(this);
     }
