@@ -84,7 +84,9 @@
         $query = getSingleJob($single_page_id);
     }
 // uses Search Location to select jobs within a radius of the specified latitude and longitude
-    $query = $query.getJobsWithinRadius($locationFromSearch, $distance);
+    else{
+        $query = $query.getJobsWithinRadius($locationFromSearch, $distance);
+    }
 
     
 // Sort query results by post date
