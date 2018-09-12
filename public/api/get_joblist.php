@@ -68,12 +68,15 @@
     else{
         $query = $query . " WHERE ";
     }
+
     $query = $query."(";
     
+
     foreach($title as $val){
         $conds[] = "`title` LIKE '%{$val}%'";
     }
     $query = $query . implode(" OR ", $conds).")";
+
 
 // Single page
     if(isset($_POST['id']) && $_POST['id'] !== '' ){
@@ -86,11 +89,14 @@
     
 // Sort query results by post date
     $query = $query . " ORDER BY `post_date` DESC";
-    $startingPoint = $offset * 12;
-    $query = $query . " LIMIT 12 OFFSET $startingPoint";
+    if($offset !== ""){
+        $startingPoint = $offset * 12;
+        $query = $query . " LIMIT 12 OFFSET $startingPoint";
+    }
+
     $result = mysqli_query($conn, $query);
-    print('@@@@@@@@@@@@@@@@@'.$query);
-    // print("<br>");
+
+
     if(mysqli_num_rows($result) > 0){
         $count = 0;
         while($row = mysqli_fetch_assoc($result)){
@@ -124,10 +130,8 @@
         $output["success"] = true;
     }
     else{
-        $ouput["message"] = "fail";
+        $ouput["message"] = "fail to query";
     }
-
-   
 
 
     $output = json_encode($output);

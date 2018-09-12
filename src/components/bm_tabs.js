@@ -28,13 +28,23 @@ class TabsInfo extends Component{
 
     validateCompanySite(titleText1,buttonStyle){
         let { company_website } = this.props.details.company;
+        if(company_website.includes('http://')){
+            company_website = company_website.replace('http://', '')  
+        }
+        if(company_website.includes('https://')){
+            company_website = company_website.replace('https://', '')
+        }
+        if(!company_website.includes('www')){
+            company_website= 'www.' + company_website;
+        }
         if(company_website !== ''){
             return (
                 <div className='row'>
                     <p className={`center ${titleText1}`}>Check out the company website</p>
-                    <a href = {company_website}  target ="_blank" className={`btn col offset-s4 s4 ${buttonStyle} ${this.props.theme.buttonText}`} >Company</a>
+                    <a href = {'http://' + company_website}  target ="_blank" className={`btn col offset-s4 s4 waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >Company</a>
                 </div>
             )
+
         } else {
             return(
                 <div className='row'>
@@ -50,7 +60,7 @@ class TabsInfo extends Component{
             return (
                 <div className='row'>
                     <p className={`center ${titleText1}`}>Do you know anyone working here?</p>
-                    <a href = {linkedin_url} target= '_blank' className={`btn col offset-s4 s4 ${buttonStyle} ${this.props.theme.buttonText}`} >LinkedIn</a>
+                    <a href = {linkedin_url} target= '_blank' className={`btn col offset-s4 s4 waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >LinkedIn</a>
                 </div>
             )
         } else{
@@ -107,7 +117,7 @@ class TabsInfo extends Component{
                             {this.validateLinkedIn(titleText1, this.props.theme.button)}
                             <div className='row'>
                                 <p className={`center ${titleText1}`}>Learn about the Company and it's Executives</p>
-                                <a href = {crunchbase_url} target= '_blank' className={`btn col offset-s4 s4 ${this.props.theme.button} ${this.props.theme.buttonText}`} >Crunchbase</a>
+                                <a href = {crunchbase_url} target= '_blank' className={`btn col offset-s4 s4 waves-effect waves-light ${this.props.theme.button} ${this.props.theme.buttonText}`} >Crunchbase</a>
                             </div>
                         </div>
                     </div>

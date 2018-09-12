@@ -66,8 +66,8 @@ class BusinessModal extends Component {
                     <div className="row bm-columnContainer">
                         <div className={`bm-leftColumn card-panel hoverable ${this.props.theme.background}`}>
                             <div className="row bm-buttonRow">
-                                <a href={listing_url} target ="_blank" className={`btn ${this.props.theme.button} ${this.props.theme.buttonText}`}>Apply</a>
-                                <Link to = {linkQuery} target="_blank" className ={`btn ${this.props.theme.button} ${this.props.theme.buttonText}`}>Share</Link>
+                                <a href={listing_url} target ="_blank" className={`btn waves-effect waves-light ${this.props.theme.button} ${this.props.theme.buttonText}`}>Apply</a>
+                                <Link to = {linkQuery} target="_blank" className ={`btn waves-effect waves-light ${this.props.theme.button} ${this.props.theme.buttonText}`}>Share</Link>
                             </div>
                             <div className='bm-companyName'>
                                 <img src={logo} />

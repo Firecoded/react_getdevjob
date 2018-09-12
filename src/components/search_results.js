@@ -27,6 +27,7 @@ class SearchResults extends Component {
 		this.rightArray =[];
 		this.lat = NaN;
 		this.lng = NaN;
+		this.alt = 1;
 	}
 
 	async componentDidMount(){
@@ -134,16 +135,15 @@ class SearchResults extends Component {
 		if(array.length < 1){
 			return;
 		}		
-		let alt = 1;
 		for (var index=0; index < array.length; index++){
-			if(alt){
+			if(this.alt){
 				let temp = <Card key = {this.offset +'o'+ index} pullId = {index} details = {array[index]}{...this.props} />
 				this.leftArray.push(temp);
-				alt = 1-alt;
+				this.alt = 1 - this.alt;
 			} else {
 				let temp = <Card key = {this.offset +'o'+ index} pullId = {index} details = {array[index]}{...this.props} />
 				this.rightArray.push(temp);
-				alt = 1-alt;
+				this.alt = 1 - this.alt;
 			}
 		}
 		this.setState({
@@ -179,7 +179,7 @@ class SearchResults extends Component {
 	                	<div className = "load-cont" style = {this.state.loaded ? {'display':'none'} : {} }>						
 							{!this.state.loaded ? <Loading/> : '' }
 						</div>
-	                	<BottomScrollListener onBottom = {async ()=>{
+	                	<BottomScrollListener offset = {200} onBottom = {async ()=>{
 	                		this.offset += 1;
 	                		this.setState({loaded: false})
 	                		await this.getJobData(this.lat, this.lng, this.offset);
