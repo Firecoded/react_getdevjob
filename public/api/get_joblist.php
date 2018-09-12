@@ -37,6 +37,7 @@
         $query = $query.postDateQuery($numberOfDays, $andFlag);
         $andFlag = true;
     }
+
 // job type
     if($_POST["employmentTypeFullTime"] == "true"){
         $query = $query.jobTypeQuery("1", $andFlag, $orFlag);
@@ -69,13 +70,12 @@
         $query = $query . " WHERE ";
     }
 
-    $query = $query."(";
-    
-
+// add "(" to query because of the 'OR' conditional
+    $query = $query . "(";
     foreach($title as $val){
         $conds[] = "`title` LIKE '%{$val}%'";
     }
-    $query = $query . implode(" OR ", $conds).")";
+    $query = $query . implode(" OR ", $conds) . ")";
 
 
 // Single page
@@ -96,7 +96,7 @@
 
     $result = mysqli_query($conn, $query);
 
-
+//  Constructs output object to send to frontend 
     if(mysqli_num_rows($result) > 0){
         $count = 0;
         while($row = mysqli_fetch_assoc($result)){
@@ -132,7 +132,6 @@
     else{
         $ouput["message"] = "fail to query";
     }
-
 
     $output = json_encode($output);
     print_r($output);
