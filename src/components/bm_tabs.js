@@ -72,7 +72,6 @@ class TabsInfo extends Component{
                 </div>
             )
         } else {
-            let { company_website } = this.props.details.company;
             return(
                 <div className='row'>
                     <p className={`center ${titleText1}`} >Company website unavailable</p>
@@ -110,7 +109,7 @@ class TabsInfo extends Component{
         }
     }
     render(){
-        const {crunchbase_url, location} = this.props.details.company;
+        const {location} = this.props.details.company;
         const {full_address, city} = location;
         let {city_salary, state_salary} = this.props.details.salary;
         let titleText1 = this.props.theme.titleText1;
@@ -124,10 +123,10 @@ class TabsInfo extends Component{
                 <Tab title="salary" active >
                     <div className='section 1'>
                         <div className='col s12 bm-salary'>
-                            <div className={`center ${titleText1}`}>avgSalary(<span className={` ${titleText2}`}>{city}</span>)</div>
+                            <div className={`center ${titleText1}`}>avgSalary(<span className={` ${text1}`}>{city}</span>)</div>
                             <div className={`center ${text1}`}>{city_salary}</div>
                                 <SalaryPercentage {...this.props}/>  
-                            <div className={`center ${titleText1}`}>avgSalary(<span className={` ${titleText2}`}>California</span>)</div>
+                            <div className={`center ${titleText1}`}>avgSalary(<span className={` ${text1}`}>California</span>)</div>
                             <div className={`center ${text1}`}> {state_salary}</div>
                         </div>
                     </div>

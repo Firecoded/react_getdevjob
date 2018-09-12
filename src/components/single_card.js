@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import './single_card.css';
 import BusinessModal from './business_modal';
-import {Modal, Input} from 'react-materialize';
+import {Modal} from 'react-materialize';
 import {connect} from 'react-redux';
 import {setTheme} from '../actions';
 
@@ -73,15 +73,15 @@ class Card extends Component{
                 </div>
             <div className = 'sc-leftColumn'>   
                 <div className ='sc-businessInfo'>
-                    <ul className={`sc-jobDetailsList ${this.props.theme.text1}`}>
+                    <ul className={`sc-jobDetailsList ${this.props.theme.titleText2}`}>
                         <li><strong>{title}</strong></li>
                         <li><strong>{company_name}</strong></li>
                     </ul>
                 </div>
-                <div className={`sc-jobDescription ${this.props.theme.titleText2}`}>
+                <div className={`sc-jobDescription ${this.props.theme.text1}`}>
                     <p dangerouslySetInnerHTML={{__html:description}}></p>   
                 </div>
-                <div className = {`sc-read-more ${this.props.theme.navColor} ${this.props.theme.buttonText}`} onClick={() => this.handleModalOpen()}><u>...Read More</u></div>  
+                <div className = {`sc-read-more ${this.props.theme.navColor} ${this.props.theme.text2}`} onClick={() => this.handleModalOpen()}><u>...Read More</u></div>  
             </div>
             <div className="sc-rightColumn">
                 <div className='buttonArea'> 

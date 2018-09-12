@@ -26,7 +26,7 @@ class NavBar extends Component {
 		return (
 			<nav className = {`top-nav ${this.props.theme.navColor} ${this.props.theme.text1}`}>
 				<div className = 'nav-wrapper'>
-					<Link to = '/' className = {`brand-logo tn-logo ${this.props.theme.navColor}`}><span className={this.props.theme.titleText1}>&lt;gDJ</span><span className = {this.props.theme.titleText2}>/</span><span className = {this.props.theme.titleText1}>&gt;</span></Link>
+					<Link to = '/' className = {`brand-logo tn-logo ${this.props.theme.navColor}`}><span className={this.props.theme.titleText2}>&lt;gDJ</span><span className = {this.props.theme.titleText1}>/</span><span className = {this.props.theme.titleText2}>&gt;</span></Link>
 					<ul className = {`right nav-bar-items ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
 						<li className = 'nb-drop-content'>
 							<ThemeDropDown/>
