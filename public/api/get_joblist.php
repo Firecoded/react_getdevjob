@@ -19,7 +19,10 @@
     $distance = $_POST["distance"];
 // start query
 
-    $query = "SELECT `jobs`.`ID`, `jobs`.`title`, `jobs`.`company_name`, `jobs`.`post_date`, `jobs`.`listing_url`, `jobs`.`type_id`, `jobs`.`description`, `jobs`.`title_comp`, `jobs`.`salary_id`, `companies`.`name`, `companies`.`logo`, `companies`.`company_website`, `companies`.`linkedin_url`, `companies`.`ocr_url`, `companies`.`crunchbase_url`, `locations`.`company_id`, `locations`.`street`, `locations`.`city`, `locations`.`state`, `locations`.`zip`, `locations`.`lat`, `locations`.`lng`, `locations`.`full_address`  FROM `jobs`";
+    $query = "SELECT SQL_CALC_FOUND_ROWS `jobs`.`ID`, `jobs`.`title`, `jobs`.`company_name`, `jobs`.`post_date`, `jobs`.`listing_url`, `jobs`.`type_id`, `jobs`.`description`, `jobs`.`title_comp`, `jobs`.`salary_id`, 
+            `companies`.`name`, `companies`.`logo`, `companies`.`company_website`, `companies`.`linkedin_url`, `companies`.`ocr_url`, `companies`.`crunchbase_url`, 
+            `locations`.`company_id`, `locations`.`street`, `locations`.`city`, `locations`.`state`, `locations`.`zip`, `locations`.`lat`, `locations`.`lng`, `locations`.`full_address` 
+             FROM `jobs`";
     $andFlag = false;
     $orFlag = false;
 
@@ -75,7 +78,7 @@
     }
 
 // add "(" to query because of the 'OR' conditional
-    $query = $query . "(";
+    $query = $query . "((";
     foreach($title as $val){
         $titleConds[] = "`title` LIKE '%{$val}%'";
     }
@@ -87,7 +90,7 @@
         $descriptionConds[] = " `description` LIKE '%{$val}%'";
     }
     // join the array together
-    $query = $query.implode(" OR ", $descriptionConds).")";
+    $query = $query.implode(" OR ", $descriptionConds)."))";
 
     
 
@@ -108,6 +111,7 @@
         $startingPoint = $offset * 12;
         $query = $query . " LIMIT 12 OFFSET $startingPoint";
     }
+    print($query);
 
     $result = mysqli_query($conn, $query);
     // print($query);
@@ -127,7 +131,7 @@
                 $companyRow = mysqli_fetch_assoc($companyResult);
                 $output["jobs"][$count]["company"] = $companyRow;
             }
-            $locationQuery = "SELECT `company_id`, `street`, `city`, `state`, `zip`, `lat`, `lng` FROM `locations` WHERE `company_id`= $companyID";
+            $locationQuery = "SELECT `company_id`, `street`, `city`, `state`, `zip`, `lat`, `lng`, `full_address` FROM `locations` WHERE `company_id`= $companyID";
             $locationResult = mysqli_query($conn, $locationQuery);
             //insert location of company into output object
             if(mysqli_num_rows($locationResult) > 0){

@@ -98,7 +98,7 @@ class Filters extends Component {
     render(){
         const minSalary = "All Available";
         let job = this.handleTitle(this.props.job);
-        let city = this.handleCity(this.props.city.charAt(0).toUpperCase() + this.props.city.slice(1));
+        let city = this.handleCity(this.props.city);
         return (
                 <form className ="sidebar" onSubmit={this.submitFormData}>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
