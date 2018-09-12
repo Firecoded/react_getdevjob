@@ -1,11 +1,12 @@
 .load-cont{
   height: 87vh;
   width: 100%;
+  overflow: hidden;
 }
 .load-cont2{
   /*position: absolute;*/
   bottom: 0;
-  height: 20vh;
+  height: 15vh;
   width: 100%;
   overflow: hidden;
 }

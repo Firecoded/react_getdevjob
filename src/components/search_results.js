@@ -38,6 +38,23 @@ class SearchResults extends Component {
 		let refinedJob = this.handleTitle(job);
 		let refinedCity = this.handleCity(city);
 		this.offset = 0;
+		this.searchParams = {
+		            title: refinedJob, 
+					location: refinedCity,
+					id:'',
+		            minSalary:'',
+		            maxSalary:'',
+		            distance: 45,
+		            experience:'',
+		            postedDate:'',
+		            employmentTypeContract: false,
+		            employmentTypeInternship: false,
+		            employmentTypePartTime: false,
+		            employmentTypeFullTime: false,
+		            userLat:'',
+		            userLng:'',
+		            offset: 0
+		        }
 		$('.side-nav-control').sideNav();
 		if (Object.keys(navigator.geolocation).length) {
             navigator.geolocation.getCurrentPosition(async (position) => {
@@ -45,25 +62,8 @@ class SearchResults extends Component {
 					lat: position.coords.latitude,
 					lng: position.coords.longitude
 				};				
-				this.lat = pos.lat;
-				this.lng = pos.lng;
-				this.searchParams = {
-		            title: refinedJob, 
-					location: refinedCity,
-					id:'',
-		            minSalary:'',
-		            maxSalary:'',
-		            distance:30,
-		            experience:'',
-		            postedDate:'',
-		            employmentTypeContract: false,
-		            employmentTypeInternship: false,
-		            employmentTypePartTime: false,
-		            employmentTypeFullTime: false,
-		            userLat:this.lat,
-		            userLng:this.lng,
-		            offset: 0
-		        }
+				this.searchParams.userLat = pos.lat;
+				this.searchParams.userLng = pos.lng;
 				await this.getJobData(0, this.searchParams);
 				this.populateCards(this.state.response.data.jobs);
 				if(localStorage.getItem('theme')){
@@ -74,25 +74,9 @@ class SearchResults extends Component {
 			});
 		} else {
 			console.log(" did Not Get location Data");
-			this.lat = NaN;
-			this.lng = NaN;
-			this.searchParams = {
-	            title: refinedJob, 
-				location: refinedCity,
-				id:'',
-	            minSalary:'',
-	            maxSalary:'',
-	            distance:45,
-	            experience:'',
-	            postedDate:'',
-	            employmentTypeContract: false,
-	            employmentTypeInternship: false,
-	            employmentTypePartTime: false,
-	            employmentTypeFullTime: false,
-	            userLat: this.lat,
-	            userLng: this.lng,
-	            offset: this.offset
-	        }
+			this.searchParams.userLat = NaN;
+			this.searchParams.userLng = NaN;
+			
 			await this.getJobData(0, this.searchParams);
 			this.populateCards(this.state.response.data.jobs);
 			if(localStorage.getItem('theme')){
@@ -173,6 +157,12 @@ class SearchResults extends Component {
     }
 
 	populateCards(array){
+		if(!array){
+			this.setState({
+				noResults: true
+			})
+			return;
+		}
 		if(array.length < 1){
 			this.leftArray =[];
 			this.rightArray =[];
@@ -197,7 +187,7 @@ class SearchResults extends Component {
 		this.setState({
 			left: this.leftArray,
 			right: this.rightArray,
-			noResults: false
+			noResults: false,
 		})
 	}
 
@@ -228,16 +218,18 @@ class SearchResults extends Component {
 	                	<div className = "load-cont" style = {!this.state.loaded && this.offset<1 ? {} : {'display':'none'} }>						
 							{!this.state.loaded && this.offset < 1 ? <Loading/> : '' }
 						</div>
-						<div className = "load-cont2" style = {!this.state.loaded && this.offset>0 ? {} : {'display':'none'} }>						
+						{this.state.noResults ? this.offset < 1 ? <NoResults height={'72.7vh'}/> : <NoResults height={'5vh'}/> : ''}
+						<div className = "load-cont2">		
 							{!this.state.loaded && this.offset > 0 ? <Loading/> : '' }
 						</div>
-						{this.state.noResults ? <NoResults/> : ''}
 	                	<BottomScrollListener offset = {200} onBottom = {async ()=>{
-	                		this.offset += 1;
-	                		this.searchParams.offset=this.offset;
-	                		this.setState({loaded: false})
-	                		await this.getJobData(this.offset, this.searchParams);
-	                		this.populateCards(this.state.response.data.jobs)
+	                		if(!this.state.noResults){
+		                		this.offset += 1;
+		                		this.searchParams.offset=this.offset;
+		                		this.setState({loaded: false})
+		                		await this.getJobData(this.offset, this.searchParams);
+		                		this.populateCards(this.state.response.data.jobs)
+		                	}	
 	                	}}/>
 	                </div>	
 				</div>

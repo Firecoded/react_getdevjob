@@ -1,7 +1,7 @@
 .no-results-cont{
-	height: 87vh;
+	/*height: 87vh;*/
 	width: 100%;
 }
 .no-results-text {
-	font-size: 2rem;
+	font-size: 1.5rem;
 }

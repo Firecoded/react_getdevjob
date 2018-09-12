@@ -4,8 +4,8 @@ import {setTheme} from '../actions';
 import './no-results.css';
 
 const NoResults = (props) => (
-	<div className = {`no-results-cont ${props.theme.background}`}>
-		<div className = {`center no-results-text ${props.theme.text1}`}>No Jobs Found With Selected Filters, Try Changing Filter Options</div>
+	<div style = {{height: props.height}}className = {`no-results-cont ${props.theme.background}`}>
+		<div className = {`center no-results-text ${props.theme.text1}`}>No Jobs Found, Change Filter Options for Different Results</div>
 	</div>
 )
 
