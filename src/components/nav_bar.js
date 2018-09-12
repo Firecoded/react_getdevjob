@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import {Input, Col} from 'react-materialize';
 import './nav_bar.css';
 import {connect} from 'react-redux';
 import {setTheme} from '../actions';
@@ -21,8 +20,6 @@ class NavBar extends Component {
 		} else {
 		this.props.setTheme(this.props.theme.current);
 		}
-		console.log("WITNESS MEEEEEE : ", this.props);
-		// localStorage.setItem('theme',this.props.theme.current);
 	}
 
 	render() {

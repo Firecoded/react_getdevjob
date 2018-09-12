@@ -44,7 +44,6 @@ class TabsInfo extends Component{
                     <a href = {'http://' + company_website}  target ="_blank" className={`btn col offset-s4 s4 waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >Company</a>
                 </div>
             )
-
         } else {
             return(
                 <div className='row'>
