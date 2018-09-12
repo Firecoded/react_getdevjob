@@ -99,18 +99,18 @@ class Filters extends Component {
                 <form className ="sidebar" onSubmit={this.submitFormData}>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
                         <Input s={12} type ='select' label = 'Job Title' name="title" defaultValue = {job} onChange={this.handleChange.bind(this)}>
-                                <option value = ''> All </option>    
-                                <option value = 'Web Developer'> Web Developer</option>
-                                <option value = 'Front End'> Front End</option>
-                                <option value = 'Back End'> Back End</option>
+                            <option value = ''> All </option>    
+                            <option value = 'Web Developer'> Web Developer</option>
+                            <option value = 'Front End'> Front End</option>
+                            <option value = 'Back End'> Back End</option>
                         </Input>
                     </Row>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
                         <Input s={12} type ='select' label = 'City' name="location" defaultValue = {city} onChange={this.handleChange.bind(this)}>
-                                <option value = ''> All </option>    
-                                <option value = 'Irvine'>Irvine</option>
-                                <option value = 'San Diego'>San Diego</option>
-                                <option value = 'Los Angeles'>Los Angeles</option>
+                            <option value = ''> All </option>    
+                            <option value = 'Irvine'>Irvine</option>
+                            <option value = 'San Diego'>San Diego</option>
+                            <option value = 'Los Angeles'>Los Angeles</option>
                         </Input>
                     </Row>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
@@ -148,7 +148,7 @@ class Filters extends Component {
                         <Input s={6} name='employmentTypeFullTime' type='checkbox' checked={this.state.employmentTypeFullTime} value = 'fullTime' label='Full'  onChange={this.handleCheckBox.bind(this)}/>
                     </Row>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
-                        <button data-activates="filterSideNav" className={`side-nav-control btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText}`}>Submit Filters</button>
+                        <button onClick={this.props.submitFormData} data-activates="filterSideNav" className={`side-nav-control btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText}`}>Submit Filters</button>
                     </Row>
                 </form>
             )
