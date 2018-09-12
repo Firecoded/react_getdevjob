@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 import {setTheme} from '../actions';
 import Loading from './loading';
 import BottomScrollListener from 'react-bottom-scroll-listener';
+import NoResults from './no-results';
 
 class SearchResults extends Component {
 	constructor(props){
@@ -20,7 +21,8 @@ class SearchResults extends Component {
 			right: '',
 			response: [],
 			nextResults: [],
-			loaded: false
+			loaded: false,
+			noResults: false
 		}
 		this.offset = 0;
 		this.leftArray =[];
@@ -31,6 +33,7 @@ class SearchResults extends Component {
 	}
 
 	async componentDidMount(){
+		this.offset = 0;
 		$('.side-nav-control').sideNav();
 		if (Object.keys(navigator.geolocation).length) {
             navigator.geolocation.getCurrentPosition(async (position) => {
@@ -72,9 +75,14 @@ class SearchResults extends Component {
 
 
 	getFilterResponseData(respObj){
-		if(!this.state.response.data.success){
+		console.log('respObj', respObj)
+		if(!respObj.data.success){
+			this.leftArray =[];
+			this.rightArray =[];
 			this.setState({
-				loaded: false
+				noResults: true,
+				left: '',
+				right: ''
 			})
 			console.log('Filter response false', this.state.response.data.success)
 			return;
@@ -83,7 +91,8 @@ class SearchResults extends Component {
 			response: respObj,
 			loaded: true,
 			left: '',
-			right: ''
+			right: '',
+			noResults: false
 		})
 		console.log('get filter resp data respObj', respObj)
 		this.leftArray =[];
@@ -131,24 +140,36 @@ class SearchResults extends Component {
 		this.setState({response:resp, loaded: true})	   
     }
 
+    mathRand(){
+    	return Math.floor(Math.random()*10000)
+    }
+
 	populateCards(array){
 		if(array.length < 1){
+			this.leftArray =[];
+			this.rightArray =[];
+			this.setState({
+				noResults: true,
+				left: '',
+				right: ''
+			})
 			return;
 		}		
 		for (var index=0; index < array.length; index++){
 			if(this.alt){
-				let temp = <Card key = {this.offset +'o'+ index} pullId = {(this.offset * 12) + index} details = {array[index]}{...this.props} />
+				let temp = <Card key = {this.mathRand() +'o'+ index} pullId = {(this.offset * 12) + index} details = {array[index]}{...this.props} />
 				this.leftArray.push(temp);
 				this.alt = 1 - this.alt;
 			} else {
-				let temp = <Card key = {this.offset +'o'+ index} pullId = {(this.offset * 12) + index} details = {array[index]}{...this.props} />
+				let temp = <Card key = {this.mathRand() +'o'+ index} pullId = {(this.offset * 12) + index} details = {array[index]}{...this.props} />
 				this.rightArray.push(temp);
 				this.alt = 1 - this.alt;
 			}
 		}
 		this.setState({
 			left: this.leftArray,
-			right: this.rightArray
+			right: this.rightArray,
+			noResults: false
 		})
 	}
 
@@ -176,13 +197,13 @@ class SearchResults extends Component {
 	                	<div className='rightColumn'>
 							{this.state.right}
 	                	</div>
-	                	
 	                	<div className = "load-cont" style = {!this.state.loaded && this.offset<1 ? {} : {'display':'none'} }>						
 							{!this.state.loaded && this.offset<1 ? <Loading/> : '' }
 						</div>
 						<div className = "load-cont2" style = {!this.state.loaded && this.offset>0 ? {} : {'display':'none'} }>						
 							{!this.state.loaded && this.offset>0 ? <Loading/> : '' }
 						</div>
+						{this.state.noResults ? <NoResults/> : ''}
 	                	<BottomScrollListener offset = {200} onBottom = {async ()=>{
 	                		this.offset += 1;
 	                		this.setState({loaded: false})
