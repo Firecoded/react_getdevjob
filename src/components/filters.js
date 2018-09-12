@@ -18,9 +18,9 @@ class Filters extends Component {
         };
 
         this.cityObj = {
-            "Losangeles": "Los Angeles",
-            "Sandiego": "San Diego",
-            "Irvine": "Irvine"
+            "losangeles": "Los Angeles",
+            "sandiego": "San Diego",
+            "irvine": "Irvine"
         }
         
         this.state = {
@@ -48,7 +48,8 @@ class Filters extends Component {
         this.setState({
             title: this.handleTitle(this.props.job),
             location: this.handleCity(this.props.city)
-        })
+        });
+
     }
 
     handleChange(event){
