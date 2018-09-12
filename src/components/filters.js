@@ -87,7 +87,7 @@ class Filters extends Component {
         event.preventDefault();
         const params = formatPostData(this.state);
         const resp = await axios.post("http://localhost:8000/api/get_joblist.php", params);
-        console.log("things sent: ", this.state);
+        console.log("things sent: ", this.state, 'resp: ', resp);
         this.props.getFilterData(resp);
         $('.side-nav-control').sideNav('hide');
     }
@@ -149,7 +149,7 @@ class Filters extends Component {
                         <Input s={6} name='employmentTypeFullTime' type='checkbox' checked={this.state.employmentTypeFullTime} value = 'fullTime' label='Full'  onChange={this.handleCheckBox.bind(this)}/>
                     </Row>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
-                        <button style={{height: '0px', width: '0px', zIndex: '-1'}}onClick={this.props.submitFormData} data-activates="filterSideNav" className={`side-nav-control btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText}`}></button>
+                        <button style={{height: '0px', width: '0px', zIndex: '-1'}} data-activates="filterSideNav" className={`side-nav-control btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText}`}></button>
                         <button data-activates="filterSideNav" className={` btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText}`}>Submit Filters</button>
                     </Row>
                 </form>
