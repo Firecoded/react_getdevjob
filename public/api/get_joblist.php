@@ -78,7 +78,6 @@
     $query = $query . implode(" OR ", $conds) . ")";
 
 
-
 // Single page
     if(isset($_POST['id']) && $_POST['id'] !== '' ){
         $single_page_id = $_POST['id'];
