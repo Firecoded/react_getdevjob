@@ -5,7 +5,7 @@ require_once("scrape/salary_scrape.php");
 require_once("scrape/scraper.php");
 require_once("api_calls/clear_bit.php");
 require_once("api_calls/google_location.php");
-require_once("../api_keys.php");
+require("../api_keys.php");
 
 $url = "https://us.jooble.org/api/";
 
@@ -28,7 +28,7 @@ print_r($server_output);
 
 
 for($i = 0; $i < count((array)$server_output->jobs); $i++){
-    if($i === 1){
+    if($i === 3){
         break;
     }
     $title = $server_output->jobs[$i]->title;
@@ -43,8 +43,10 @@ for($i = 0; $i < count((array)$server_output->jobs); $i++){
     $companySite = getCompanySite($companyName);
     $revisedCompanyName = str_replace(" ", "", $revisedCompanyName);
     $revisedCompanyName = str_replace(",", "", $revisedCompanyName);
-    //check if company site is invalid, if so, give it a .com concat
-    $companySite = ($companySite==NULL) ? ($revisedCompanyName).".com":$companySite;
+    //if company site is not given, then skip over this job listing
+    if(is_null($companySite)){
+        continue;
+    }
     //fill up companies table
     $checkDuplicateCompany = "SELECT `name` FROM `companies` WHERE `name`='$companyName'";
     $companyCheckQueryResult = mysqli_query($conn, $checkDuplicateCompany);
@@ -96,15 +98,11 @@ for($i = 0; $i < count((array)$server_output->jobs); $i++){
         $salary_id = mysqli_insert_id($conn);
     }
 
-    //skip appcast.io -> cant scape description
-    if($server_output->jobs[$i]->source === "appcast.io"  ){
-       continue;
-    }
-
-    // Checks if listing was posted within 2 months of current date
     $dateTwoMonthsAgo = date("m/d/Y", strtotime("-2 months"));
-    if($post_date < $dateTwoMonthsAgo){
-        continue;
+
+    //skip appcast.io -> cant scape description, checks if listing was posted within 2 months of current date
+    if($server_output->jobs[$i]->source === "appcast.io" || $postDate < $dateTwoMonthsAgo ){
+       continue;
     }
 
     //insert into jobs table

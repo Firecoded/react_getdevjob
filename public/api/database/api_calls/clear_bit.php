@@ -1,4 +1,5 @@
 <?php
+    require("../api_keys.php");
     //returns somewhat accurate company website (still need to handle inc, corp cases)
     function getCompanySite($name){
         $curl = curl_init();
@@ -36,7 +37,6 @@
     //returns clearbitobj (has linkedin, crunchbase, logo info)
     function getClearBitObj($domain){
         $curl = curl_init();
-
         curl_setopt_array($curl, array(
         CURLOPT_URL => "https://company.clearbit.com/v2/companies/find?domain=$domain",
         CURLOPT_RETURNTRANSFER => true,
