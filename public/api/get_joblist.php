@@ -93,8 +93,8 @@
 // Sort query results by post date
     $query = $query . " ORDER BY `post_date` DESC";
     if($offset !== ""){
-        $startingPoint = $offset * 40;
-        $query = $query . " LIMIT 40 OFFSET $startingPoint";
+        $startingPoint = $offset * 12;
+        $query = $query . " LIMIT 12 OFFSET $startingPoint";
     }
 
     $result = mysqli_query($conn, $query);
