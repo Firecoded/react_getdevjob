@@ -137,11 +137,11 @@ class SearchResults extends Component {
 		}		
 		for (var index=0; index < array.length; index++){
 			if(this.alt){
-				let temp = <Card key = {this.offset +'o'+ index} pullId = {index} details = {array[index]}{...this.props} />
+				let temp = <Card key = {this.offset +'o'+ index} pullId = {(this.offset * 12) + index} details = {array[index]}{...this.props} />
 				this.leftArray.push(temp);
 				this.alt = 1 - this.alt;
 			} else {
-				let temp = <Card key = {this.offset +'o'+ index} pullId = {index} details = {array[index]}{...this.props} />
+				let temp = <Card key = {this.offset +'o'+ index} pullId = {(this.offset * 12) + index} details = {array[index]}{...this.props} />
 				this.rightArray.push(temp);
 				this.alt = 1 - this.alt;
 			}
@@ -176,8 +176,12 @@ class SearchResults extends Component {
 	                	<div className='rightColumn'>
 							{this.state.right}
 	                	</div>
-	                	<div className = "load-cont" style = {this.state.loaded ? {'display':'none'} : {} }>						
-							{!this.state.loaded ? <Loading/> : '' }
+	                	
+	                	<div className = "load-cont" style = {!this.state.loaded && this.offset<1 ? {} : {'display':'none'} }>						
+							{!this.state.loaded && this.offset<1 ? <Loading/> : '' }
+						</div>
+						<div className = "load-cont2" style = {!this.state.loaded && this.offset>0 ? {} : {'display':'none'} }>						
+							{!this.state.loaded && this.offset>0 ? <Loading/> : '' }
 						</div>
 	                	<BottomScrollListener offset = {200} onBottom = {async ()=>{
 	                		this.offset += 1;
