@@ -18,7 +18,8 @@
     $offset = $_POST["offset"];
     $distance = $_POST["distance"];
 // start query
-    $query = "SELECT * FROM `jobs`";
+
+    $query = "SELECT `jobs`.`ID`, `jobs`.`title`, `jobs`.`company_name`, `jobs`.`post_date`, `jobs`.`listing_url`, `jobs`.`type_id`, `jobs`.`description`, `jobs`.`title_comp`, `jobs`.`salary_id`, `companies`.`name`, `companies`.`logo`, `companies`.`company_website`, `companies`.`linkedin_url`, `companies`.`ocr_url`, `companies`.`crunchbase_url`, `locations`.`company_id`, `locations`.`street`, `locations`.`city`, `locations`.`state`, `locations`.`zip`, `locations`.`lat`, `locations`.`lng`, `locations`.`full_address`  FROM `jobs`";
     $andFlag = false;
     $orFlag = false;
 
@@ -98,12 +99,13 @@
     }
 
     $result = mysqli_query($conn, $query);
-
+    // print($query);
 //  Constructs output object to send to frontend 
     if(mysqli_num_rows($result) > 0){
         $count = 0;
         while($row = mysqli_fetch_assoc($result)){
             $output["jobs"][] = $row;
+          
             //get company/salary id to relate to jobs
             $companyID = $row["company_id"];
             $salaryID = $row["salary_id"];
@@ -114,7 +116,7 @@
                 $companyRow = mysqli_fetch_assoc($companyResult);
                 $output["jobs"][$count]["company"] = $companyRow;
             }
-            $locationQuery = "SELECT * FROM `locations` WHERE `company_id`=$companyID";
+            $locationQuery = "SELECT `company_id`, `street`, `city`, `state`, `zip`, `lat`, `lng` FROM `locations` WHERE `company_id`= $companyID";
             $locationResult = mysqli_query($conn, $locationQuery);
             //insert location of company into output object
             if(mysqli_num_rows($locationResult) > 0){
