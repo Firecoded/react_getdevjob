@@ -24,6 +24,7 @@ class SearchResults extends Component {
 			loaded: false,
 			noResults: false
 		}
+		this.searchParams;
 		this.offset = 0;
 		this.leftArray =[];
 		this.rightArray =[];
@@ -33,6 +34,9 @@ class SearchResults extends Component {
 	}
 
 	async componentDidMount(){
+		const {city, job} = this.props.match.params;
+		let refinedJob = this.handleTitle(job);
+		let refinedCity = this.handleCity(city);
 		this.offset = 0;
 		$('.side-nav-control').sideNav();
 		if (Object.keys(navigator.geolocation).length) {
@@ -43,7 +47,24 @@ class SearchResults extends Component {
 				};				
 				this.lat = pos.lat;
 				this.lng = pos.lng;
-				await this.getJobData(this.lat, this.lng, 0);
+				this.searchParams = {
+		            title: refinedJob, 
+					location: refinedCity,
+					id:'',
+		            minSalary:'',
+		            maxSalary:'',
+		            distance:30,
+		            experience:'',
+		            postedDate:'',
+		            employmentTypeContract: false,
+		            employmentTypeInternship: false,
+		            employmentTypePartTime: false,
+		            employmentTypeFullTime: false,
+		            userLat:this.lat,
+		            userLng:this.lng,
+		            offset: 0
+		        }
+				await this.getJobData(0, this.searchParams);
 				this.populateCards(this.state.response.data.jobs);
 				if(localStorage.getItem('theme')){
 					this.props.setTheme(localStorage.getItem('theme'));
@@ -53,7 +74,26 @@ class SearchResults extends Component {
 			});
 		} else {
 			console.log(" did Not Get location Data");
-			await this.getJobData(NaN, NaN, 0);
+			this.lat = NaN;
+			this.lng = NaN;
+			this.searchParams = {
+	            title: refinedJob, 
+				location: refinedCity,
+				id:'',
+	            minSalary:'',
+	            maxSalary:'',
+	            distance:45,
+	            experience:'',
+	            postedDate:'',
+	            employmentTypeContract: false,
+	            employmentTypeInternship: false,
+	            employmentTypePartTime: false,
+	            employmentTypeFullTime: false,
+	            userLat: this.lat,
+	            userLng: this.lng,
+	            offset: this.offset
+	        }
+			await this.getJobData(0, this.searchParams);
 			this.populateCards(this.state.response.data.jobs);
 			if(localStorage.getItem('theme')){
 				this.props.setTheme(localStorage.getItem('theme'));
@@ -64,11 +104,15 @@ class SearchResults extends Component {
 	}
 
 
-	getFilterResponseData(respObj){
+	getFilterResponseData(respObj, searchParams){
+		console.log('got from filters', searchParams)
+		this.searchParams = searchParams;
 		console.log('respObj', respObj)
 		if(!respObj.data.success){
 			this.leftArray =[];
 			this.rightArray =[];
+			this.offset = 0;
+			this.alt = 1;
 			this.setState({
 				noResults: true,
 				left: '',
@@ -88,6 +132,9 @@ class SearchResults extends Component {
 		this.leftArray =[];
 		this.rightArray =[];
 		this.offset = 0;
+		this.alt = 1;
+		this.searchParams.offset = this.offset
+		console.log("from filters before populate", this.searchParams)
 		this.populateCards(this.state.response.data.jobs);
 	}
 
@@ -110,32 +157,13 @@ class SearchResults extends Component {
         return cityObj[city];    
 	}
 
-	async getJobData(userLat , userLng, offset){
-		const {city, job} = this.props.match.params;
-		let refinedJob = this.handleTitle(job);
-		let refinedCity = this.handleCity(city);
+	async getJobData(offset, searchParams){
 		if(event){
 			event.preventDefault();   //will need to address isue with backend about querys accounting for spaces or no spaces
 		}
-		const initialSearchParams = {
-            title: refinedJob, 
-			location: refinedCity,
-			id:'',
-            minSalary:'',
-            maxSalary:'',
-            distance:30,
-            experience:'',
-            postedDate:'',
-            employmentTypeContract: false,
-            employmentTypeInternship: false,
-            employmentTypePartTime: false,
-            employmentTypeFullTime: false,
-            userLat:userLat,
-            userLng:userLng,
-            offset: offset
-        }
-        console.log('params', initialSearchParams)
-		const params = formatPostData(initialSearchParams);
+		
+        console.log('search results page params', searchParams)
+		const params = formatPostData(searchParams);
 		const resp = await axios.post("/api/get_joblist.php", params);
 		this.setState({response:resp, loaded: true})	   
     }
@@ -198,16 +226,17 @@ class SearchResults extends Component {
 							{this.state.right}
 	                	</div>
 	                	<div className = "load-cont" style = {!this.state.loaded && this.offset<1 ? {} : {'display':'none'} }>						
-							{!this.state.loaded && this.offset<1 ? <Loading/> : '' }
+							{!this.state.loaded && this.offset < 1 ? <Loading/> : '' }
 						</div>
 						<div className = "load-cont2" style = {!this.state.loaded && this.offset>0 ? {} : {'display':'none'} }>						
-							{!this.state.loaded && this.offset>0 ? <Loading/> : '' }
+							{!this.state.loaded && this.offset > 0 ? <Loading/> : '' }
 						</div>
 						{this.state.noResults ? <NoResults/> : ''}
 	                	<BottomScrollListener offset = {200} onBottom = {async ()=>{
 	                		this.offset += 1;
+	                		this.searchParams.offset=this.offset;
 	                		this.setState({loaded: false})
-	                		await this.getJobData(this.lat, this.lng, this.offset);
+	                		await this.getJobData(this.offset, this.searchParams);
 	                		this.populateCards(this.state.response.data.jobs)
 	                	}}/>
 	                </div>	

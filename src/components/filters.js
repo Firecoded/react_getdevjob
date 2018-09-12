@@ -28,7 +28,7 @@ class Filters extends Component {
             location:"",
             minSalary:'0',
             maxSalary:'200000',
-            distance:'',
+            distance:'45',
             experience:'',
             postedDate:'',
             employmentTypeContract: true,
@@ -84,11 +84,14 @@ class Filters extends Component {
 
     async submitFormData(event){
         console.log('filters submitted')
+        this.setState({
+            offset: 0
+        })
         event.preventDefault();
         const params = formatPostData(this.state);
         const resp = await axios.post("http://localhost:8000/api/get_joblist.php", params);
-        console.log("things sent: ", this.state, 'resp: ', resp);
-        this.props.getFilterData(resp);
+        console.log("things sent: ", this.state, 'resp: ', resp, 'params:', params);
+        this.props.getFilterData(resp, this.state);
         $('.side-nav-control').sideNav('hide');
     }
 
