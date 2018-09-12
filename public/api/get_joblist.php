@@ -61,7 +61,8 @@
     }
 
     $title = explode(" ", $title);
-    $conds = array();
+// create an array to store job title conditions in the job title AND the job description
+    $titleConds = array();
     $descriptionConds = array();
 
 // checks by title
@@ -75,15 +76,16 @@
 // add "(" to query because of the 'OR' conditional
     $query = $query . "(";
     foreach($title as $val){
-        $conds[] = "`title` LIKE '%{$val}%'";
+        $titleConds[] = "`title` LIKE '%{$val}%'";
     }
-    $query = $query . implode(" AND ", $conds) . ")";
+    $query = $query . implode(" AND ", $titleConds) . ")";
  
 // adds " OR ( " to the query string allowing for a search in the description    
     $query = $query . " OR (";
     foreach($title as $val){
         $descriptionConds[] = " `description` LIKE '%{$val}%'";
     }
+    // join the array together
     $query = $query.implode(" OR ", $descriptionConds).")";
 
     
