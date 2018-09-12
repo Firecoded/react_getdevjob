@@ -68,10 +68,12 @@
     else{
         $query = $query . " WHERE ";
     }
+    $query = $query."(";
+    
     foreach($title as $val){
         $conds[] = "`title` LIKE '%{$val}%'";
     }
-    $query = $query . implode(" OR ", $conds);
+    $query = $query . implode(" OR ", $conds).")";
 
 // Single page
     if(isset($_POST['id']) && $_POST['id'] !== '' ){
@@ -125,33 +127,7 @@
         $ouput["message"] = "fail";
     }
 
-    // SOME COMPANIES DONT HAVE VALID LOCATIONS, GETTING A WARNING->ERROR IN NETWORK TAB 
-
-    //check if user shared location and if user put distance in filter
-    // if($locationFromSearch !== ""  && $_POST["distance"] !== ""){
-    //     $cityLat = $locationObject[$locationFromSearch]["lat"];
-    //     $cityLng = $locationObject[$locationFromSearch]["lng"];
-    //     for($i = 0; $i < count($output["jobs"]); $i++){
-    //         $companyLat = $output["jobs"][$i]["company"]["location"]["lat"];
-    //         $companyLng = $output["jobs"][$i]["company"]["location"]["lng"];
-    //         $company = $output["jobs"][$i]["company"]["name"];
-
-    //         //if company location not available, remove from output array
-    //         if(empty($companyLat)){
-    //             array_splice($output["jobs"], $i, 1);
-    //             //reindex i to hold last position
-    //             $i--;   
-    //             continue;
-    //         }
-
-    //         $distanceFromUserToCompany = getDistance($cityLat, $cityLng, $companyLat, $companyLng);
-    //         //if distance between company and city is greater than distance in filter, remove it from output array
-    //         if($distanceFromUserToCompany > intval($_POST["distance"])){
-    //             array_splice($output["jobs"], $i, 1);
-    //             $i--;
-    //         }
-    //     }
-    // }
+   
 
 
     $output = json_encode($output);
