@@ -62,7 +62,8 @@
 
     $title = explode(" ", $title);
     $conds = array();
-    
+    $descriptionConds = array();
+
 // checks by title
     if($andFlag){
         $query = $query . " AND ";
@@ -76,8 +77,16 @@
     foreach($title as $val){
         $conds[] = "`title` LIKE '%{$val}%'";
     }
-    $query = $query . implode(" OR ", $conds) . ")";
+    $query = $query . implode(" AND ", $conds) . ")";
+ 
+// adds " OR ( " to the query string allowing for a search in the description    
+    $query = $query . " OR (";
+    foreach($title as $val){
+        $descriptionConds[] = " `description` LIKE '%{$val}%'";
+    }
+    $query = $query.implode(" OR ", $descriptionConds).")";
 
+    
 
 // Single page
     if(isset($_POST['id']) && $_POST['id'] !== '' ){
