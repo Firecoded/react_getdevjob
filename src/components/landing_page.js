@@ -116,9 +116,9 @@ class LandingPage extends Component {
                         <div className = {`lp-button-syntax ${this.props.theme.text2}`}>&lt;/button&gt;</div>  
                     </div>
 			        <div className ='container input-container'>
-			            <h1 className={`center-align lp-title ${this.props.theme.titleText1}`}>getDevJob(<span className = {this.props.theme.titleText2}>you</span>)</h1>
+			            <h1 className={`center-align lp-title ${this.props.theme.titleText1}`}>getDevJob(<span className = {this.props.theme.text1}>you</span>)</h1>
 			            <form className = 'lp-form '>
-			                <div className ={`row lp-title-city-input ${this.props.theme.titleText1} ${this.props.theme.navColor}`}> 
+			                <div className ={`row lp-title-city-input ${this.props.theme.text1} ${this.props.theme.navColor}`}> 
 			                    <Col s={12} m={8} l={6} offset="s1 m2 l3">
 									<Input s={11} m={10} l={6} type ='select' label = 'Job Title' name="title" defaultValue = 'Web Developer' className = {this.props.theme.text1} onChange={this.handleInputChange.bind(this)}>
                                 		<option value = 'Web Developer'> Web Developer</option>
