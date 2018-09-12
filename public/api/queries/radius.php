@@ -35,7 +35,7 @@ function getJobsWithinRadius($locationFromSearch, $distance){
         $lng_Right = $lng_Center + $lng_scalar;
     }
   
-    return " AND `lat` BETWEEN '$lat_Left' AND '$lat_Right' AND `lng` BETWEEN '$lng_Left' AND '$lng_Right'";
+    return " AND `lat` BETWEEN $lat_Left AND $lat_Right AND `lng` BETWEEN $lng_Left AND $lng_Right";
   
 }
 

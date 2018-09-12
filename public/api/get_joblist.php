@@ -37,6 +37,7 @@
         $query = $query.postDateQuery($numberOfDays, $andFlag);
         $andFlag = true;
     }
+
 // job type
     if($_POST["employmentTypeFullTime"] == "true"){
         $query = $query.jobTypeQuery("1", $andFlag, $orFlag);
@@ -69,10 +70,13 @@
         $query = $query . " WHERE ";
     }
 
+// add "(" to query because of the 'OR' conditional
+    $query = $query . "(";
     foreach($title as $val){
         $conds[] = "`title` LIKE '%{$val}%'";
     }
-    $query = $query . implode(" OR ", $conds);
+    $query = $query . implode(" OR ", $conds) . ")";
+
 
 
 // Single page
@@ -93,7 +97,7 @@
 
     $result = mysqli_query($conn, $query);
 
-
+//  Constructs output object to send to frontend 
     if(mysqli_num_rows($result) > 0){
         $count = 0;
         while($row = mysqli_fetch_assoc($result)){
@@ -128,34 +132,6 @@
     }
     else{
         $ouput["message"] = "fail to query";
-    }
-
-    // SOME COMPANIES DONT HAVE VALID LOCATIONS, GETTING A WARNING->ERROR IN NETWORK TAB 
-
-    //check if user input city and if user put distance in filter
-    if($locationFromSearch !== ""  && $_POST["distance"] !== ""){
-        $cityLat = $locationObject[$locationFromSearch]["lat"];
-        $cityLng = $locationObject[$locationFromSearch]["lng"];
-        for($i = 0; $i < count($output["jobs"]); $i++){
-            $companyLat = $output["jobs"][$i]["company"]["location"]["lat"];
-            $companyLng = $output["jobs"][$i]["company"]["location"]["lng"];
-            $company = $output["jobs"][$i]["company"]["name"];
-
-            //if company location not available, remove from output array
-            if(empty($companyLat)){
-                array_splice($output["jobs"], $i, 1);
-                //reindex i to hold last position
-                $i--;   
-                continue;
-            }
-
-            $distanceFromUserToCompany = getDistance($cityLat, $cityLng, $companyLat, $companyLng);
-            //if distance between company and city is greater than distance in filter, remove it from output array
-            if($distanceFromUserToCompany > intval($_POST["distance"])){
-                array_splice($output["jobs"], $i, 1);
-                $i--;
-            }
-        }
     }
 
     $output = json_encode($output);
