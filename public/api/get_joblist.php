@@ -19,7 +19,7 @@
     $distance = $_POST["distance"];
 // start query
 
-    $query = "SELECT SQL_CALC_FOUND_ROWS `jobs`.`ID`, `jobs`.`title`, `jobs`.`company_name`, `jobs`.`post_date`, `jobs`.`listing_url`, `jobs`.`type_id`, `jobs`.`description`, `jobs`.`title_comp`, `jobs`.`salary_id`, 
+    $query = "SELECT `jobs`.`ID`, `jobs`.`title`, `jobs`.`company_name`, `jobs`.`post_date`, `jobs`.`listing_url`, `jobs`.`type_id`, `jobs`.`description`, `jobs`.`title_comp`, `jobs`.`salary_id`, 
             `companies`.`name`, `companies`.`logo`, `companies`.`company_website`, `companies`.`linkedin_url`, `companies`.`ocr_url`, `companies`.`crunchbase_url`, 
             `locations`.`company_id`, `locations`.`street`, `locations`.`city`, `locations`.`state`, `locations`.`zip`, `locations`.`lat`, `locations`.`lng`, `locations`.`full_address` 
              FROM `jobs`";
@@ -111,6 +111,8 @@
         $startingPoint = $offset * 12;
         $query = $query . " LIMIT 12 OFFSET $startingPoint";
     }
+
+    
     print($query);
 
     $result = mysqli_query($conn, $query);
