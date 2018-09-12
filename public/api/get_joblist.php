@@ -79,6 +79,7 @@
     foreach($title as $val){
         $titleConds[] = "`title` LIKE '%{$val}%'";
     }
+
     $query = $query . implode(" AND ", $titleConds) . ")";
  
 // adds " OR ( " to the query string allowing for a search in the description    

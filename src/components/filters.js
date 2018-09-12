@@ -105,13 +105,14 @@ class Filters extends Component {
                         <Input s={12} type ='select' label = 'Job Title' name="title" defaultValue = {job} onChange={this.handleChange.bind(this)}>
                             <option value = ''> All </option>    
                             <option value = 'Web Developer'> Web Developer</option>
+                            <option value = 'Software Engineer'>Software Engineer</option>
                             <option value = 'Front End'> Front End</option>
                             <option value = 'Back End'> Back End</option>
                         </Input>
                     </Row>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
                         <Input s={12} type ='select' label = 'City' name="location" defaultValue = {city} onChange={this.handleChange.bind(this)}>
-                            <option value = ''> All </option>    
+                            <option value = ''> Southern California </option>    
                             <option value = 'Irvine'>Irvine</option>
                             <option value = 'San Diego'>San Diego</option>
                             <option value = 'Los Angeles'>Los Angeles</option>
@@ -131,10 +132,9 @@ class Filters extends Component {
                     </Row>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
                         <Input s={12} type ='select' label = 'Distance' name='distance' defaultValue ='Nearby' onChange={this.handleChange.bind(this)}>
-                            <option value = ''> Any </option>
-                            <option value = '5'>5 miles</option>
                             <option value = '15'>15 miles</option>
                             <option value = '30'>30 miles</option>
+                            <option value = '45'>45 miles</option>
                         </Input>
                     </Row>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>

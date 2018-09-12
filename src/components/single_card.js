@@ -45,7 +45,8 @@ class Card extends Component{
     }
 
     render(){
-        const {title, company_name } = this.props.details;
+        console.log("find the city name here",this.props.details );
+        const {title, company_name, city } = this.props.details;
         let {description, post_date} = this.props.details;
         if(description===''){
             description = "<br><br><br><br><br><br><h3>No Job Description Provided</h3>";
@@ -70,12 +71,13 @@ class Card extends Component{
         <div className={`sc-cardContainer card-panel hoverable ${this.props.theme.navColor}`}>
             <div className={`datePosted ${withinAWeek ?'green-text': this.props.theme.titleText2} `}>
                     Posted: { this.daysSincePosting(dd,mm,post_dd,post_mm)}
-                </div>
+                    
+            </div>
             <div className = 'sc-leftColumn'>   
                 <div className ='sc-businessInfo'>
                     <ul className={`sc-jobDetailsList ${this.props.theme.titleText2}`}>
                         <li><strong>{title}</strong></li>
-                        <li><strong>{company_name}</strong></li>
+                        <li><strong>{`${company_name} - ${city}`}</strong></li>
                     </ul>
                 </div>
                 <div className={`sc-jobDescription ${this.props.theme.text1}`}>
