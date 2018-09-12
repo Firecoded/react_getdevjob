@@ -25,6 +25,10 @@
     padding: 1% 0% 0% 3%;
 }
 
+.bm-jobDescription *{
+    color: inherit !important;
+}
+
 .bm-columnContainer{
     display: inline-block;
     width: 100%;

@@ -54,6 +54,9 @@
     transform: translateX(-50%);
     text-align: center;
 }
+.sp-jobDescription *{
+    color: inherit !important;
+}
 
 .sp-Body{
     position: relative;

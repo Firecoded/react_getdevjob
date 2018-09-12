@@ -76,7 +76,7 @@
     foreach($title as $val){
         $conds[] = "`title` LIKE '%{$val}%'";
     }
-    $query = $query . implode(" OR ", $conds) . ")";
+    $query = $query . implode(" AND ", $conds) . ")";
 
 
 // Single page

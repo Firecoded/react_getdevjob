@@ -10,3 +10,18 @@
 .theme-dropdown {
 	height: 5vh;
 }
+.theme-dropdown .select-dropdown {
+    text-align: left;
+}
+
+.nav-bar-items{
+    left:5%;
+}
+@media screen and (min-width: 576px){
+  .nav-bar-items{
+      left:0%;
+    }
+  .theme-dropdown .select-dropdown {
+    text-align: center;
+    }
+}
