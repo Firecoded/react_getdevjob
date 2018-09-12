@@ -142,7 +142,9 @@ class SingleJobPage extends Component {
                             <div className={`sp-jobTitle ${this.props.theme.titleText2}`}>
                                {title}
                             </div>
-                            <TabsInfo details = {this.state.response} distance ={this.state.distance} duration = {this.state.duration} theme={this.props.theme}/>
+                            <div className = "tabsContainer">
+                                <TabsInfo details = {this.state.response} distance ={this.state.distance} duration = {this.state.duration} theme={this.props.theme}/>
+                            </div>
                         </div>
                         <div className='sp-rightColumn'>
                             <div className='row'>   
