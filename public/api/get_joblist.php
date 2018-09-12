@@ -6,33 +6,24 @@
     require_once("queries/get_single_job.php");
     require_once("database/distance.php");
     require_once("mysql_connect.php");
-
+    require_once("queries/radius.php");
    
     $output = [
         "success"=>false
     ];
+
     $title = $_POST["title"];
     $locationFromSearch = $_POST["location"];
-    $locationObject = [
-        "losangeles"=>[
-            "lat"=>34.0522,
-            "lng"=>-118.2437
-        ],
-        "sandiego"=>[
-            "lat"=>32.7157,
-            "lng"=>-117.1611
-        ],
-        "irvine"=>[
-            "lat"=>33.6846,
-            "lng"=>-117.8265
-        ]
-    ];
     $offset = $_POST["offset"];
-
+    $distance = $_POST["distance"];
 // start query
     $query = "SELECT * FROM `jobs`";
     $andFlag = false;
     $orFlag = false;
+
+    $query = $query." JOIN `companies` ON `jobs`.`company_id` = `companies`.`ID`";
+    $query = $query." JOIN `locations` ON `locations`.`company_id` = `companies`.`ID`";
+
 // salary
     if($_POST["minSalary"] != "" && $_POST["maxSalary"] !== ""){
         $max = (INT)$_POST["maxSalary"];
@@ -80,20 +71,23 @@
     foreach($title as $val){
         $conds[] = "`title` LIKE '%{$val}%'";
     }
-    $query = $query . implode(" AND ", $conds);
+    $query = $query . implode(" OR ", $conds);
 
 // Single page
     if(isset($_POST['id']) && $_POST['id'] !== '' ){
         $single_page_id = $_POST['id'];
         $query = getSingleJob($single_page_id);
     }
+// uses Search Location to select jobs within a radius of the specified latitude and longitude
+    $query = $query.getJobsWithinRadius($locationFromSearch, $distance);
 
+    
 // Sort query results by post date
     $query = $query . " ORDER BY `post_date` DESC";
     $startingPoint = $offset * 12;
     $query = $query . " LIMIT 12 OFFSET $startingPoint";
     $result = mysqli_query($conn, $query);
-    // print($query);
+    print('@@@@@@@@@@@@@@@@@'.$query);
     // print("<br>");
     if(mysqli_num_rows($result) > 0){
         $count = 0;
