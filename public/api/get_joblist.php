@@ -69,10 +69,13 @@
         $query = $query . " WHERE ";
     }
 
+    $query = $query."(";
+    
+
     foreach($title as $val){
         $conds[] = "`title` LIKE '%{$val}%'";
     }
-    $query = $query . implode(" OR ", $conds);
+    $query = $query . implode(" OR ", $conds).")";
 
 
 // Single page
@@ -129,6 +132,7 @@
     else{
         $ouput["message"] = "fail to query";
     }
+
 
     $output = json_encode($output);
     print_r($output);
