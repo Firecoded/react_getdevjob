@@ -102,7 +102,6 @@ class LandingPage extends Component {
 						<p className ={`lp-modalText ${this.props.theme.text1}`}>Your current location will be used only to provide the following features:</p>
 						<br/>
 						<ul className = {`lp-modalTextList ${this.props.theme.text1}`}> 
-							<li><b>• Filter by Distance:</b> Provide job listings based on distance from you in miles</li>
 							<li><b>• Estimated Drive Time:</b> Estimated drive time to help you see you anticipate daily commute</li>
 							<li><b>• Driving Directions:</b>  Show recommended driving routes powered by Google Maps </li>
 						</ul>

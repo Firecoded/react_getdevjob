@@ -30,6 +30,20 @@ class Card extends Component{
         });
     }
 
+    daysSincePosting(currentDate, currentMonth, postedDate, postedMonth){
+        if(currentMonth === postedMonth){
+            let dayDifference = currentDate - postedDate;
+            return `${dayDifference} Days Ago` 
+        } else {
+          let daysAfterMonthChange =  currentDate - 0;
+          let daysBeforeMonthChange = 30 - postedDate;
+          if(daysBeforeMonthChange == '-1'){
+              daysBeforeMonthChange = 1;
+          }
+          return `${daysAfterMonthChange+daysBeforeMonthChange} Days Ago`
+        }
+    }
+
     render(){
         const {title, company_name } = this.props.details;
         let {description, post_date} = this.props.details;
@@ -55,7 +69,7 @@ class Card extends Component{
     <div>   
         <div className={`sc-cardContainer card-panel hoverable ${this.props.theme.navColor}`}>
             <div className={`datePosted ${withinAWeek ?'green-text': this.props.theme.titleText2} `}>
-                    Date Posted: {post_date};
+                    Posted: { this.daysSincePosting(dd,mm,post_dd,post_mm)}
                 </div>
             <div className = 'sc-leftColumn'>   
                 <div className ='sc-businessInfo'>
