@@ -64,17 +64,15 @@
 }
 
 .sp-leftColumn{
-    width: 40%;
+    width: 95%;
     height: 100%;
     display:inline-block;
     vertical-align: top;
 }
 .sp-rightColumn{
-    width:58%;
+    width: 95%;
     height: 100%;
     display: inline-block;
-    margin-left: 2%;
-    padding: 1%;
 }
 
 .sp-jobDescription{
@@ -84,6 +82,7 @@
 }
 .sp-jobDetails{
     padding:2%;
+    margin-top:45%;
 }
 
 .sp-tabs li{
@@ -115,3 +114,84 @@
     justify-content: center;
 }
 
+.googleContainer{
+    left:0;
+    width: 100%;
+}
+
+@media only screen and (min-width: 576px){
+    .sp-leftColumn{
+        margin: 0% 2.5%;
+        width: 95%;
+        height: 100%;
+        display: inline-block;
+        vertical-align:top;
+    }
+
+    .sp-rightColumn{
+        width:95%;
+        height: 100%;
+        margin: 2% 2.5%;
+        display: inline-block;
+    }
+
+    .sp-jobDetails{
+        top:0;
+        margin-top:0%;
+    }
+
+    .sp-buttonRow{
+        position: relative;
+        left:15.5%;
+    }
+    .googleContainer{
+        left:0;
+        width: 100%;
+    }
+}
+
+.tabsContainer{
+    width:110%; 
+    right:4%;
+
+}
+
+@media only screen and (min-width: 993px){
+    
+    .sp-leftColumn{
+        width: 46%;
+        height: 100%;
+        display: inline-block;
+        vertical-align:top;
+    }
+
+    .sp-rightColumn{
+        width: 44%;
+        height:100%;
+        display: inline-block;
+        vertical-align: top;
+    }
+}
+
+@media screen and (min-width: 1200px){
+    .sp-leftColumn{
+        width: 40%;
+        height: 100%;
+        display: inline-block;
+        vertical-align:top;
+    }
+
+    .sp-rightColumn{
+        width: 48%;
+        height:100%;
+        display: inline-block;
+    }
+    .modalStyle{
+        width:75%;
+    }
+
+    .sp-buttonRow{
+        position: relative;
+        left:16%;
+    }
+}
