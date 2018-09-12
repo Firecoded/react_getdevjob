@@ -148,7 +148,8 @@ class Filters extends Component {
                         <Input s={6} name='employmentTypeFullTime' type='checkbox' checked={this.state.employmentTypeFullTime} value = 'fullTime' label='Full'  onChange={this.handleCheckBox.bind(this)}/>
                     </Row>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
-                        <button onClick={this.props.submitFormData} data-activates="filterSideNav" className={`side-nav-control btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText}`}>Submit Filters</button>
+                        <button style={{height: '0px', width: '0px', zIndex: '-1'}}onClick={this.props.submitFormData} data-activates="filterSideNav" className={`side-nav-control btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText}`}></button>
+                        <button data-activates="filterSideNav" className={` btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText}`}>Submit Filters</button>
                     </Row>
                 </form>
             )
