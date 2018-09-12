@@ -3,22 +3,22 @@
 function getJobsWithinRadius($locationFromSearch, $distance){
    // assoc array containing lat's and long's from the center of each city 
     $locationObject = [
-        "losangeles"=>[
+        "Los Angeles"=>[
             "lat"=>34.0522,
             "lng"=>-118.2437
         ],
-        "sandiego"=>[
+        "San Diego"=>[
             "lat"=>32.7157,
             "lng"=>-117.1611
         ],
-        "irvine"=>[
+        "Irvine"=>[
             "lat"=>33.6846,
             "lng"=>-117.8265
         ]
     ];
 // get and store the search location's latitude and longitude
-    $lat_Center = $locationObject[$locationFromSearch]['lat'];
-    $lng_Center = $locationObject[$locationFromSearch]['lng'];
+    $lat_Center = $locationObject[$locationFromSearch]["lat"];
+    $lng_Center = $locationObject[$locationFromSearch]["lng"];
 
 // scalar per mile
     $lat_scalar = 0.014;

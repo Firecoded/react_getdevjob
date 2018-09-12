@@ -61,16 +61,6 @@ class SearchResults extends Component {
 	}
 
 
-	handleTitle(title){
-		let titleObj = {
-			"frontend": "Front End", 
-			"backend": "Back End",
-			"webdeveloper": "Web Developer"
-		};
-		return titleObj[title];
-    }
-
-
 	getFilterResponseData(respObj){
 		if(!this.state.response.data.success){
 			this.setState({
@@ -102,15 +92,25 @@ class SearchResults extends Component {
         return titleObj[title];     
 	}
 
+	handleCity(city){
+		const cityObj = {
+			"losangeles": "Los Angeles",
+            "sandiego": "San Diego",
+            "irvine": "Irvine"
+		};
+        return cityObj[city];    
+	}
+
 	async getJobData(userLat , userLng, offset){
 		const {city, job} = this.props.match.params;
 		let refinedJob = this.handleTitle(job);
+		let refinedCity = this.handleCity(city);
 		if(event){
 			event.preventDefault();   //will need to address isue with backend about querys accounting for spaces or no spaces
 		}
 		const initialSearchParams = {
             title: refinedJob, 
-			location: city,
+			location: refinedCity,
 			id:'',
             minSalary:'',
             maxSalary:'',

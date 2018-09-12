@@ -14,6 +14,7 @@
 
     $title = $_POST["title"];
     $locationFromSearch = $_POST["location"];
+    // print("locatio nfrom search $locationFromSearch");
     $offset = $_POST["offset"];
     $distance = $_POST["distance"];
 // start query
