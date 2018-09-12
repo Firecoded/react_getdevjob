@@ -1,4 +1,7 @@
 <?php
+
+
+
     require_once("../mysql_connect.php");
     require_once("scrape/adzuna_scrape.php");
     require_once("scrape/salary_scrape.php");
@@ -7,7 +10,7 @@
     require_once("api_calls/google_location.php");
     require_once("../api_keys.php");
 
-    $url = "https://api.adzuna.com:443/v1/api/jobs/us/search/1?app_id={$adzunaAppID}&app_key={$adzunaAppKey}&results_per_page=1&what=front%20end%20developer&location0=US&location1=California&location2=San%20Diego%20County";   
+    $url = "https://api.adzuna.com:443/v1/api/jobs/us/search/1?app_id={$adzunaAppID}&app_key={$adzunaAppKey}&results_per_page=2&what=Business%20Development%%20Manager&location0=US&location1=California&location2=Orange%20County";   
 
 //create request object
     header('Content-Type: application/json');
@@ -19,12 +22,13 @@
     $server_output = curl_exec ($ch);
     curl_close ($ch);
     $server_output = json_decode($server_output);
-    print_r($server_output);
+    // print_r($server_output);
 
     $output = [
         'success' => false,
         'message'=> []
     ];
+
 // loop through the results array and get the title, postDate and listingURL
     for($i = 0;  $i < count((array)$server_output -> results); $i++){
         // variables for JOBS table
@@ -43,6 +47,11 @@
             
         $ocr_url = "https://www.ocregister.com/?s=".$company_name."&orderby=date&order=desc";
         $company_website = getCompanySite($company_name);    
+        
+        if($company_website === NULL){
+            continue;
+
+        }
         
         // run query to check companies table if current index exists in the database
         $checkCompanyExistance = "SELECT `name` FROM `companies` WHERE `name` = '$company_name'";
@@ -104,16 +113,19 @@
             // retrieves the last primary ID of the last row inserted into the salaries table
             $salary_id = mysqli_insert_id($conn);
         }
+        
+       
+        print_r($server_output);
 
-        //checks redirect link, if appcast.io skip -> cant scape description
-        if($server_output->jobs[$i]->source === "appcast.io"  ){
-            continue;
-         }
-        // Checks if listing was posted within 2 months of current date
+     
+        
         $dateTwoMonthsAgo = date("m/d/Y", strtotime("-2 months"));
-         if($post_date < $dateTwoMonthsAgo){
-             continue;
-         }
+        if($post_date < $dateTwoMonthsAgo){
+            continue;
+        }
+        
+        
+        
 
  // write query to select titles that are repeated
         $checkJobExistance = "SELECT * FROM `jobs` WHERE `title_comp` = '$title_name'";
