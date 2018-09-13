@@ -121,7 +121,7 @@ class LandingPage extends Component {
 			                <div className ={`row lp-title-city-input ${this.props.theme.text1} ${this.props.theme.navColor}`}> 
 			                    <Col s={12} m={8} l={6} offset="s1 m2 l3">
 									<Input s={11} m={10} l={6} type ='select' label = 'Job Title' name="title" defaultValue = 'Web Developer' className = {this.props.theme.text1} onChange={this.handleInputChange.bind(this)}>
-										<option value = ''>All</option>
+										<option value = 'All'>All</option>
                                 		<option value = 'Web Developer'>Web Developer</option>
 										<option value = 'Software Engineer'>Software Engineer</option>
                                 		<option value = 'Front End'>Front End</option>
@@ -129,7 +129,7 @@ class LandingPage extends Component {
 										
                        				</Input>
 									<Input s={11} m={10} l={6} type ='select' label = 'City' name="location" defaultValue = 'Irvine' className = {this.props.theme.text1} onChange={this.handleInputChange.bind(this)}>
-										<option value = ''> Southern California </option>    
+										<option value = 'Socal'> Southern California </option>    
 										<option value = 'Irvine'>Irvine</option>
                                 		<option value = 'San Diego'>San Diego</option>
                                 		<option value = 'Los Angeles'>Los Angeles</option>

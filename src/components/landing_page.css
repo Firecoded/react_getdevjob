@@ -12,7 +12,10 @@
     position: relative;
     top: 20%;
 }
-
+.caret{
+  z-index: 998 !important;
+  right: 9px !important;
+}
 .blue-txt { 
     top: 0;
 }

@@ -46,7 +46,7 @@ class SearchResults extends Component {
 		            maxSalary:'',
 		            distance: 45,
 		            experience:'',
-		            postedDate:'',
+		            postedDate:'',	
 		            employmentTypeContract: false,
 		            employmentTypeInternship: false,
 		            employmentTypePartTime: false,
@@ -54,7 +54,8 @@ class SearchResults extends Component {
 		            userLat:'',
 		            userLng:'',
 		            offset: 0
-		        }
+		}
+		console.log("things sent: ", this.searchParams);
 		$('.side-nav-control').sideNav();
 		if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(async (position) => {
@@ -133,7 +134,9 @@ class SearchResults extends Component {
         const titleObj = {
 			"frontend": "Front End", 
         	"backend": "Back End", 
-			"webdeveloper": "Web Developer"
+			"webdeveloper": "Web Developer",
+			"softwareengineer": "Software Engineer",
+			"all": ""
 		};
         return titleObj[title];     
 	}
@@ -142,7 +145,8 @@ class SearchResults extends Component {
 		const cityObj = {
 			"losangeles": "Los Angeles",
             "sandiego": "San Diego",
-            "irvine": "Irvine"
+			"irvine": "Irvine",
+			"socal": ""
 		};
         return cityObj[city];    
 	}
