@@ -57,7 +57,7 @@ class SearchResults extends Component {
 		}
 		console.log("things sent: ", this.searchParams);
 		$('.side-nav-control').sideNav();
-		if (Object.keys(navigator.geolocation).length) {
+		if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(async (position) => {
 				var pos = {
 					lat: position.coords.latitude,
@@ -72,6 +72,18 @@ class SearchResults extends Component {
 				} else {
 					this.props.setTheme(this.props.theme.current);
 				}
+			}, async () => {
+				this.searchParams.userLat = NaN;
+			this.searchParams.userLng = NaN;
+			
+			await this.getJobData(0, this.searchParams);
+			this.populateCards(this.state.response.data.jobs);
+			if(localStorage.getItem('theme')){
+				this.props.setTheme(localStorage.getItem('theme'));
+			} else {
+				this.props.setTheme(this.props.theme.current);
+			}
+
 			});
 		} else {
 			this.searchParams.userLat = NaN;

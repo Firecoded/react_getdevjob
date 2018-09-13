@@ -40,14 +40,14 @@ class TabsInfo extends Component{
             return (
                 <div className='row'>
                     <p className={`center ${titleText1}`}>Learn about the Company and it's Executives</p>
-                    <a href = {'http://' + crunchbase_url}  target ="_blank" className={`btn col offset-s4 s4 waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >Crunchbase</a>
+                    <a href = {'http://' + crunchbase_url}  target ="_blank" className={`btn waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >Crunchbase</a>
                 </div>
             )
         } else {
             return(
                 <div className='row'>
                     <p className={`center ${titleText1}`}>Crunchbase info unavailable</p>
-                    <a className='btn col offset-s4 s4 blue disabled' >CrunchBase</a>
+                    <a className='btn blue disabled' >CrunchBase</a>
                 </div>
             )
         }
@@ -68,14 +68,14 @@ class TabsInfo extends Component{
             return (
                 <div className='row'>
                     <p className={`center ${titleText1}`}>Check out the company website</p>
-                    <a href = {'http://' + company_website}  target ="_blank" className={`btn col offset-s4 s4 waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >Company</a>
+                    <a href = {'http://' + company_website}  target ="_blank" className={`btn waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >Company</a>
                 </div>
             )
         } else {
             return(
                 <div className='row'>
                     <p className={`center ${titleText1}`} >Company website unavailable</p>
-                    <a className='btn col offset-s4 s4 blue disabled' >Company</a>
+                    <a className='btn blue disabled' >Company</a>
                 </div>
             )
         }
@@ -95,7 +95,7 @@ class TabsInfo extends Component{
             return (
                 <div className='row'>
                     <p className={`center ${titleText1}`}>Do you know anyone working here?</p>
-                    <a href = {'http://' + linkedin_url} target= '_blank' className={`btn col offset-s4 s4 waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >LinkedIn</a>
+                    <a href = {'http://' + linkedin_url} target= '_blank' className={`btn waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >LinkedIn</a>
                 </div>
             )
         } else{
@@ -103,7 +103,7 @@ class TabsInfo extends Component{
             return (
                 <div className='row'>
                     <p className={`center ${titleText1}`}>LinkedIn info unavailable</p>
-                    <a className='btn col offset-s4 s4 blue disabled' >LinkedIn</a>
+                    <a className='btn blue disabled' >LinkedIn</a>
                 </div>
             )
         }
@@ -147,7 +147,7 @@ class TabsInfo extends Component{
                 </Tab>
                 <Tab title="company">
                     <div className="setion3">
-                        <div id='Learn More' className ='col s12 bm-more'>
+                        <div id='learnMore' className ='col s12 bm-more'>
                             {this.validateCompanySite(titleText1, this.props.theme.button)}
                             {this.validateLinkedIn(titleText1, this.props.theme.button)}
                             {this.validateCrunchBase(titleText1, this.props.theme.button)}

@@ -7,15 +7,18 @@
 	background-color: inherit !important;
     color: inherit !important;
 }
+
 .theme-dropdown {
-	height: 5vh;
+    height: 5vh;
+    width:65%;
 }
+
 .theme-dropdown .select-dropdown {
     text-align: left;
 }
 
 .nav-bar-items{
-    left:5%;
+    left:10%;
 }
 
 @media screen and (min-width: 576px){
@@ -25,4 +28,7 @@
   .theme-dropdown .select-dropdown {
     text-align: center;
     }
+  .theme-dropdown {
+      width:100%;
+  } 
 }

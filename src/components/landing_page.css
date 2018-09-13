@@ -24,35 +24,60 @@
     top: -0%;    
 }
 .lp-title{
-    font-size: 3em;
+    position: relative;
+    font-size: 2.75em;
+    left:6%;
 }
 .lp-drop-content {
     top: -17px;
 }
 .lp-theme-cont{
     position: absolute;
-    left: 3.5%;
+    left: 6.5%;
     background-color: inherit !important;
     color: inherit !important;
 }
 .lp-button-syntax{
-    margin-left: 3%;
+    margin-left: 6.5%;
 }
 .lp-clickable {
     cursor: pointer;
 }
 .lpModal{
-    height:50%;
+    height:40%;
 }
 
 .modal-content{
     height: 30vh !important;
 }
 
+#lpModal{
+    height:50%;
+}
 #lp-ModalTrigger:hover {
     cursor: pointer;
 }
 .lp-title-city-input *, .selected *{
     background-color: inherit !important;
     color: inherit !important;
+}
+.left-nums{
+    z-index: 100;
+}
+@media screen and (min-width: 576px){
+    .lp-theme-cont{
+        position: absolute;
+        left: 3.5%;
+        background-color: inherit !important;
+        color: inherit !important;
+    }
+
+    .lp-title{
+        font-size: 3em;
+        left:0%;
+    }
+
+    .lp-button-syntax{
+        margin-left: 3%;
+    }
 }

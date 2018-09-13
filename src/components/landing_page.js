@@ -72,9 +72,9 @@ class LandingPage extends Component {
 			            <div className="left-nums">24</div>
 			            <div className="left-nums">25</div>
 			            <div className="left-nums">26 <span className ={this.props.theme.text2}>&lt;a href = &quot;/about-us&quot;&gt;<Link to ="/about-us" className = {this.props.theme.titleText1}><u>About Us</u></Link>&lt;/a&gt;</span></div>
-			            <div className="left-nums">27 <span className ={this.props.theme.text2}>&lt;a href = &quot;/why-share-geolocation&quot;&gt;<a id='lp-ModalTrigger' className = {this.props.theme.titleText1} onClick={() =>this.handleLPModalOpen()}><u>How we use your location data</u></a>&lt;/a&gt;</span></div>
-			            <div className="left-nums">28</div>
-			            <div className="left-nums">29</div>
+			            <div className="left-nums">27 </div>
+			            <div className="left-nums">28 <span className ={this.props.theme.text2}>&lt;a href = &quot;/geolocation&quot;&gt;</span></div>
+			            <div className="left-nums">29 <span><a id='lp-ModalTrigger' className = {this.props.theme.titleText1} onClick={() =>this.handleLPModalOpen()}><u>Why share your geolocation?</u></a>&lt;/a&gt;</span></div>
 			            <div className="left-nums">31</div>
 			            <div className="left-nums">32</div>
 			            <div className="left-nums">33</div>
