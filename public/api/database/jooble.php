@@ -108,7 +108,7 @@
         $dateTwoMonthsAgo = date("m/d/Y", strtotime("-2 months"));
         //skip appcast.io -> cant scape description, checks if listing was posted within 2 months of current date
         if($server_output->jobs[$i]->source === "appcast.io" || $postDate < $dateTwoMonthsAgo ){
-        continue;
+            continue;
         }
 
         //insert into jobs table
