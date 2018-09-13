@@ -100,16 +100,14 @@ class SingleJobPage extends Component {
         const params = formatPostData(this.singleJobItem);
         
         const resp = await axios.post("/api/get_joblist.php", params);
-        console.log("THIS PROBLEM", resp);
         this.setState({
             response:resp.data.jobs[0]});
     }
 
     render(){
-        console.log('theme', this.props)
         if(!this.state.response){
             return ( 
-                    <div className = {`sp-load-cont ${this.props.theme.background}`}>
+                    <div className = {`sp-load-cont sp-overflow ${this.props.theme.background}`}>
                         <div className = 'sp-load-position'> 
                             <Loading/> 
                         </div>
