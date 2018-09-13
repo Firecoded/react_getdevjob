@@ -12,8 +12,12 @@
     position: relative;
     top: 20%;
 }
+
+.lp-form {
+    z-index: 101;
+}
 .caret{
-  z-index: 998 !important;
+  z-index: 10001 !important;
   right: 9px !important;
 }
 .blue-txt { 
@@ -21,7 +25,7 @@
 }
 .left-numbers{
     position: absolute;
-    top: -0%;    
+    top: -0%; 
 }
 .lp-title{
     position: relative;
@@ -36,15 +40,13 @@
     left: 6.5%;
     background-color: inherit !important;
     color: inherit !important;
+    z-index: 10000;
 }
 .lp-button-syntax{
     margin-left: 6.5%;
 }
 .lp-clickable {
     cursor: pointer;
-}
-.lpModal{
-    height:40%;
 }
 
 .modal-content{
