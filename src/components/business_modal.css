@@ -27,6 +27,7 @@
 
 .bm-jobDescription *{
     color: inherit !important;
+    font-weight: normal;
 }
 
 .bm-columnContainer{
