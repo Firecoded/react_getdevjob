@@ -114,11 +114,9 @@
     }
 
     
-    
-
     $result = mysqli_query($conn, $query);
-    // print($query);
-//  Constructs output object to send to frontend 
+
+    //  Constructs output object to send to frontend 
     if(mysqli_num_rows($result) > 0){
         $count = 0;
         while($row = mysqli_fetch_assoc($result)){
