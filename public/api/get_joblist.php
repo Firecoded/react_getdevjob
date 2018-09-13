@@ -90,7 +90,7 @@
         $descriptionConds[] = " `description` LIKE '%{$val}%'";
     }
     // join the array together
-    $query = $query.implode(" OR ", $descriptionConds)."))";
+    $query = $query.implode(" AND ", $descriptionConds)."))";
 
     
 
