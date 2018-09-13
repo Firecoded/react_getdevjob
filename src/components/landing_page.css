@@ -61,9 +61,11 @@
     background-color: inherit !important;
     color: inherit !important;
 }
-.left-nums{
-    z-index: 100;
+.lp-title-city-input{
+    max-width: 320px;
+    margin-left: 3% !important;
 }
+
 @media screen and (min-width: 576px){
     .lp-theme-cont{
         position: absolute;
@@ -78,6 +80,9 @@
     }
 
     .lp-button-syntax{
-        margin-left: 3%;
+        margin-left: 1.5%;
+    }
+    .lp-title-city-input{
+        max-width: 94%;
     }
 }

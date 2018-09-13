@@ -113,7 +113,7 @@ class LandingPage extends Component {
 			            <div className = {`lp-drop-content ${this.props.theme.titleText1}`}>
 							<ThemeDropDown/>
                         </div>
-                        <div className = {`lp-button-syntax ${this.props.theme.text2}`}>&lt;/button&gt;</div>  
+                    <div className = {`lp-button-syntax ${this.props.theme.text2}`}>&lt;/button&gt;</div>  
                     </div>
 			        <div className ='container input-container'>
 			            <h1 className={`center-align lp-title ${this.props.theme.titleText1}`}>getDevJob(<span className = {this.props.theme.text1}>you</span>)</h1>
