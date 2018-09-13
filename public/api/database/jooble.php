@@ -19,7 +19,7 @@
     header('Content-Type: application/json');
     curl_setopt($ch, CURLOPT_URL, $url."".$joobleKey);
     curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, '{ "keywords": "frontend", "location": "Los Angeles", "radius":"25", "page": 2}');
+    curl_setopt($ch, CURLOPT_POSTFIELDS, '{ "keywords": "software engineer", "location": "Los Angeles", "radius":"25", "page": 1}');
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
     // receive server response ...
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -108,7 +108,7 @@
         $dateTwoMonthsAgo = date("m/d/Y", strtotime("-2 months"));
         //skip appcast.io -> cant scape description, checks if listing was posted within 2 months of current date
         if($server_output->jobs[$i]->source === "appcast.io" || $postDate < $dateTwoMonthsAgo ){
-        continue;
+            continue;
         }
 
         //insert into jobs table
