@@ -2,6 +2,7 @@
 /**
  * File contains function that calculates distance between 2 points on interest
  */
+
     /**
      * Returns distance between 2 locations given its respectives latitudes and longitudes
      * @param: $latitudeFrom, latitude for 1st location
