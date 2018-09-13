@@ -45,7 +45,7 @@ class Card extends Component{
     }
 
     render(){
-        console.log("find the city name here",this.props.details );
+        // console.log("find the city name here",this.props.details );
         const {title, company_name, city } = this.props.details;
         let {description, post_date} = this.props.details;
         if(description===''){
