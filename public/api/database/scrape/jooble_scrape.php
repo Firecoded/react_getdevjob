@@ -1,6 +1,14 @@
 <?php
-    function getJoobleDescription($url) {        
+/**
+ * File holds function that scrapes job description, called from jooble.php
+ */
 
+    /**
+     * Returns html of job description from either ZipRecruiter or Jooble
+     * @param: $url, job posting url -> link to scrape from
+     * @return: string of html of job description
+     */
+    function getJoobleDescription($url) {        
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
