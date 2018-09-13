@@ -51,6 +51,7 @@
 }
 .sc-jobDescription *{
     color: inherit !important;
+    font-weight: normal;
 }
 .datePosted{
     font-size: .8rem;
