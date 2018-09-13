@@ -14,13 +14,16 @@ class Filters extends Component {
         this.titleObj = {
 			"frontend": "Front End", 
 			"backend": "Back End",
-			"webdeveloper": "Web Developer"
+            "webdeveloper": "Web Developer",
+            "softwareengineer": "Software Engineer",
+			"all": ""
         };
 
         this.cityObj = {
             "losangeles": "Los Angeles",
             "sandiego": "San Diego",
-            "irvine": "Irvine"
+            "irvine": "Irvine",
+            "socal": ""
         }
         
         this.state = {
