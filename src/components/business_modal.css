@@ -32,7 +32,7 @@
     width: 100%;
     height: 100%;
     display: block;
-    margin: 3.5% !important;
+    margin: 3.5%;
 }
 
 .bm-rightColumn{
@@ -55,9 +55,12 @@
 }
 
 .bm-map{
-    height:35vmin;
-    width: 100%;
+    left:1.1px;
+    margin: 0 2%;
+    height:40vh;
+    width:99%;
 }
+
 .bm-companyName, .bm-jobTitle {
     position: relative;
     top:5%;
@@ -87,6 +90,7 @@
     left:50%;
     transform: translateX(-50%);
     z-index:4;
+    height:210vh;
 }
 
 .bm-buttonRow > *{
@@ -104,12 +108,14 @@
 .bm-jobDescription{
     overflow: scroll;
     width:100%;
-    height: 47vh;   
+    height: 47vh;
+    margin: 0 2%;   
 }
 
 .bm-jobDetails{
-    top:22vh;
+    top:35vh;
     padding:2%;
+    padding:0 2%;
 }
 
 .bm-tabs li{
@@ -160,28 +166,49 @@
         height: 100%;
         display: inline-block;
         vertical-align:top;
+        left:1.5%;
     }
+
+    .bm-rightColumn{
+        width: 100%;
+        height:100%;
+        display: block;
+        padding: 1% 0% 0% 2%;
+    }
+    
 
     .bm-jobDetails{
         top:0;
+        height:22vh;
     }
 
     .bm-buttonRow{
         position: relative;
-        left:3.5%;
+        left:0%;
     }
+    .bm-map{
+        margin:0 1%;
+        
+    }
+    .modalBody{
+        height:171vh;
+    }
+   
 }
 
 
 @media only screen and (min-width: 993px){
-    .container {
+    .modalBody {
         width: 100%; 
+        height:94vh;
     } 
     .bm-leftColumn{
         width: 40%;
         height: 100%;
         display: inline-block;
         vertical-align:top;
+        margin: 1% 3.5% 3.5% 3.5%;
+        left:0%;
     }
 
     .bm-rightColumn{
@@ -190,6 +217,11 @@
         display: inline-block;
         padding: 1% 0% 0% 3%;
     }
+    .bm-map{
+        height:35vmin;
+        width: 100%;
+    }
+   
 }
 
 @media screen and (min-width: 1200px){
@@ -204,7 +236,7 @@
         width: 48%;
         height:100%;
         display: inline-block;
-        padding: 3.5% 0% 0% 3%;
+        padding: 1% 0% 0% 3%;
     }
     .modalStyle{
         width:75%;

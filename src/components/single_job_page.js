@@ -68,13 +68,13 @@ class SingleJobPage extends Component {
         if(lat !== ""){
             console.log("TRUE");
             return ( 
-            <div className ="bm-map">
+            <div className ="sp-map">
                 <GoogleMap lat={parseFloat(this.state.response.company.location.lat)} lng={parseFloat(this.state.response.company.location.lng)} isOpen={true} drivingInfo={this.getDrivingData}  theme = {this.props.theme}/>
             </div>)
         } else {
             console.log("False");
             return ( 
-                <div className ="bm-map noMap">
+                <div className ="sp-map noMap">
                     <GoogleMap lat={parseFloat(this.state.response.company.location.lat)} lng={parseFloat(this.state.response.company.location.lng)} isOpen={true} drivingInfo={this.getDrivingData}  theme = {this.props.theme}/>
                 </div>)
         }
