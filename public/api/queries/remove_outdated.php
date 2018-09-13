@@ -2,15 +2,15 @@
 /**
  * this file holds the function which maintains the jobs table in our database
  * its purpose is to remove jobs that are out dated
+ * 
  */
     require_once("../mysql_connect.php");
 
-/**
- * @param: requires the connection link connecting to the database
- * @return: doesn't return anything, but executes a delete query
- */
-
-    // remove postings forom the jobs table that are outdated by -3 months 
+    /** 
+     * remove postings forom the jobs table that are outdated by -3 months
+     * @param: requires the connection link connecting to the database
+     * @return: doesn't return anything, but executes a delete query
+     */
     function removeOutdated($conn){
         $output = [
             "success" => false,
