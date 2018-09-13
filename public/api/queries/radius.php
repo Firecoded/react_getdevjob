@@ -1,6 +1,9 @@
 <?php
 // function takes the search location as a required arguement, distance is optional
 function getJobsWithinRadius($locationFromSearch, $distance){
+    if($locationFromSearch === ""){
+        return;
+    }
    // assoc array containing lat's and long's from the center of each city 
     $locationObject = [
         "Los Angeles"=>[

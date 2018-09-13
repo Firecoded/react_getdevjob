@@ -10,6 +10,23 @@
 .modalPosition{
     margin:2% 2%;
 }
+.modal-close{
+    width:30px;
+    display:block;
+    height:30px;
+    color:transparent;
+    text-decoration:none;
+    padding-left:20px;
+}
+.modal-close:before{
+    content: '';
+    background:url('../assets/images/x-icon.png');
+    background-size: cover;
+    position: absolute;
+    left: 0;
+    width: 30px;
+    height: 30px;
+}
 
 .bm-leftColumn{
     width: 100%;

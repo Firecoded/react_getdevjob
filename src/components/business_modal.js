@@ -15,6 +15,14 @@ class BusinessModal extends Component {
     }
     componentDidMount(){
         this.getDrivingData();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              };
+            })
+        }
     }
 
     getDrivingData = (distance,duration) =>{

@@ -1,6 +1,13 @@
 <?php
-    require("../api_keys.php");
-    //returns somewhat accurate company website (still need to handle inc, corp cases)
+/**
+ * This file groups up functions related to the ClearBit API (getting company site, linkedin, crunchbase, news source)
+ */
+
+    /**
+     * Returns domain for company given the company name
+     * @param: $name, name of the company
+     * @return: null or string of company domain 
+     */
     function getCompanySite($name){
         $curl = curl_init();
 
@@ -34,8 +41,14 @@
         }
     }
 
-    //returns clearbitobj (has linkedin, crunchbase, logo info)
-    function getClearBitObj($domain){
+    /**
+     * Returns ClearBit object that has linkedin, crunchbase, news, logo info
+     * @param: $domain, domain of the website
+     * @param: $clearBitKey, key for ClearBit API
+     * @return: object that has linkedin, crunchbase, news, logo info
+     */
+    function getClearBitObj($domain, $clearBitKey){
+
         $curl = curl_init();
         curl_setopt_array($curl, array(
         CURLOPT_URL => "https://company.clearbit.com/v2/companies/find?domain=$domain",
@@ -63,7 +76,7 @@
         "https://www.linkedin.com/".$response_decoded["linkedin"]["handle"] : NULL;
         $output["linkedin"] = $linkedin_url;
 
-        $ocr_url = "https://www.ocregister.com/?s=$companyName&orderby=date&order=desc";
+        $ocr_url = "https://www.bizjournals.com/search/results?q=$companyName";
         $output["ocr"] = $ocr_url;
 
         $crunchbase_url = (isset($response_decoded["crunchbase"]["handle"])) ? 
