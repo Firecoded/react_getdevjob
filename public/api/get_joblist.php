@@ -114,7 +114,7 @@
     }
 
     
-    print($query);
+    
 
     $result = mysqli_query($conn, $query);
     // print($query);
