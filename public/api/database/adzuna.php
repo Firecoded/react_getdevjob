@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * adzuna.php sends a request to the adzuna api 
+ */
 
 
     require_once("../mysql_connect.php");
@@ -47,16 +49,17 @@
             
         $ocr_url = "https://www.ocregister.com/?s=".$company_name."&orderby=date&order=desc";
         $company_website = getCompanySite($company_name);    
-        
+    
+        // if the company website doesn't exist, skip the steps below and don't insert to db table
         if($company_website === NULL){
             continue;
-
         }
         
         // run query to check companies table if current index exists in the database
         $checkCompanyExistance = "SELECT `name` FROM `companies` WHERE `name` = '$company_name'";
         $companyCheckQueryResult = mysqli_query($conn, $checkCompanyExistance);
 
+        // if the rows affected by the query above equals to zero, do the following..
         if(mysqli_num_rows($companyCheckQueryResult) === 0){
             $clearBitObj = getClearBitObj($company_website);
             $linkedin_url = $clearBitObj["linkedin"];
@@ -64,8 +67,10 @@
             $crunchbase_url = $clearBitObj["crunch"];
             $logo = $clearBitObj["logo"];
            
+            // create query to insert to company table
             $query2 = "INSERT INTO `companies` (`name`, `company_website`, `linkedin_url`, `ocr_url`, `logo`,`crunchbase_url`) 
             VALUES ('$company_name', '$company_website', '$linkedin_url','$ocr_url', '$logo', '$crunchbase')";
+            //run the query
             $companyInsertQueryResult = mysqli_query($conn, $query2);
         // check if results from company insert query is empty/encountered an error    
             if(mysqli_affected_rows($conn)=== -1){
@@ -81,10 +86,14 @@
             $state = $addressObject["state"];
             $zip = $addressObject["zip"]; 
 
+            // retrieves the ID of the last row inserted
             $company_id = mysqli_insert_id($conn);
+            // create query to insert into the locations table
             $location_query = "INSERT INTO `locations`(`company_id`, `street`,`city`,`state`,`zip`,`lat`,`lng`,`full_address`) VALUES
             ($company_id, '$street','$city','$state','$zip','$lat','$long','$fullAddress')";
+            //run the query
             $locationInsertQueryResult = mysqli_query($conn, $location_query);
+            // throw an error if query didn't work
             if(mysqli_affected_rows($conn)=== -1){
                 $output['error'][]= "## Locations insert query error";
             }
@@ -94,6 +103,7 @@
         //check salaries table to see if the job-title in a specific city is already in the DB
         $titleCity = "$listing_title"."-"."$cityFromApi";
         $checkDuplicateSalary = "SELECT `title_city` FROM `salaries` WHERE `title_city`='$titleCity'";
+        //runs the query
         $salaryCheckQueryResult = mysqli_query($conn, $checkDuplicateSalary);
         
         // if the query results return zero rows, proceed..
@@ -118,7 +128,7 @@
         print_r($server_output);
 
      
-        
+        // if the post date exeeds 2 months, skip and DONT insert job into jobs table
         $dateTwoMonthsAgo = date("m/d/Y", strtotime("-2 months"));
         if($post_date < $dateTwoMonthsAgo){
             continue;
@@ -127,10 +137,11 @@
         
         
 
- // write query to select titles that are repeated
+ // write query to select titles that already exist and run the query
         $checkJobExistance = "SELECT * FROM `jobs` WHERE `title_comp` = '$title_name'";
         $jobCheckQueryResult = mysqli_query($conn, $checkJobExistance);
-        $description = scrapeDescription($listing_url);    
+        
+          
 
         if(mysqli_num_rows($jobCheckQueryResult) === 0 && $description !== NULL){ 
 
@@ -139,34 +150,38 @@
             $row = mysqli_fetch_assoc($companySelectQueryResult);
             $company_id = $row["ID"];
            
-            print("Title: $titleCity");
+            
             $salaryQuery = "SELECT `ID` FROM `salaries` WHERE `title_city`='$titleCity'";
             $result = mysqli_query($conn, $salaryQuery);
             $rowFromSalaryTable = mysqli_fetch_assoc($result);
             $salary_id = (INT)$rowFromSalaryTable["ID"];
 
+            //scraps the job description provided from the job ad url api
+            $description = scrapeDescription($listing_url);  
+
+            // creates a query to insert into jobs table
             $jobsInsertQuery = "INSERT INTO `jobs`
             (`title`, `company_name`, `company_id`, `post_date`, `listing_url`, `type_id`, `description`, `title_comp`, `salary_id`) 
             VALUES ('$listing_title', '$company_name', $company_id, '$post_date', '$listing_url', $type_id, '$description', '$title_name', $salary_id)";
-            // print($jobsInsertQuery);
-
+            
+            // run the query
             $jobsInsertQueryResult = mysqli_query($conn, $jobsInsertQuery);  
-                if(mysqli_affected_rows($conn)=== -1){
-                    if($description === null){
-                        $output['error'][]= "## Jobs description is unavailable, did not insert job";
-                    }
-                    else {
-                        print("TITLE: $title_name");
-                        $output['error'][]= "## Jobs insert query error";
-                    }   
-                } 
+            // if an error resulted from the query, throw an error
+            if(mysqli_affected_rows($conn)=== -1){
+                if($description === null){
+                    $output['error'][]= "## Jobs description is unavailable, did not insert job";
+                }
+                else {
+                    $output['error'][]= "## Jobs insert query error";
+                }   
+            } 
         }
     }
     print_r($output);
 
 //------------------------------------------------------------------------------------------------------------------//
     
-
+    
     function encodeName($company_name){
         $company_name = strtolower($company_name);
         $company_name = preg_replace('/(corporation|usa|inc|connection|llc|america|services|corp|solutions|research|company|orange county|\.|\,)/','', $company_name);

@@ -94,7 +94,7 @@ class Filters extends Component {
         })
         event.preventDefault();
         const params = formatPostData(this.state);
-        const resp = await axios.post("http://localhost:8000/api/get_joblist.php", params);
+        const resp = await axios.post("/api/get_joblist.php", params);
         this.props.getFilterData(resp, this.state);
         this.setState({loadShow: false});
         $('.side-nav-control').sideNav('hide');
