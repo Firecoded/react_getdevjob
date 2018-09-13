@@ -39,3 +39,7 @@ svg {
 	background-color: initial !important;
 	color: initial !important;
 }
+.filter-load-cont {
+	position: absolute;
+	left: 50%;
+}

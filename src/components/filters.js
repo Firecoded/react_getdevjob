@@ -5,6 +5,7 @@ import {formatPostData} from "../helpers";
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {setTheme} from '../actions';
+import Loading from './loading.js'
 
 class Filters extends Component {
 
@@ -40,7 +41,8 @@ class Filters extends Component {
             employmentTypeFullTime: true,
             userLat:"33.634875",
             userLng:"-117.740481",
-            offset: 0
+            offset: 0,
+            loadShow: false
         }
         this.submitFormData = this.submitFormData.bind(this);
     }
@@ -87,12 +89,14 @@ class Filters extends Component {
 
     async submitFormData(event){
         this.setState({
-            offset: 0
+            offset: 0,
+            loadShow: true
         })
         event.preventDefault();
         const params = formatPostData(this.state);
         const resp = await axios.post("http://localhost:8000/api/get_joblist.php", params);
         this.props.getFilterData(resp, this.state);
+        this.setState({loadShow: false});
         $('.side-nav-control').sideNav('hide');
     }
 
@@ -154,7 +158,9 @@ class Filters extends Component {
                     </Row>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
                         <button style={{height: '0px', width: '0px', zIndex: '-1'}} data-activates="filterSideNav" className={`side-nav-control btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText}`}></button>
-                        <button data-activates="filterSideNav" className={` btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText}`}>Submit Filters</button>
+                        <button data-activates="filterSideNav" className={` btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText} ${this.state.loadShow ? 'hidden' : ''}`}>Submit Filters</button>
+                        <div className = {`filter-load-cont ${!this.state.loadShow ? 'hidden': ''}`}><Loading/>
+                        </div>
                     </Row>
                 </form>
             )
