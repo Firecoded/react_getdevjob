@@ -17,6 +17,7 @@
 .nav-bar-items{
     left:5%;
 }
+
 @media screen and (min-width: 576px){
   .nav-bar-items{
       left:0%;
