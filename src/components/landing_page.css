@@ -18,7 +18,7 @@
 }
 .caret{
   z-index: 10001 !important;
-  right: 9px !important;
+  opacity: 0;
 }
 .blue-txt { 
     top: 0;
@@ -40,7 +40,7 @@
     left: 6.5%;
     background-color: inherit !important;
     color: inherit !important;
-    z-index: 10000;
+    z-index: 1002;
 }
 .lp-button-syntax{
     margin-left: 6.5%;
@@ -86,5 +86,10 @@
     }
     .lp-title-city-input{
         max-width: 94%;
+    }
+    .caret{
+      z-index: 10001 !important;
+      right: 9px !important;
+      opacity: 1;
     }
 }
