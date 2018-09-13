@@ -1,18 +1,17 @@
 # getDevJob(you) 
 
-> This repo is the home of the getDevJob application. A job listing website made by developers for developers. This readme file will be updated as we progress in the project.
+> This repo is the home of the getDevJob application. A job listing website made by developers for developers.
 
 ### Setup Instructions
 
-> 
-> 
+> Clone the file 
 > npm install
-> ????
-> profit
->
->
->
->
+> Create necessary config files
+> node installed?
+> Have a local php apache server such as MAMP available.
+> import database
+> import sql files
+> npm start
 > 
 
 ### Bundle For Deployment

@@ -5,6 +5,9 @@
 .distance{
     height:100px;
 }
+#filterSideNav{
+	height:100%;
+}
 
 .checkboxArea{
     font-size: 1em;
@@ -17,9 +20,11 @@
 	left: 9%;
 	cursor: pointer;
 }
+
 svg {
 	top: .25vh;
 }
+
 .side-nav a:hover {
      background-color: transparent !important; 
 }

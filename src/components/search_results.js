@@ -3,12 +3,14 @@ import './search_results.css';
 import NavBar from './nav_bar';
 import Card from './single_card';
 import Filters from './filters';
-import {FaEllipsisV} from 'react-icons/fa';
+import {FaEllipsisV, FaAngleUp} from 'react-icons/fa';
 import {formatPostData} from "../helpers";
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {setTheme} from '../actions';
 import Loading from './loading';
+import BottomScrollListener from 'react-bottom-scroll-listener';
+import NoResults from './no-results';
 
 class SearchResults extends Component {
 	constructor(props){
@@ -18,61 +20,99 @@ class SearchResults extends Component {
 			left: '',
 			right: '',
 			response: [],
-			loaded: false
+			nextResults: [],
+			loaded: false,
+			noResults: false
 		}
+		this.searchParams;
+		this.offset = 0;
+		this.leftArray =[];
+		this.rightArray =[];
+		this.lat = NaN;
+		this.lng = NaN;
+		this.alt = 1;
 	}
 
 	async componentDidMount(){
+		const {city, job} = this.props.match.params;
+		let refinedJob = this.handleTitle(job);
+		let refinedCity = this.handleCity(city);
+		this.offset = 0;
+		this.searchParams = {
+		            title: refinedJob, 
+					location: refinedCity,
+					id:'',
+		            minSalary:'',
+		            maxSalary:'',
+		            distance: 45,
+		            experience:'',
+		            postedDate:'',
+		            employmentTypeContract: false,
+		            employmentTypeInternship: false,
+		            employmentTypePartTime: false,
+		            employmentTypeFullTime: false,
+		            userLat:'',
+		            userLng:'',
+		            offset: 0
+		        }
 		$('.side-nav-control').sideNav();
 		if (Object.keys(navigator.geolocation).length) {
-			console.log("Get location Data");
             navigator.geolocation.getCurrentPosition(async (position) => {
 				var pos = {
 					lat: position.coords.latitude,
 					lng: position.coords.longitude
 				};				
-				let {lat,lng} = pos;
-				await this.getJobData(lat, lng);
+				this.searchParams.userLat = pos.lat;
+				this.searchParams.userLng = pos.lng;
+				await this.getJobData(0, this.searchParams);
 				this.populateCards(this.state.response.data.jobs);
 				if(localStorage.getItem('theme')){
-					console.log("THEME ITEM",localStorage.getItem('theme'));
 					this.props.setTheme(localStorage.getItem('theme'));
 				} else {
-					console.log("No THEME SET", this.props.theme.current);
-				this.props.setTheme(this.props.theme.current);
+					this.props.setTheme(this.props.theme.current);
 				}
 			});
 		} else {
-			console.log(" did Not Get location Data");
-				await this.getJobData(NaN, NaN);
-				this.populateCards(this.state.response.data.jobs);
-				if(localStorage.getItem('theme')){
-					console.log("THEME ITEM",localStorage.getItem('theme'));
-					this.props.setTheme(localStorage.getItem('theme'));
-				} else {
-					console.log("No THEME SET", this.props.theme.current);
+			this.searchParams.userLat = NaN;
+			this.searchParams.userLng = NaN;
+			
+			await this.getJobData(0, this.searchParams);
+			this.populateCards(this.state.response.data.jobs);
+			if(localStorage.getItem('theme')){
+				this.props.setTheme(localStorage.getItem('theme'));
+			} else {
 				this.props.setTheme(this.props.theme.current);
-				}
+			}
 		}	
 	}
 
 
-	getFilterResponseData(respObj){
-		if(!this.state.response.data.success){
+	getFilterResponseData(respObj, searchParams){
+		this.searchParams = searchParams;
+		if(!respObj.data.success){
+			this.leftArray =[];
+			this.rightArray =[];
+			this.offset = 0;
+			this.alt = 1;
 			this.setState({
-				loaded: false
+				noResults: true,
+				left: '',
+				right: ''
 			})
-			console.log('Filter response false', this.state.response.data.success)
 			return;
-
 		}
 		this.setState({
 			response: respObj,
-			loaded: true
+			loaded: true,
+			left: '',
+			right: '',
+			noResults: false
 		})
-
-		console.log('get filter resp data respObj', respObj)
-
+		this.leftArray =[];
+		this.rightArray =[];
+		this.offset = 0;
+		this.alt = 1;
+		this.searchParams.offset = this.offset
 		this.populateCards(this.state.response.data.jobs);
 	}
 
@@ -86,59 +126,76 @@ class SearchResults extends Component {
         return titleObj[title];     
 	}
 
-	async getJobData(userLat , userLng){
-		const {city, job} = this.props.match.params;
-		let refinedJob = this.handleTitle(job);
+	handleCity(city){
+		const cityObj = {
+			"losangeles": "Los Angeles",
+            "sandiego": "San Diego",
+            "irvine": "Irvine"
+		};
+        return cityObj[city];    
+	}
+
+	async getJobData(offset, searchParams){
 		if(event){
-			event.preventDefault();   //will need to address isue with backend about querys accounting for spaces or no spaces
+			event.preventDefault();  
 		}
-		const initialSearchParams = {
-            title: refinedJob, 
-			location: city,
-			id:'',
-            minSalary:'',
-            maxSalary:'',
-            distance:'',
-            experience:'',
-            postedDate:'',
-            employmentTypeContract: false,
-            employmentTypeInternship: false,
-            employmentTypePartTime: false,
-            employmentTypeFullTime: false,
-            userLat:userLat,
-            userLng:userLng,
-        }	
-		const params = formatPostData(initialSearchParams);
-		const resp = await axios.post("/api/get_joblist.php", params); 
-		this.setState({response:resp, loaded: true})		   
+		const params = formatPostData(searchParams);
+		const resp = await axios.post("/api/get_joblist.php", params);
+		this.setState({response:resp, loaded: true})	   
+    }
+
+    mathRand(){
+    	return Math.floor(Math.random()*10000)
     }
 
 	populateCards(array){
+		if(!array){
+			this.setState({
+				noResults: true
+			})
+			return;
+		}
 		if(array.length < 1){
+			this.leftArray =[];
+			this.rightArray =[];
+			this.setState({
+				noResults: true,
+				left: '',
+				right: ''
+			})
 			return;
 		}		
-		let alt = 1;
-		let leftArray =[];
-		let rightArray =[];
 		for (var index=0; index < array.length; index++){
-			if(alt){
-				let temp = <Card key = {index} pullId = {index} details = {this.state.response.data.jobs[index]}{...this.props} />
-				leftArray.push(temp);
-				alt = 1-alt;
+			if(this.alt){
+				let temp = <Card key = {this.mathRand() +'o'+ index} pullId = {(this.offset * 12) + index} details = {array[index]}{...this.props} />
+				this.leftArray.push(temp);
+				this.alt = 1 - this.alt;
 			} else {
-				let temp = <Card key = {index} pullId = {index} details = {this.state.response.data.jobs[index]}{...this.props} />
-				rightArray.push(temp);
-				alt = 1-alt;
+				let temp = <Card key = {this.mathRand() +'o'+ index} pullId = {(this.offset * 12) + index} details = {array[index]}{...this.props} />
+				this.rightArray.push(temp);
+				this.alt = 1 - this.alt;
 			}
 		}
 		this.setState({
-			left:leftArray,
-			right: rightArray
+			left: this.leftArray,
+			right: this.rightArray,
+			noResults: false,
 		})
 	}
 
 	openSideNav(){
 		$('.side-nav-control').sideNav('show');
+	}
+	upArrow(){
+		return (
+			<div onClick = {this.goToTop}className = {`up-arrow-cont ${this.props.theme.text1}`}>
+				<FaAngleUp size = '2em'/>
+			</div>
+		)
+	}
+	goToTop() {
+    	document.body.scrollTop = 0;
+    	document.documentElement.scrollTop = 0;
 	}
 
 	render() {
@@ -146,24 +203,37 @@ class SearchResults extends Component {
 			<div className = 'parent-div'>
 				<div className = 'spacer-div'></div>
 				<div className = {`main-cont ${this.props.theme.background}`}>
-						<NavBar/>
-						<div onClick={this.openSideNav} className="side-nav-control" data-activates="filterSideNav" className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>
-						<ul id="filterSideNav" className={`side-nav ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
-							<li>
-								<Filters getFilterData = {this.getFilterResponseData.bind(this)} job={this.props.match.params.job} city={this.props.match.params.city}/>
-							</li>
-						</ul>
-					<div className = "load-cont" style = {this.state.loaded ? {'display':'none'} : {} }>						
-						{!this.state.loaded ? <Loading/> : '' }
-					</div>
+					<NavBar/>
+					<div onClick={this.openSideNav} className="side-nav-control" data-activates="filterSideNav" className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>
+					<ul id="filterSideNav" className={`side-nav ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
+						<li>
+							<Filters getFilterData = {this.getFilterResponseData.bind(this)} job={this.props.match.params.job} city={this.props.match.params.city}/>
+						</li>
+					</ul>
+					{this.offset>0 ? this.upArrow() : ''}
 					<div className = 'cardArea'>
-					
 	                   	<div className='leftColumn'>
 		                    {this.state.left}
 		                </div>    
 	                	<div className='rightColumn'>
 							{this.state.right}
 	                	</div>
+	                	<div className = "load-cont" style = {!this.state.loaded && this.offset<1 ? {} : {'display':'none'} }>						
+							{!this.state.loaded && this.offset < 1 ? <Loading/> : '' }
+						</div>
+						{this.state.noResults ? this.offset < 1 ? <NoResults height={'72.7vh'}/> : <NoResults height={'5vh'}/> : ''}
+						<div className = "load-cont2">		
+							{!this.state.loaded && this.offset > 0 ? <Loading/> : '' }
+						</div>
+	                	<BottomScrollListener offset = {200} onBottom = {async ()=>{
+	                		if(!this.state.noResults){
+		                		this.offset += 1;
+		                		this.searchParams.offset=this.offset;
+		                		this.setState({loaded: false})
+		                		await this.getJobData(this.offset, this.searchParams);
+		                		this.populateCards(this.state.response.data.jobs)
+		                	}	
+	                	}}/>
 	                </div>	
 				</div>
 			</div>	

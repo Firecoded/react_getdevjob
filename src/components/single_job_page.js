@@ -35,16 +35,15 @@ class SingleJobPage extends Component {
             employmentTypePartTime: false,
             employmentTypeFullTime: false,
             userLat:'',
-            userLng:'',   
+            userLng:'',
+            offset:'',   
         }
     }
     
     componentDidMount(){
         if(localStorage.getItem('theme')){
-            console.log("THEME ITEM",localStorage.getItem('theme'));
             this.props.setTheme(localStorage.getItem('theme'));
         } else {
-            console.log("No THEME SET", this.props.theme.current);
         this.props.setTheme(this.props.theme.current);
         }
         this.getSingleJobId(this.props.match.params.job_id, this.singleJobItem);
@@ -66,7 +65,6 @@ class SingleJobPage extends Component {
 
     noMapSinglePage(){
         const {lat} = this.state.response.company.location;
-        console.log("STTTAAAAATTTE ", this.state.response.company.location);
         if(lat !== ""){
             console.log("TRUE");
             return ( 
@@ -102,7 +100,7 @@ class SingleJobPage extends Component {
         const params = formatPostData(this.singleJobItem);
         
         const resp = await axios.post("/api/get_joblist.php", params);
-
+        console.log("THIS PROBLEM", resp);
         this.setState({
             response:resp.data.jobs[0]});
     }
@@ -131,8 +129,8 @@ class SingleJobPage extends Component {
                     <div className="row">
                         <div className={`sp-leftColumn card-panel hoverable ${this.props.theme.background}`}>
                             <div className="row sp-buttonRow">
-                                <Link to='/' className={`btn ${this.props.theme.button} ${this.props.theme.buttonText}`}>Home</Link> 
-                                <a href={listing_url} target ="_blank" className={`btn ${this.props.theme.button} ${this.props.theme.buttonText}`}>Apply</a>
+                                <Link to='/' className={`btn waves-effect waves-light ${this.props.theme.button} ${this.props.theme.buttonText}`}>Home</Link> 
+                                <a href={listing_url} target ="_blank" className={`btn waves-effect waves-light ${this.props.theme.button} ${this.props.theme.buttonText}`}>Apply</a>
                                 
                             </div>
                             <div className='sp-companyName'>
@@ -142,7 +140,9 @@ class SingleJobPage extends Component {
                             <div className={`sp-jobTitle ${this.props.theme.titleText2}`}>
                                {title}
                             </div>
-                            <TabsInfo details = {this.state.response} distance ={this.state.distance} duration = {this.state.duration} theme={this.props.theme}/>
+                            <div className = "tabsContainer">
+                                <TabsInfo details = {this.state.response} distance ={this.state.distance} duration = {this.state.duration} theme={this.props.theme}/>
+                            </div>
                         </div>
                         <div className='sp-rightColumn'>
                             <div className='row'>   

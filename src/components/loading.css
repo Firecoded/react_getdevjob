@@ -1,10 +1,19 @@
 .load-cont{
   height: 87vh;
+  width: 100%;
+  overflow: hidden;
+}
+.load-cont2{
+  /*position: absolute;*/
+  bottom: 0;
+  height: 15vh;
+  width: 100%;
+  overflow: hidden;
 }
 .lds-spinner{
   position: relative;
-  display: flex;
-  justify-content: center;
+  left: 50%;
+  transform: translateX(-32px);
 }
 .lds-spinner div {
   transform-origin: 32px 32px;

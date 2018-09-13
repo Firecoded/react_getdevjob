@@ -27,7 +27,6 @@
     height:75%;
     width: 100%;
     display: block;
-
 }
 
 .leftColumn{
@@ -46,6 +45,16 @@
 #filterSideNav {
     padding:1% !important;
 }
+.up-arrow-cont{
+    position: fixed;
+    bottom: 30px;
+    right: 0; 
+    z-index: 999;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+}
 
 
 @media screen and (min-width: 992px){
@@ -57,3 +66,4 @@
     }
 
 }
+

@@ -18,17 +18,17 @@ class Filters extends Component {
         };
 
         this.cityObj = {
-            "Losangeles": "Los Angeles",
-            "Sandiego": "San Diego",
-            "Irvine": "Irvine"
+            "losangeles": "Los Angeles",
+            "sandiego": "San Diego",
+            "irvine": "Irvine"
         }
         
         this.state = {
             title: "",
-            location:'Irvine',
+            location:"",
             minSalary:'0',
             maxSalary:'200000',
-            distance:'',
+            distance:'45',
             experience:'',
             postedDate:'',
             employmentTypeContract: true,
@@ -37,6 +37,7 @@ class Filters extends Component {
             employmentTypeFullTime: true,
             userLat:"33.634875",
             userLng:"-117.740481",
+            offset: 0
         }
         this.submitFormData = this.submitFormData.bind(this);
     }
@@ -45,8 +46,10 @@ class Filters extends Component {
     componentDidMount(){
         // $('#close-btn').sideNav();
         this.setState({
-            title: this.handleTitle(this.props.job)
-        })
+            title: this.handleTitle(this.props.job),
+            location: this.handleCity(this.props.city)
+        });
+
     }
 
     handleChange(event){
@@ -80,35 +83,37 @@ class Filters extends Component {
     }
 
     async submitFormData(event){
-        console.log('filters submitted')
+        this.setState({
+            offset: 0
+        })
         event.preventDefault();
         const params = formatPostData(this.state);
         const resp = await axios.post("http://localhost:8000/api/get_joblist.php", params);
-        console.log("things sent: ", this.state);
-        this.props.getFilterData(resp);
+        this.props.getFilterData(resp, this.state);
         $('.side-nav-control').sideNav('hide');
     }
 
     render(){
         const minSalary = "All Available";
         let job = this.handleTitle(this.props.job);
-        let city = this.handleCity(this.props.city.charAt(0).toUpperCase() + this.props.city.slice(1));
+        let city = this.handleCity(this.props.city);
         return (
                 <form className ="sidebar" onSubmit={this.submitFormData}>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
                         <Input s={12} type ='select' label = 'Job Title' name="title" defaultValue = {job} onChange={this.handleChange.bind(this)}>
-                                <option value = ''> All </option>    
-                                <option value = 'Web Developer'> Web Developer</option>
-                                <option value = 'Front End'> Front End</option>
-                                <option value = 'Back End'> Back End</option>
+                            <option value = ''> All </option>    
+                            <option value = 'Web Developer'> Web Developer</option>
+                            <option value = 'Software Engineer'>Software Engineer</option>
+                            <option value = 'Front End'> Front End</option>
+                            <option value = 'Back End'> Back End</option>
                         </Input>
                     </Row>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
                         <Input s={12} type ='select' label = 'City' name="location" defaultValue = {city} onChange={this.handleChange.bind(this)}>
-                                <option value = ''> All </option>    
-                                <option value = 'Irvine'>Irvine</option>
-                                <option value = 'San Diego'>San Diego</option>
-                                <option value = 'Los Angeles'>Los Angeles</option>
+                            <option value = ''> Southern California </option>    
+                            <option value = 'Irvine'>Irvine</option>
+                            <option value = 'San Diego'>San Diego</option>
+                            <option value = 'Los Angeles'>Los Angeles</option>
                         </Input>
                     </Row>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
@@ -125,10 +130,9 @@ class Filters extends Component {
                     </Row>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
                         <Input s={12} type ='select' label = 'Distance' name='distance' defaultValue ='Nearby' onChange={this.handleChange.bind(this)}>
-                            <option value = ''> Any </option>
-                            <option value = '5'>5 miles</option>
                             <option value = '15'>15 miles</option>
                             <option value = '30'>30 miles</option>
+                            <option value = '45'>45 miles</option>
                         </Input>
                     </Row>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
@@ -146,7 +150,8 @@ class Filters extends Component {
                         <Input s={6} name='employmentTypeFullTime' type='checkbox' checked={this.state.employmentTypeFullTime} value = 'fullTime' label='Full'  onChange={this.handleCheckBox.bind(this)}/>
                     </Row>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
-                        <button data-activates="filterSideNav" className={`side-nav-control btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText}`}>Submit Filters</button>
+                        <button style={{height: '0px', width: '0px', zIndex: '-1'}} data-activates="filterSideNav" className={`side-nav-control btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText}`}></button>
+                        <button data-activates="filterSideNav" className={` btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText}`}>Submit Filters</button>
                     </Row>
                 </form>
             )

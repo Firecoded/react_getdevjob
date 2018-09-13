@@ -21,14 +21,14 @@
     position: absolute;
     bottom: 1.2rem;
     font-size: 1rem;
-    overflow: hidden; 
-    max-height: 10.5em; 
+    overflow: hidden;  
     text-align: justify;  
     margin-right: -1em;
     padding-right: 1em;
     height: 70%;
     width: 100%;
     margin: 7% 0 0 0;
+    padding-top: 2%;
 }
 .sc-jobDescription:before {
     position: absolute;
@@ -51,6 +51,7 @@
 }
 .sc-jobDescription *{
     color: inherit !important;
+    font-weight: normal;
 }
 .datePosted{
     font-size: .8rem;
@@ -92,8 +93,6 @@
 .btn-style{
     margin-top: 8%; 
     font-size: 1rem !important;       
-    width: 70%;
-    left: 15%;
     text-transform: none;
 }
 
@@ -124,20 +123,54 @@ h5, h4, h3, h2, h1 {
         animation: appear 1.3s linear 1;
     }
     .sc-jobDetailsList {
-        font-size: 1rem;   
+        font-size: 1.2rem;   
     }
     .sc-jobDescription{
-        font-size: 0.8rem;
+        font-size: 1rem;
+    }
+    .btn-style{
+        margin-top: 8%; 
+        font-size: 1rem !important;       
+        width: 70%;
+        left: 15%;
+        text-transform: none;
     }
  }
 
 @media screen and (min-width: 992px){
     .sc-jobDetailsList {
+        font-size: 1.1rem;   
+    }
+    .sc-jobDescription{
+        font-size: 0.9rem;
+        padding-top:5%;
+    }
+
+}
+
+@media screen and (min-width: 1200px){
+    .leftColumn, .rightColumn {
+        height:44%;
+        width: 49%;
+        display: inline-block;
+    
+    }
+
+    .sc-jobDetailsList {
         font-size: 1.2rem;   
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .sc-jobDesctiption > li{
+        width:50%;
+        text-overflow: ellipsis;
     }
     
     .sc-jobDescription{
         font-size: 1rem;
+        padding-top: 2%;
+        
     }
-
 }
+

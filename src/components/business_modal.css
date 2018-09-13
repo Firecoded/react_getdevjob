@@ -1,33 +1,40 @@
 .modalStyle {
     height: 100%;
-    width: 80%;
+    width: 95%;
 }
 .modal-footer{
     position: absolute;
     bottom:0;
+    height:0px !important;
 }
 .modalPosition{
     margin:2% 2%;
 }
 
 .bm-leftColumn{
-    width: 40%;
+    width: 100%;
     height: 100%;
-    display: inline-block;
-    vertical-align:top;
+    display: block;
+    margin: 3.5% !important;
 }
 
 .bm-rightColumn{
-    width: 60%;
+    width: 100%;
     height:100%;
-    display: inline-block;
+    display: block;
     padding: 1% 0% 0% 3%;
+}
+
+.bm-jobDescription *{
+    color: inherit !important;
+    font-weight: normal;
 }
 
 .bm-columnContainer{
     display: inline-block;
     width: 100%;
     height:100%;
+    margin:auto;
 }
 
 .bm-map{
@@ -72,6 +79,11 @@
     margin:0% 5%;
 }
 
+.bm-buttonRow{
+    position: relative;
+    left:8.5%;
+}
+
 .bm-jobDescription{
     overflow: scroll;
     width:100%;
@@ -79,7 +91,8 @@
 }
 
 .bm-jobDetails{
-    padding: 2%;
+    top:22vh;
+    padding:2%;
 }
 
 .bm-tabs li{
@@ -97,13 +110,6 @@
     left: 10% !important;
 }
 
-
-@media only screen and (min-width: 993px){
-    .container {
-        width: 100%; 
-        } 
-}
-
 .hide {
     display: none;
 }
@@ -118,4 +124,72 @@
 
 .fullText{
     height: 64vh !important;
+}
+.modal-footer{
+    position: absolute;
+    top:0;
+    z-index:0;
+}
+.modal-footer{
+    position: absolute;
+    right:0;
+    z-index: 10000;
+}
+
+@media only screen and (min-width: 576px){
+    .bm-leftColumn{
+        margin: 0% 2.5%;
+        width: 95%;
+        height: 100%;
+        display: inline-block;
+        vertical-align:top;
+    }
+
+    .bm-jobDetails{
+        top:0;
+    }
+
+    .bm-buttonRow{
+        position: relative;
+        left:3.5%;
+    }
+}
+
+
+@media only screen and (min-width: 993px){
+    .container {
+        width: 100%; 
+    } 
+    .bm-leftColumn{
+        width: 40%;
+        height: 100%;
+        display: inline-block;
+        vertical-align:top;
+    }
+
+    .bm-rightColumn{
+        width: 53%;
+        height:100%;
+        display: inline-block;
+        padding: 1% 0% 0% 3%;
+    }
+}
+
+@media screen and (min-width: 1200px){
+    .bm-leftColumn{
+        width: 40%;
+        height: 100%;
+        display: inline-block;
+        vertical-align:top;
+    }
+
+    .bm-rightColumn{
+        width: 48%;
+        height:100%;
+        display: inline-block;
+        padding: 3.5% 0% 0% 3%;
+    }
+    .modalStyle{
+        width:75%;
+    }
 }

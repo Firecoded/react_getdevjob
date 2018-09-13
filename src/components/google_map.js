@@ -85,7 +85,6 @@ class GoogleMap extends Component {
     }
 
     toggleMap(event){
-        console.log("WITNESS THIS EVENT   :", event);
         let modalMap = document.getElementById("map" + this.state.key);
         let modalStreetview = document.getElementById("pano" + this.state.key);
         if(this.state.map === true){
