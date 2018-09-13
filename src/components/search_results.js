@@ -3,7 +3,7 @@ import './search_results.css';
 import NavBar from './nav_bar';
 import Card from './single_card';
 import Filters from './filters';
-import {FaEllipsisV} from 'react-icons/fa';
+import {FaEllipsisV, FaAngleUp} from 'react-icons/fa';
 import {formatPostData} from "../helpers";
 import axios from 'axios';
 import {connect} from 'react-redux';
@@ -73,7 +73,6 @@ class SearchResults extends Component {
 				}
 			});
 		} else {
-			console.log(" did Not Get location Data");
 			this.searchParams.userLat = NaN;
 			this.searchParams.userLng = NaN;
 			
@@ -89,9 +88,7 @@ class SearchResults extends Component {
 
 
 	getFilterResponseData(respObj, searchParams){
-		console.log('got from filters', searchParams)
 		this.searchParams = searchParams;
-		console.log('respObj', respObj)
 		if(!respObj.data.success){
 			this.leftArray =[];
 			this.rightArray =[];
@@ -102,7 +99,6 @@ class SearchResults extends Component {
 				left: '',
 				right: ''
 			})
-			console.log('Filter response false', this.state.response.data.success)
 			return;
 		}
 		this.setState({
@@ -112,13 +108,11 @@ class SearchResults extends Component {
 			right: '',
 			noResults: false
 		})
-		console.log('get filter resp data respObj', respObj)
 		this.leftArray =[];
 		this.rightArray =[];
 		this.offset = 0;
 		this.alt = 1;
 		this.searchParams.offset = this.offset
-		console.log("from filters before populate", this.searchParams)
 		this.populateCards(this.state.response.data.jobs);
 	}
 
@@ -143,10 +137,8 @@ class SearchResults extends Component {
 
 	async getJobData(offset, searchParams){
 		if(event){
-			event.preventDefault();   //will need to address isue with backend about querys accounting for spaces or no spaces
+			event.preventDefault();  
 		}
-		
-        console.log('search results page params', searchParams)
 		const params = formatPostData(searchParams);
 		const resp = await axios.post("/api/get_joblist.php", params);
 		this.setState({response:resp, loaded: true})	   
@@ -194,20 +186,31 @@ class SearchResults extends Component {
 	openSideNav(){
 		$('.side-nav-control').sideNav('show');
 	}
+	upArrow(){
+		return (
+			<div onClick = {this.goToTop}className = {`up-arrow-cont ${this.props.theme.text1}`}>
+				<FaAngleUp size = '2em'/>
+			</div>
+		)
+	}
+	goToTop() {
+    	document.body.scrollTop = 0;
+    	document.documentElement.scrollTop = 0;
+	}
 
 	render() {
 		return (
 			<div className = 'parent-div'>
 				<div className = 'spacer-div'></div>
 				<div className = {`main-cont ${this.props.theme.background}`}>
-						<NavBar/>
-						<div onClick={this.openSideNav} className="side-nav-control" data-activates="filterSideNav" className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>
-						<ul id="filterSideNav" className={`side-nav ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
-							<li>
-								<Filters getFilterData = {this.getFilterResponseData.bind(this)} job={this.props.match.params.job} city={this.props.match.params.city}/>
-							</li>
-						</ul>
-					
+					<NavBar/>
+					<div onClick={this.openSideNav} className="side-nav-control" data-activates="filterSideNav" className ={`sideTrigger ${this.props.theme.navColor} ${this.props.theme.text1}`}><FaEllipsisV/>Filters</div>
+					<ul id="filterSideNav" className={`side-nav ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
+						<li>
+							<Filters getFilterData = {this.getFilterResponseData.bind(this)} job={this.props.match.params.job} city={this.props.match.params.city}/>
+						</li>
+					</ul>
+					{this.offset>0 ? this.upArrow() : ''}
 					<div className = 'cardArea'>
 	                   	<div className='leftColumn'>
 		                    {this.state.left}
