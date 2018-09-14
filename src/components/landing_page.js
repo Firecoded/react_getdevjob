@@ -124,8 +124,8 @@ class LandingPage extends Component {
 										<option value = 'All'>All</option>
                                 		<option value = 'Web Developer'>Web Developer</option>
 										<option value = 'Software Engineer'>Software Engineer</option>
-                                		<option value = 'Front End'>Front End</option>
-                                		<option value = 'Back End'>Back End</option>
+                                		<option value = 'Frontend'>Front End</option>
+                                		<option value = 'Backend'>Back End</option>
 										
                        				</Input>
 									<Input s={11} m={10} l={6} type ='select' label = 'City' name="location" defaultValue = 'Irvine' className = {this.props.theme.text1} onChange={this.handleInputChange.bind(this)}>
