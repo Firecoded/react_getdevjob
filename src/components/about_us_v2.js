@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import JCimage from '../../src/assets/images/JCimage.jpeg';
 import JTimage from '../../src/assets/images/JTimage.jpeg';
 import KCimage from '../../src/assets/images/KCimage.jpeg';
-import RKimage from '../../src/assets/images/RKimage.jpeg';
+import RKimage from '../../src/assets/images/RKimage2.jpeg';
 import './about_us_v2.css';
 import {setTheme} from '../actions';
 import { connect } from "react-redux";
