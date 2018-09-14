@@ -132,7 +132,9 @@ class SingleJobPage extends Component {
                                 
                             </div>
                             <div className='sp-companyName'>
+                            <div className ="sp-logoBox">
                                 <img src={logo} />
+                            </div>
                                 <p className = {`${this.props.theme.titleText1}`}>{company_name}</p>
                             </div>
                             <div className={`sp-jobTitle ${this.props.theme.titleText2}`}>

@@ -92,4 +92,7 @@
       right: 9px !important;
       opacity: 1;
     }
+    #lpModal{
+        height:25%;
+    }
 }

@@ -39,7 +39,7 @@ class TabsInfo extends Component{
             }
             return (
                 <div className='row'>
-                    <p className={`center ${titleText1}`}>Learn about the Company and it's Executives</p>
+                    <p className={`center ${titleText1}`}>Learn about the Company and its Executives</p>
                     <a href = {'http://' + crunchbase_url}  target ="_blank" className={`btn waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >Crunchbase</a>
                 </div>
             )

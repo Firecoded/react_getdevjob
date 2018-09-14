@@ -30,6 +30,7 @@ class AboutUs extends Component{
     return (
         <div className = "container about-us">
             <Link to = '/' className = {`brand-logo-about tn-logo ${this.props.theme.navColor}`}><span className={this.props.theme.titleText2}>&lt;gDJ</span><span className = {this.props.theme.titleText1}>/</span><span className = {this.props.theme.titleText2}>&gt;</span></Link>
+            <Link to = '/' className = {`btn backButton ${this.props.theme.button} ${this.props.theme.buttonText}`}>Back</Link>
             <div className = "au-firstRow">
             <div class="card hoverable">
                 <div class="card-image waves-effect waves-block waves-light">
@@ -39,7 +40,7 @@ class AboutUs extends Component{
                     <span class={`card-title activator ${this.props.theme.text1}`}>John Carlisle<i class="material-icons right"></i></span>
                     <p><a href="https://www.linkedin.com/in/john-carlisle-91777a68/" target ="_blank">LinkedIn</a></p>
                     <p><a href="https://github.com/TremendousZ" target ="_blank">GitHub</a></p>
-                    <p><a href="https://www.johncarlisle.design" target ="_blank">Portfolio</a></p>
+                    <p><a href="http://www.johncarlisle.design" target ="_blank">Portfolio</a></p>
                 </div>
                 <div class={`card-reveal ${this.props.theme.navColor}`}>
                     <span class={`card-title ${this.props.theme.text1}`}>About John<i class="material-icons right">x</i></span>
@@ -54,7 +55,7 @@ class AboutUs extends Component{
                     <span class={`card-title activator kris ${this.props.theme.text1}`}>Kris Chanthasiriphan<i class="material-icons right"></i></span>
                     <p><a href="https://www.linkedin.com/in/kris-chanthasiriphan-500339121/" target ="_blank">LinkedIn</a></p>
                     <p><a href="https://github.com/krischanthas" target = "_blank">GitHub</a></p>
-                    <p><a href="https://www.krischanthas.com" target ="_blank">Portfolio</a></p>
+                    <p><a href="http://www.krischanthas.com" target ="_blank">Portfolio</a></p>
                 </div>
                 <div class={`card-reveal ${this.props.theme.navColor}`}>
                     <span class={`card-title ${this.props.theme.text1}`}>About Kris<i class="material-icons right">x</i></span>
@@ -71,7 +72,7 @@ class AboutUs extends Component{
                     <span class={`card-title activator ${this.props.theme.text1}`}>Ryan Kang<i class="material-icons right"></i></span>
                     <p><a href="https://www.linkedin.com/in/ryankang2/" target="_blank">LinkedIn</a></p>
                     <p><a href="https://github.com/ryankang2" target="_blank">GitHub</a></p>
-                    <p><a href="https://ryanhkang.com" target="_blank">Portfolio</a></p>
+                    <p><a href="http://www.ryanhkang.com" target="_blank">Portfolio</a></p>
                 </div>
                 <div class={`card-reveal ${this.props.theme.navColor}`}>
                     <span class={`card-title ${this.props.theme.text1}`}>About Ryan<i class="material-icons right">x</i></span>
@@ -86,7 +87,7 @@ class AboutUs extends Component{
                     <span class={`card-title activator ${this.props.theme.text1}`}>Jacob Taylor<i class="material-icons right"></i></span>
                     <p><a href="https://www.linkedin.com/in/jacobcodes/" target="_blank">LinkedIn</a></p>
                     <p><a href="https://github.com/Firecoded" target="_blank">GitHub</a></p>
-                    <p><a href="https://jacobcodes.com" target = "_blank">Portfolio</a></p>
+                    <p><a href="http://www.jacobcodes.com" target = "_blank">Portfolio</a></p>
                 </div>
                 <div class={`card-reveal ${this.props.theme.navColor}`}>
                     <span class={`card-title ${this.props.theme.text1}`}>About Jacob<i class="material-icons right">x</i></span>
