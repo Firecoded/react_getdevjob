@@ -158,7 +158,7 @@ class Filters extends Component {
                     </Row>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>
                         <button style={{height: '0px', width: '0px', zIndex: '-1'}} data-activates="filterSideNav" className={`side-nav-control btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText}`}></button>
-                        <button data-activates="filterSideNav" className={` btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText} ${this.state.loadShow ? 'hidden' : ''}`}>Submit Filters</button>
+                        <button data-activates="filterSideNav" className={` fi-submit-btn btn col offset-s2 ${this.props.theme.button} ${this.props.theme.buttonText} ${this.state.loadShow ? 'hidden' : ''}`}>Submit Filters</button>
                         <div className = {`filter-load-cont ${!this.state.loadShow ? 'hidden': ''}`}><Loading/>
                         </div>
                     </Row>
