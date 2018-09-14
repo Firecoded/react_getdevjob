@@ -24,6 +24,9 @@
 svg {
 	top: .25vh;
 }
+.fi-submit-btn{
+	z-index: 1000
+}
 
 .side-nav a:hover {
      background-color: transparent !important; 
@@ -42,4 +45,12 @@ svg {
 .filter-load-cont {
 	position: absolute;
 	left: 50%;
+}
+@keyframes appear{
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+.fi-appear {
+	
+    animation: appear 1.3s linear 1;
 }

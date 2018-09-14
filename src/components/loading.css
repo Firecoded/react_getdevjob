@@ -2,6 +2,7 @@
   height: 87vh;
   width: 100%;
   overflow: hidden;
+  z-index: 1001;
 }
 .load-cont2{
   /*position: absolute;*/

@@ -83,7 +83,7 @@ export default {
         titleText2: 'red-text text-darken-1',
         text1: 'grey-text',
         text2: 'purple-text text-lighten-3',
-        button: 'light-green text-darken-2',
+        button: 'light-green darken-2',
         buttonText: 'white-text text-lighten-3',
         current: 'sublime',
     }
