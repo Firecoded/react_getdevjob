@@ -14,7 +14,7 @@
     require_once("api_calls/google_location.php");
     require_once("../api_keys.php");
 // the url for the api call
-    $url = "https://api.adzuna.com:443/v1/api/jobs/us/search/1?app_id={$adzunaAppID}&app_key={$adzunaAppKey}&results_per_page=2&what=Business%20Development%%20Manager&location0=US&location1=California&location2=Orange%20County";   
+    $url = "https://api.adzuna.com:443/v1/api/jobs/us/search/1?app_id={$adzunaAppID}&app_key={$adzunaAppKey}&results_per_page=1&what=truck&location0=US&location1=California&location2=Orange%20County";   
 
 //create request object
     header('Content-Type: application/json');
@@ -69,7 +69,7 @@
         // if the selection returns nothing, that means the data doesn't exist in the database 
         // therefore execute the code 
         if(mysqli_num_rows($companyCheckQueryResult) === 0){
-            $clearBitObj = getClearBitObj($company_website);
+            $clearBitObj = getClearBitObj($company_website, $clearBitKey);
             $linkedin_url = $clearBitObj["linkedin"];
             $ocr_url = $clearBitObj["ocr"];
             $crunchbase_url = $clearBitObj["crunch"];
@@ -87,14 +87,29 @@
                 $output['error'][]= "## Company insert query error";
             }
             // call function to get location data
-            $addressObject = getGoogleObj($address_query);
-            $fullAddress = $addressObject["fullAddress"];
-            $lat = $addressObject["lat"];
-            $long = $addressObject["long"];
-            $street = $addressObject["street"];
-            $city = $addressObject["city"];
-            $state = $addressObject["state"];
-            $zip = $addressObject["zip"]; 
+            $addressQuery = "ASASAS, CA";
+            $addressObject = getGoogleObj($address_query, $googleKey);
+            //didnt get valid location
+            if(is_null($addressObject["fullAddress"])){
+                $full_address = "";
+                $lat = "";
+                $lng = "";
+                $street = "1";
+                $city = "";
+                $state = "";
+                $zip = "";
+            }
+            //got valid location
+            else{
+                $fullAddress = $addressObject["fullAddress"];
+                $lat = $addressObject["lat"];
+                $long = $addressObject["long"];
+                $street = $addressObject["street"];
+                $city = $addressObject["city"];
+                $state = $addressObject["state"];
+                $zip = $addressObject["zip"]; 
+            }
+ 
 
             // this function retrieves the ID of the last insert
             $company_id = mysqli_insert_id($conn);
