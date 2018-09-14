@@ -87,7 +87,6 @@
                 $output['error'][]= "## Company insert query error";
             }
             // call function to get location data
-            $addressQuery = "ASASAS, CA";
             $addressObject = getGoogleObj($address_query, $googleKey);
             //didnt get valid location
             if(is_null($addressObject["fullAddress"])){

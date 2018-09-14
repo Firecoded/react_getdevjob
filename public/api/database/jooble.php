@@ -19,7 +19,7 @@
     header('Content-Type: application/json');
     curl_setopt($ch, CURLOPT_URL, $url."".$joobleKey);
     curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, '{ "keywords": "software engineer", "location": "Los Angeles", "radius":"25", "page": 1}');
+    curl_setopt($ch, CURLOPT_POSTFIELDS, '{ "keywords": "truck", "location": "Los Angeles", "radius":"25", "page": 1}');
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
     // receive server response ...
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -71,6 +71,26 @@
             }
             //insert into locations table
             $locationObj = getGoogleObj("$companyName "."$cityFromApi", $googleKey);
+            //didnt get valid location
+            if(is_null($addressObject["fullAddress"])){
+                $full_address = "";
+                $lat = "";
+                $lng = "";
+                $street = "1";
+                $city = "";
+                $state = "";
+                $zip = "";
+            }
+            //got valid location
+            else{
+                $fullAddress = $addressObject["fullAddress"];
+                $lat = $addressObject["lat"];
+                $long = $addressObject["long"];
+                $street = $addressObject["street"];
+                $city = $addressObject["city"];
+                $state = $addressObject["state"];
+                $zip = $addressObject["zip"]; 
+            }
             $street = $locationObj["street"];
             $city = $locationObj["city"];
             $state = $locationObj["state"];
