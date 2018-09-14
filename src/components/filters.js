@@ -13,8 +13,8 @@ class Filters extends Component {
         super(props);
 
         this.titleObj = {
-			"frontend": "Front End", 
-			"backend": "Back End",
+			"frontend": "Frontend", 
+			"backend": "Backend",
             "webdeveloper": "Web Developer",
             "softwareengineer": "Software Engineer",
 			"all": ""
@@ -111,8 +111,8 @@ class Filters extends Component {
                             <option value = ''> All </option>    
                             <option value = 'Web Developer'> Web Developer</option>
                             <option value = 'Software Engineer'>Software Engineer</option>
-                            <option value = 'Front End'> Front End</option>
-                            <option value = 'Back End'> Back End</option>
+                            <option value = 'Frontend'> Front End</option>
+                            <option value = 'Backend'> Back End</option>
                         </Input>
                     </Row>
                     <Row className = {`input-row ${this.props.theme.titleText1} ${this.props.theme.navColor}`}>

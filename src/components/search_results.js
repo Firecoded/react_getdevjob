@@ -55,7 +55,6 @@ class SearchResults extends Component {
 		            userLng:'',
 		            offset: 0
 		}
-		console.log("things sent: ", this.searchParams);
 		$('.side-nav-control').sideNav();
 		if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(async (position) => {
@@ -132,8 +131,8 @@ class SearchResults extends Component {
 	//returns modified title in format we need to send to backend 
 	handleTitle(title){
         const titleObj = {
-			"frontend": "Front End", 
-        	"backend": "Back End", 
+			"frontend": "Frontend", 
+        	"backend": "Backend", 
 			"webdeveloper": "Web Developer",
 			"softwareengineer": "Software Engineer",
 			"all": ""
