@@ -110,7 +110,7 @@ class GoogleMap extends Component {
             <div className ="googleContainer noMap">
                 <div ref={(e) => this.map = e} id = {"map" + this.state.key} className="map"></div>
                 <div id={"pano" + this.state.key} className="pano" ref={(e) => this.panorama = e}></div>
-                <button className = "mapStreetViewToggle btn" onClick={this.toggleMap.bind(this)} >Street View</button>
+                <button className = "mapStreetViewToggle btn" onClick={this.toggleMap.bind(this)} >Toggle View</button>
             </div>
             )
         } else {
@@ -118,7 +118,7 @@ class GoogleMap extends Component {
             <div className ="googleContainer hoverable">
                 <div ref={(e) => this.map = e} id = {"map" + this.state.key} className="map"></div>
                 <div id={"pano" + this.state.key} className="pano" ref={(e) => this.panorama = e}></div>
-                <button className = {`mapStreetViewToggle btn ${this.props.theme.button} ${this.props.theme.buttonText}`} onClick={this.toggleMap.bind(this)} >Street View</button>
+                <button className = {`mapStreetViewToggle btn ${this.props.theme.button} ${this.props.theme.buttonText}`} onClick={this.toggleMap.bind(this)} >Toggle View</button>
             </div>
         )
     }}
