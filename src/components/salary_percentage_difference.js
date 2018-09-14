@@ -22,7 +22,7 @@ class SalaryPercentage extends Component{
         if(percentageDifference < 0){
             this.setState(
                 {   
-                    percentageDifference:  Math.abs(percentageDifference),
+                    percentageDifference:  percentageDifference,
                     payStatus:"higher",
             });
           
@@ -38,7 +38,7 @@ class SalaryPercentage extends Component{
 
     render(){
         return(
-            <p className = {this.state.percentageDifference>0?'red-text':'green-text'} >This salary is {this.state.percentageDifference}% {this.state.payStatus} than the state average.</p>
+            <p className = {this.state.percentageDifference>0?'red-text':'green-text'} >This salary is {Math.abs(this.state.percentageDifference)}% {this.state.payStatus} than the state average.</p>
         )
     }
 }

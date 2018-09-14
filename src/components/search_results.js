@@ -73,7 +73,7 @@ class SearchResults extends Component {
 				}
 			}, async () => {
 				this.searchParams.userLat = NaN;
-			this.searchParams.userLng = NaN;
+				this.searchParams.userLng = NaN;
 			
 			await this.getJobData(0, this.searchParams);
 			this.populateCards(this.state.response.data.jobs);

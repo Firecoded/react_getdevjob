@@ -78,7 +78,9 @@ class BusinessModal extends Component {
                                 <Link to = {linkQuery} target="_blank" className ={`btn waves-effect waves-light ${this.props.theme.button} ${this.props.theme.buttonText}`}>Share</Link>
                             </div>
                             <div className='bm-companyName'>
-                                <img src={logo} />
+                                <div className="logoBox">
+                                    <img src={logo} />
+                                </div>
                                 <p className = {`${this.props.theme.titleText1}`}> {company_name}</p>
                             </div>
                             <div className={`bm-jobTitle ${this.props.theme.titleText2}`}>
