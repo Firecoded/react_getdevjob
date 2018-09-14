@@ -102,7 +102,7 @@
 
 .bm-buttonRow{
     position: relative;
-    left:8.5%;
+    left:7.5%;
 }
 
 .bm-jobDescription{
@@ -179,12 +179,12 @@
 
     .bm-jobDetails{
         top:0;
-        height:22vh;
+        height:50vh;
     }
 
     .bm-buttonRow{
         position: relative;
-        left:0%;
+        left:.5%;
     }
     .bm-map{
         margin:0 1%;
@@ -221,6 +221,10 @@
         height:35vmin;
         width: 100%;
     }
+    .bm-buttonRow{
+        position: relative;
+
+    }
    
 }
 
@@ -240,5 +244,8 @@
     }
     .modalStyle{
         width:75%;
+    }
+    .bm-buttonRow{
+        left:4%;
     }
 }

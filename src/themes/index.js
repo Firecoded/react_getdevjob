@@ -46,7 +46,7 @@ export default {
     monokai: {
         navColor: 'grey darken-3',
         background: 'grey darken-1',
-        titleText1: 'pink-text accent-3',
+        titleText1: 'pink-text text-accent-3',
         titleText2: 'light-green-text accent-3',
         text1: 'white-text',
         text2: 'orange-text darken-1',
