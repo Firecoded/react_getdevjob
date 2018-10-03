@@ -95,4 +95,7 @@
     #lpModal{
         height:25%;
     }
+    .btn {
+        text-transform: none !important;
+    }
 }

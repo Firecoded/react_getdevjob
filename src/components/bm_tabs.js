@@ -39,14 +39,12 @@ class TabsInfo extends Component{
             }
             return (
                 <div className='row'>
-                    <p className={`center ${titleText1}`}>Learn about the Company and its Executives</p>
                     <a href = {'http://' + crunchbase_url}  target ="_blank" className={`btn waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >Crunchbase</a>
                 </div>
             )
         } else {
             return(
                 <div className='row'>
-                    <p className={`center ${titleText1}`}>Crunchbase info unavailable</p>
                     <a className='btn blue disabled' >CrunchBase</a>
                 </div>
             )
@@ -67,15 +65,13 @@ class TabsInfo extends Component{
             }
             return (
                 <div className='row'>
-                    <p className={`center ${titleText1}`}>Check out the company website</p>
-                    <a href = {'http://' + company_website}  target ="_blank" className={`btn waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >Company</a>
+                    <a href = {'http://' + company_website}  target ="_blank" className={`btn waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >Company Website</a>
                 </div>
             )
         } else {
             return(
                 <div className='row'>
-                    <p className={`center ${titleText1}`} >Company website unavailable</p>
-                    <a className='btn blue disabled' >Company</a>
+                    <a className='btn blue disabled' >Company Website</a>
                 </div>
             )
         }
@@ -94,7 +90,6 @@ class TabsInfo extends Component{
             }
             return (
                 <div className='row'>
-                    <p className={`center ${titleText1}`}>Do you know anyone working here?</p>
                     <a href = {'http://' + linkedin_url} target= '_blank' className={`btn waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >LinkedIn</a>
                 </div>
             )
@@ -102,7 +97,6 @@ class TabsInfo extends Component{
             linkedin_url = null;
             return (
                 <div className='row'>
-                    <p className={`center ${titleText1}`}>LinkedIn info unavailable</p>
                     <a className='btn blue disabled' >LinkedIn</a>
                 </div>
             )
