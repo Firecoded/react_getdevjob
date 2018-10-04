@@ -72,9 +72,9 @@ class LandingPage extends Component {
 			            <div className="left-nums">24</div>
 			            <div className="left-nums">25</div>
 			            <div className="left-nums">26 <span className ={this.props.theme.text2}>&lt;a href = &quot;/about-us&quot;&gt;<Link to ="/about-us" className = {this.props.theme.titleText1}><u>About Us</u></Link>&lt;/a&gt;</span></div>
-			            <div className="left-nums">27 <span className ={this.props.theme.text2}>&lt;a href = &quot;/why-share-geolocation&quot;&gt;<a id='lp-ModalTrigger' className = {this.props.theme.titleText1} onClick={() =>this.handleLPModalOpen()}><u>How we use your location data</u></a>&lt;/a&gt;</span></div>
-			            <div className="left-nums">28</div>
-			            <div className="left-nums">29</div>
+			            <div className="left-nums">27 </div>
+			            <div className="left-nums">28 <span className ={this.props.theme.text2}>&lt;a href = &quot;/geolocation&quot;&gt;</span></div>
+			            <div className="left-nums">29 <span><a id='lp-ModalTrigger' className = {this.props.theme.titleText1} onClick={() =>this.handleLPModalOpen()}><u>Why share your geolocation?</u></a>&lt;/a&gt;</span></div>
 			            <div className="left-nums">31</div>
 			            <div className="left-nums">32</div>
 			            <div className="left-nums">33</div>
@@ -113,7 +113,7 @@ class LandingPage extends Component {
 			            <div className = {`lp-drop-content ${this.props.theme.titleText1}`}>
 							<ThemeDropDown/>
                         </div>
-                        <div className = {`lp-button-syntax ${this.props.theme.text2}`}>&lt;/button&gt;</div>  
+                    <div className = {`lp-button-syntax ${this.props.theme.text2}`}>&lt;/button&gt;</div>  
                     </div>
 			        <div className ='container input-container'>
 			            <h1 className={`center-align lp-title ${this.props.theme.titleText1}`}>getDevJob(<span className = {this.props.theme.text1}>you</span>)</h1>
@@ -121,15 +121,15 @@ class LandingPage extends Component {
 			                <div className ={`row lp-title-city-input ${this.props.theme.text1} ${this.props.theme.navColor}`}> 
 			                    <Col s={12} m={8} l={6} offset="s1 m2 l3">
 									<Input s={11} m={10} l={6} type ='select' label = 'Job Title' name="title" defaultValue = 'Web Developer' className = {this.props.theme.text1} onChange={this.handleInputChange.bind(this)}>
-										<option value = ''>All</option>
+										<option value = 'All'>All</option>
                                 		<option value = 'Web Developer'>Web Developer</option>
 										<option value = 'Software Engineer'>Software Engineer</option>
-                                		<option value = 'Front End'>Front End</option>
-                                		<option value = 'Back End'>Back End</option>
+                                		<option value = 'Frontend'>Front End</option>
+                                		<option value = 'Backend'>Back End</option>
 										
                        				</Input>
 									<Input s={11} m={10} l={6} type ='select' label = 'City' name="location" defaultValue = 'Irvine' className = {this.props.theme.text1} onChange={this.handleInputChange.bind(this)}>
-										<option value = ''> Southern California </option>    
+										<option value = 'Socal'> Southern California </option>    
 										<option value = 'Irvine'>Irvine</option>
                                 		<option value = 'San Diego'>San Diego</option>
                                 		<option value = 'Los Angeles'>Los Angeles</option>

@@ -1,13 +1,26 @@
 .about-us{
-    height:100vh;
+    height:110%;
     width: 100%;
 }
 
-.about-us .card{
-    width:20%;
+.au-firstRow .card{
+    width:40%;
+    height:auto;
     display: inline-block;
-    margin: 10% 2.5% 0% 2.5%;
+    margin:0 5%;
+    margin: 0% 5% 0% 5%;
+    position: relative;
+    top:80px;
+    
 }
+
+.au-secondRow .card{
+    width:40%;
+    display: inline-block;
+    margin:0 5%;
+    margin: 26% 5% 0% 5%;
+}
+
 
 .card .card-image{
     width:100%;
@@ -18,7 +31,7 @@
 } 
 
 .kris{
-    font-size: 17px !important;
+    font-size: 12px !important;
 }
 .about-usHeader{
     font-size: 40px;
@@ -32,6 +45,49 @@
     left:50%;
     transform: translateX(-50%);
     font-size: 40px;
-    width: 100%;
+    width: 100vw;
     text-align: center;
+    z-index:100; 
+}
+.backButton{
+    z-index: 101;
+    position: absolute;
+    top:0;
+    left:0;
+    margin-top:.75%;
+}
+
+@media screen and (min-width: 576px){
+.kris{
+    font-size: 16px !important;
+}
+
+}
+
+@media screen and (min-width: 993px){
+    .au-firstRow .card, .au-secondRow .card{
+        width:40%;
+        display: inline-block;
+        position: relative;
+        top:0px;
+    }
+
+    .au-secondRow .card {
+         margin-top:0%;
+    }
+
+    .au-firstRow,.au-secondRow{
+        width:50%;
+        position: absolute;
+        top: 25%;
+        }
+        .au-secondRow{
+            left: 50%;   
+        }
+
+
+        .about-us{
+            height:100vh;
+            width: 100%;
+        }
 }

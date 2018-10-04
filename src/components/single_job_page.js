@@ -68,13 +68,13 @@ class SingleJobPage extends Component {
         if(lat !== ""){
             console.log("TRUE");
             return ( 
-            <div className ="bm-map">
+            <div className ="sp-map">
                 <GoogleMap lat={parseFloat(this.state.response.company.location.lat)} lng={parseFloat(this.state.response.company.location.lng)} isOpen={true} drivingInfo={this.getDrivingData}  theme = {this.props.theme}/>
             </div>)
         } else {
             console.log("False");
             return ( 
-                <div className ="bm-map noMap">
+                <div className ="sp-map noMap">
                     <GoogleMap lat={parseFloat(this.state.response.company.location.lat)} lng={parseFloat(this.state.response.company.location.lng)} isOpen={true} drivingInfo={this.getDrivingData}  theme = {this.props.theme}/>
                 </div>)
         }
@@ -100,16 +100,14 @@ class SingleJobPage extends Component {
         const params = formatPostData(this.singleJobItem);
         
         const resp = await axios.post("/api/get_joblist.php", params);
-        console.log("THIS PROBLEM", resp);
         this.setState({
             response:resp.data.jobs[0]});
     }
 
     render(){
-        console.log('theme', this.props)
         if(!this.state.response){
             return ( 
-                    <div className = {`sp-load-cont ${this.props.theme.background}`}>
+                    <div className = {`sp-load-cont sp-overflow ${this.props.theme.background}`}>
                         <div className = 'sp-load-position'> 
                             <Loading/> 
                         </div>
@@ -134,7 +132,9 @@ class SingleJobPage extends Component {
                                 
                             </div>
                             <div className='sp-companyName'>
+                            <div className ="sp-logoBox">
                                 <img src={logo} />
+                            </div>
                                 <p className = {`${this.props.theme.titleText1}`}>{company_name}</p>
                             </div>
                             <div className={`sp-jobTitle ${this.props.theme.titleText2}`}>

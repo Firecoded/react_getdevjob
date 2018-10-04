@@ -14,11 +14,10 @@
 
     $title = $_POST["title"];
     $locationFromSearch = $_POST["location"];
-    // print("locatio nfrom search $locationFromSearch");
     $offset = $_POST["offset"];
     $distance = $_POST["distance"];
+    
 // start query
-
     $query = "SELECT `jobs`.`ID`, `jobs`.`title`, `jobs`.`company_name`, `jobs`.`post_date`, `jobs`.`listing_url`, `jobs`.`type_id`, `jobs`.`description`, `jobs`.`title_comp`, `jobs`.`salary_id`, 
             `companies`.`name`, `companies`.`logo`, `companies`.`company_website`, `companies`.`linkedin_url`, `companies`.`ocr_url`, `companies`.`crunchbase_url`, 
             `locations`.`company_id`, `locations`.`street`, `locations`.`city`, `locations`.`state`, `locations`.`zip`, `locations`.`lat`, `locations`.`lng`, `locations`.`full_address` 
@@ -91,7 +90,7 @@
         $descriptionConds[] = " `description` LIKE '%{$val}%'";
     }
     // join the array together
-    $query = $query.implode(" OR ", $descriptionConds)."))";
+    $query = $query.implode(" AND ", $descriptionConds)."))";
 
     
 

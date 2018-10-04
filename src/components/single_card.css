@@ -25,10 +25,11 @@
     text-align: justify;  
     margin-right: -1em;
     padding-right: 1em;
-    height: 70%;
+    height: 68%;
     width: 100%;
-    margin: 7% 0 0 0;
+    margin-top: 7%;
     padding-top: 2%;
+    top:24%;
 }
 .sc-jobDescription:before {
     position: absolute;
@@ -115,6 +116,7 @@ h5, h4, h3, h2, h1 {
     bottom:0;
 }
 
+
 @media screen and (min-width: 576px){
     .sc-cardContainer{
         height:40vmin;
@@ -153,7 +155,6 @@ h5, h4, h3, h2, h1 {
         height:44%;
         width: 49%;
         display: inline-block;
-    
     }
 
     .sc-jobDetailsList {
@@ -170,7 +171,7 @@ h5, h4, h3, h2, h1 {
     .sc-jobDescription{
         font-size: 1rem;
         padding-top: 2%;
-        
+        top:15%;
     }
 }
 
