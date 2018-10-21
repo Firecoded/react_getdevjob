@@ -4,6 +4,7 @@ body{
 .about-us{
     height:110%;
     width: 100%;
+    overflow-x: hidden;
 }
 
 .au-firstRow .card{

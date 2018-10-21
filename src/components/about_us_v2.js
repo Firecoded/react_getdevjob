@@ -30,73 +30,73 @@ class AboutUs extends Component{
                 <Link to = '/' className = {`brand-logo-about tn-logo ${this.props.theme.navColor}`}><span className={this.props.theme.titleText2}>&lt;gDJ</span><span className = {this.props.theme.titleText1}>/</span><span className = {this.props.theme.titleText2}>&gt;</span></Link>
                 <Link to = '/' className = {`btn backButton ${this.props.theme.button} ${this.props.theme.buttonText}`}>Back</Link>
                 <div className = "au-firstRow">
-                    <div class="card hoverable">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src={JCimage} />
+                    <div className="card hoverable">
+                        <div className="card-image waves-effect waves-block waves-light">
+                            <img className="activator" src={JCimage} />
                         </div>
-                        <div class={`card-content ${this.props.theme.navColor}`}>
-                            <span class={`card-title activator ${this.props.theme.text1}`}>John C.<i class="material-icons right"></i></span>
+                        <div className={`card-content ${this.props.theme.navColor}`}>
+                            <span className={`card-title activator ${this.props.theme.text1}`}>John C.<i className="material-icons right"></i></span>
                             <p><a href="https://www.linkedin.com/in/john-carlisle-91777a68/" target ="_blank">LinkedIn</a></p>
                             <p><a href="https://github.com/TremendousZ" target ="_blank">GitHub</a></p>
                             <p><a href="http://www.johncarlisle.design" target ="_blank">Portfolio</a></p>
                         </div>
-                        <div class={`card-reveal ${this.props.theme.navColor}`}>
-                            <span class={`card-title ${this.props.theme.text1}`}>About John<i class="material-icons right">x</i></span>
+                        <div className={`card-reveal ${this.props.theme.navColor}`}>
+                            <span className={`card-title ${this.props.theme.text1}`}>About John<i className="material-icons right">x</i></span>
                             <p className ={`${this.props.theme.text1}`} >Specialty: Front-End Technologies Used: HTML5, CSS3, Materialize.css, JavaScript, ReactJS, and Redux JS</p>
                         </div>
                     </div>
-                    <div class="card hoverable">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src={KCimage} />
+                    <div className="card hoverable">
+                        <div className="card-image waves-effect waves-block waves-light">
+                            <img className="activator" src={KCimage} />
                         </div>
-                        <div class={`card-content ${this.props.theme.navColor}`}>
-                            <span class={`card-title activator kris ${this.props.theme.text1}`}>Kris C.<i class="material-icons right"></i></span>
+                        <div className={`card-content ${this.props.theme.navColor}`}>
+                            <span className={`card-title activator kris ${this.props.theme.text1}`}>Kris C.<i className="material-icons right"></i></span>
                             <p><a href="https://www.linkedin.com/in/kris-chanthasiriphan-500339121/" target ="_blank">LinkedIn</a></p>
                             <p><a href="https://github.com/krischanthas" target = "_blank">GitHub</a></p>
                             <p><a href="http://www.krischanthas.com" target ="_blank">Portfolio</a></p>
                         </div>
-                        <div class={`card-reveal ${this.props.theme.navColor}`}>
-                            <span class={`card-title ${this.props.theme.text1}`}>About Kris<i class="material-icons right">x</i></span>
+                        <div className={`card-reveal ${this.props.theme.navColor}`}>
+                            <span className={`card-title ${this.props.theme.text1}`}>About Kris<i className="material-icons right">x</i></span>
                             <p className ={`${this.props.theme.text1}`}>Specialty: Back-End Technologies Used: PHP, MySQL, Amazon Web Services</p>
                         </div>
                     </div>
                 </div>
                 <div className = "au-secondRow">
-                    <div class="card hoverable">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src={RKimage} />
+                    <div className="card hoverable">
+                        <div className="card-image waves-effect waves-block waves-light">
+                            <img className="activator" src={RKimage} />
                         </div>
-                        <div class={`card-content ${this.props.theme.navColor}`}>
-                            <span class={`card-title activator ${this.props.theme.text1}`}>Ryan K.<i class="material-icons right"></i></span>
+                        <div className={`card-content ${this.props.theme.navColor}`}>
+                            <span className={`card-title activator ${this.props.theme.text1}`}>Ryan K.<i className="material-icons right"></i></span>
                             <p><a href="https://www.linkedin.com/in/ryankang2/" target="_blank">LinkedIn</a></p>
                             <p><a href="https://github.com/ryankang2" target="_blank">GitHub</a></p>
                             <p><a href="http://www.ryanhkang.com" target="_blank">Portfolio</a></p>
                         </div>
-                        <div class={`card-reveal ${this.props.theme.navColor}`}>
-                            <span class={`card-title ${this.props.theme.text1}`}>About Ryan<i class="material-icons right">x</i></span>
+                        <div className={`card-reveal ${this.props.theme.navColor}`}>
+                            <span className={`card-title ${this.props.theme.text1}`}>About Ryan<i className="material-icons right">x</i></span>
                             <p className ={`${this.props.theme.text1}`} >Specialty: Back-End Technologies Used: PHP, MySQL, Amazon Web Services</p>
                         </div>
                     </div>
-                    <div class="card hoverable">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src={JTimage} />
+                    <div className="card hoverable">
+                        <div className="card-image waves-effect waves-block waves-light">
+                            <img className="activator" src={JTimage} />
                         </div>
-                        <div class={`card-content ${this.props.theme.navColor}`}>
-                            <span class={`card-title activator ${this.props.theme.text1}`}>Jacob T.<i class="material-icons right"></i></span>
+                        <div className={`card-content ${this.props.theme.navColor}`}>
+                            <span className={`card-title activator ${this.props.theme.text1}`}>Jacob T.<i className="material-icons right"></i></span>
                             <p><a href="https://www.linkedin.com/in/jacobcodes/" target="_blank">LinkedIn</a></p>
                             <p><a href="https://github.com/Firecoded" target="_blank">GitHub</a></p>
                             <p><a href="http://www.jacobcodes.com" target = "_blank">Portfolio</a></p>
                         </div>
-                        <div class={`card-reveal ${this.props.theme.navColor}`}>
-                            <span class={`card-title ${this.props.theme.text1}`}>About Jacob<i class="material-icons right">x</i></span>
+                        <div className={`card-reveal ${this.props.theme.navColor}`}>
+                            <span className={`card-title ${this.props.theme.text1}`}>About Jacob<i className="material-icons right">x</i></span>
                             <p className ={`${this.props.theme.text1}`} >Specialty: Front-End Technologies Used: HTML5, CSS3, Materialize.css, JavaScript, ReactJS, and Redux JS</p>
                             <br></br>
                             <p className ={`${this.props.theme.text1}`} >Nickname: "Sunshine"</p>
                         </div>
                     </div>
-                    <div class="about-us-container">
-                        <h1 class="title">About getDevJob(you)</h1>
-                        <div class="information-container">
+                    <div className="about-us-container">
+                        <h1 className="title">About getDevJob(you)</h1>
+                        <div className="information-container">
                             <p>
                                 getDevJob(you) was created by developers for developers. When we were scrolling through numerous job boards, we came across a striking similarity
                                 between them. The websites were bland and didn't grab our attention. And so, we wanted to create a new experience for job-seekers in the tech industry.
