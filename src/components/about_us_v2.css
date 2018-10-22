@@ -7,6 +7,10 @@ body{
     overflow-x: hidden;
 }
 
+.container{
+    max-width: 100% !important;
+}
+
 .au-firstRow .card{
     width:40%;
     height:auto;
