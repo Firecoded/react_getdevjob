@@ -19,7 +19,7 @@
     header('Content-Type: application/json');
     curl_setopt($ch, CURLOPT_URL, $url."".$joobleKey);
     curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, '{ "keywords": "truck", "location": "Los Angeles", "radius":"25", "page": 1}');
+    curl_setopt($ch, CURLOPT_POSTFIELDS, '{ "keywords": "web developer", "location": "los angeles", "radius":"25", "page": 1}');
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
     // receive server response ...
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -33,9 +33,6 @@
 
     //iterate through response we get from jooble
     for($i = 0; $i < count((array)$server_output->jobs); $i++){
-        if($i === 1){
-            break;
-        }
         $title = $server_output->jobs[$i]->title;
         $link = $server_output->jobs[$i]->link;
         $postDate = getPostDate($server_output->jobs[$i]->updated);

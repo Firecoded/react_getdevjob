@@ -1,6 +1,14 @@
+body{
+    font-family: arial;
+}
 .about-us{
     height:110%;
     width: 100%;
+    overflow-x: hidden;
+}
+
+.container{
+    max-width: 100% !important;
 }
 
 .au-firstRow .card{
@@ -30,15 +38,17 @@
     padding: 0 24px !important;
 } 
 
-.kris{
+/* .kris{
     font-size: 12px !important;
-}
+} */
+
 .about-usHeader{
     font-size: 40px;
     text-align: center;
     position: relative;
     top:3%;
 }
+
 .brand-logo-about{
     position: absolute;
     top:0;
@@ -49,6 +59,7 @@
     text-align: center;
     z-index:100; 
 }
+
 .backButton{
     z-index: 101;
     position: absolute;
@@ -57,10 +68,36 @@
     margin-top:.75%;
 }
 
-@media screen and (min-width: 576px){
-.kris{
-    font-size: 16px !important;
+.about-us-container{
+    margin-top: 7%;
+    left: -50%;
 }
+
+.about-us-container p{
+    text-align: center;
+    font-weight: bold;
+}
+
+.title{
+    text-align: center;
+    font-size: 2.1rem;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+}
+
+.information-container{
+    margin: 5%;
+}
+
+
+@media screen and (min-width: 576px){
+
+    .card-title{
+        font-size: 24px !important;
+    }
+    /* .kris{
+        font-size: 16px !important;
+    } */
 
 }
 
@@ -80,14 +117,22 @@
         width:50%;
         position: absolute;
         top: 25%;
-        }
-        .au-secondRow{
-            left: 50%;   
-        }
+    }
+
+    .au-secondRow{
+        left: 50%;   
+    }
+
+    .about-us{
+        height:100vh;
+        width: 100%;
+    }
 
 
-        .about-us{
-            height:100vh;
-            width: 100%;
-        }
+}
+
+@media screen and (max-width: 992px){
+    .about-us-container{
+        left: 0%;
+    }
 }
