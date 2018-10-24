@@ -2,7 +2,7 @@
 
 > This repo is the home of the getDevJob application.
 
-getDevJob(you) is a job listing website was created by developers for developers. When we were scrolling through numerous job boards, we came across a striking similarity between them. The websites were bland and didn't grab our attention. And so, we wanted to create a new experience for job-seekers in the tech industry.
+getDevJob(you) is a job listing website created by developers for developers. When we were scrolling through numerous job boards, we came across a striking similarity between them. The websites were bland and didn't grab our attention. And so, we wanted to create a new experience for job-seekers in the tech industry.
 
 The application was built utilizing a ReactJS front-end and a PHP back-end with a MySQL database.
 
