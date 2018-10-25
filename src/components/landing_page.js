@@ -71,10 +71,10 @@ class LandingPage extends Component {
 			            <div className="left-nums">23</div>
 			            <div className="left-nums">24</div>
 			            <div className="left-nums">25</div>
-			            <div className="left-nums">26 <span className ={this.props.theme.text2}>&lt;a href = &quot;/about-us&quot;&gt;<Link to ="/about-us" className = {this.props.theme.titleText1}><u>About Us</u></Link>&lt;/a&gt;</span></div>
+			            <div className="left-nums">26 <span className ={this.props.theme.text2}>&lt;a href = &quot;/about-us&quot;&gt;<Link to ="/about-us" rel = "nofollow" className = {this.props.theme.titleText1}><u>About Us</u></Link>&lt;/a&gt;</span></div>
 			            <div className="left-nums">27 </div>
 			            <div className="left-nums">28 <span className ={this.props.theme.text2}>&lt;a href = &quot;/geolocation&quot;&gt;</span></div>
-			            <div className="left-nums">29 <span><a id='lp-ModalTrigger' className = {this.props.theme.titleText1} onClick={() =>this.handleLPModalOpen()}><u>Why share your geolocation?</u></a>&lt;/a&gt;</span></div>
+			            <div className="left-nums">29 <span><a id='lp-ModalTrigger' rel="nofollow" className = {this.props.theme.titleText1} onClick={() =>this.handleLPModalOpen()}><u>Why share your geolocation?</u></a>&lt;/a&gt;</span></div>
 			            <div className="left-nums">31</div>
 			            <div className="left-nums">32</div>
 			            <div className="left-nums">33</div>
@@ -125,9 +125,9 @@ class LandingPage extends Component {
                                 		<option value = 'Web Developer'>Web Developer</option>
 										<option value = 'Software Engineer'>Software Engineer</option>
                                 		<option value = 'Frontend'>Front End</option>
-                                		<option value = 'Backend'>Back End</option>
-										
+                                		<option value = 'Backend'>Back End</option>	
                        				</Input>
+									   
 									<Input s={11} m={10} l={6} type ='select' label = 'City' name="location" defaultValue = 'Irvine' className = {this.props.theme.text1} onChange={this.handleInputChange.bind(this)}>
 										<option value = 'Socal'> Southern California </option>    
 										<option value = 'Irvine'>Irvine</option>
@@ -137,7 +137,7 @@ class LandingPage extends Component {
 			                    </Col>
 			                </div>
 			                <div className='row'>
-			                	<Link to ={linkQuery} className = {`btn col s2 offset-s5 waves-effect waves-light ${this.props.theme.button}`}><span className = {this.props.theme.buttonText}>Go</span>	                		
+			                	<Link to ={linkQuery} rel="nofollow" className = {`btn col s2 offset-s5 waves-effect waves-light ${this.props.theme.button}`}><span className = {this.props.theme.buttonText}>Go</span>	                		
 			                    </Link>	
 			                </div>
 			            </form>    

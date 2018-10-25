@@ -39,7 +39,7 @@ class TabsInfo extends Component{
             }
             return (
                 <div className='row'>
-                    <a href = {'http://' + crunchbase_url}  target ="_blank" className={`btn waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >Crunchbase</a>
+                    <a href = {'http://' + crunchbase_url} rel="nofollow" target ="_blank" className={`btn waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >Crunchbase</a>
                 </div>
             )
         } else {
@@ -65,7 +65,7 @@ class TabsInfo extends Component{
             }
             return (
                 <div className='row'>
-                    <a href = {'http://' + company_website}  target ="_blank" className={`btn waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >Company Website</a>
+                    <a href = {'http://' + company_website} rel="nofollow" target ="_blank" className={`btn waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >Company Website</a>
                 </div>
             )
         } else {
@@ -90,7 +90,7 @@ class TabsInfo extends Component{
             }
             return (
                 <div className='row'>
-                    <a href = {'http://' + linkedin_url} target= '_blank' className={`btn waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >LinkedIn</a>
+                    <a href = {'http://' + linkedin_url} rel="nofollow" target= '_blank' className={`btn waves-effect waves-light ${buttonStyle} ${this.props.theme.buttonText}`} >LinkedIn</a>
                 </div>
             )
         } else{
