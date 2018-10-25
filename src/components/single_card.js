@@ -91,7 +91,7 @@ class Card extends Component{
                     <Modal id={`modal-${this.props.pullId}`} className={`modalStyle ${this.props.theme.background}`}>
                         <BusinessModal actions = {'circle-close'} lat={lat} lng={lng} isOpen={this.state.modalOpen} theme={this.props.theme} {...this.props}/>
                     </Modal>
-                    <Link to = {linkQuery} target="_blank" className ={`btn btn-style waves-effect waves-light ${this.props.theme.button} ${this.props.theme.buttonText}`}>Share</Link>
+                    <Link to = {linkQuery} rel="nofollow" target="_blank" className ={`btn btn-style waves-effect waves-light ${this.props.theme.button} ${this.props.theme.buttonText}`}>Share</Link>
                 </div>
             </div>
         </div>
