@@ -182,11 +182,11 @@ class SearchResults extends Component {
 		}		
 		for (var index=0; index < array.length; index++){
 			if(this.alt){
-				let temp = <Card key = {this.mathRand() +'o'+ index} pullId = {(this.offset * 12) + index} details = {array[index]}{...this.props} />
+				let temp = <Card key = {this.mathRand() +'o'+ index} pullId = {(this.offset * 8) + index} details = {array[index]}{...this.props} />
 				this.leftArray.push(temp);
 				this.alt = 1 - this.alt;
 			} else {
-				let temp = <Card key = {this.mathRand() +'o'+ index} pullId = {(this.offset * 12) + index} details = {array[index]}{...this.props} />
+				let temp = <Card key = {this.mathRand() +'o'+ index} pullId = {(this.offset * 8) + index} details = {array[index]}{...this.props} />
 				this.rightArray.push(temp);
 				this.alt = 1 - this.alt;
 			}

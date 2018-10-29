@@ -108,8 +108,8 @@
 // Sort query results by post date
     $query = $query . " ORDER BY `post_date` DESC";
     if($offset !== ""){
-        $startingPoint = $offset * 12;
-        $query = $query . " LIMIT 12 OFFSET $startingPoint";
+        $startingPoint = $offset * 8;
+        $query = $query . " LIMIT 8 OFFSET $startingPoint";
     }
 
     
