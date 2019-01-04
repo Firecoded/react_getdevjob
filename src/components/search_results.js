@@ -11,6 +11,7 @@ import {setTheme} from '../actions';
 import Loading from './loading';
 import BottomScrollListener from 'react-bottom-scroll-listener';
 import NoResults from './no-results';
+import jobs from './dummy_data';
 
 class SearchResults extends Component {
 	constructor(props){
@@ -76,7 +77,8 @@ class SearchResults extends Component {
 				this.searchParams.userLng = NaN;
 			
 			await this.getJobData(0, this.searchParams);
-			this.populateCards(this.state.response.data.jobs);
+			console.log("CHECK IT", this.state.response.jobs);
+			this.populateCards(this.state.response.jobs);
 			if(localStorage.getItem('theme')){
 				this.props.setTheme(localStorage.getItem('theme'));
 			} else {
@@ -89,13 +91,14 @@ class SearchResults extends Component {
 			this.searchParams.userLng = NaN;
 			
 			await this.getJobData(0, this.searchParams);
-			this.populateCards(this.state.response.data.jobs);
+			this.populateCards(this.state.response.jobs);
 			if(localStorage.getItem('theme')){
 				this.props.setTheme(localStorage.getItem('theme'));
 			} else {
 				this.props.setTheme(this.props.theme.current);
 			}
 		}	
+		
 	}
 
 
@@ -154,8 +157,10 @@ class SearchResults extends Component {
 		if(event){
 			event.preventDefault();  
 		}
-		const params = formatPostData(searchParams);
-		const resp = await axios.post("/api/get_joblist.php", params);
+		// const params = formatPostData(searchParams);
+		// const resp = await axios.post("/api/get_joblist.php", params);
+		const resp = jobs;
+		console.log(jobs);
 		this.setState({response:resp, loaded: true})	   
     }
 
