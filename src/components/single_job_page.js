@@ -8,7 +8,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import {setTheme} from '../actions';
 import Loading from './loading';
-
+import jobs from './dummy_data';
 
 
 class SingleJobPage extends Component {
@@ -99,9 +99,10 @@ class SingleJobPage extends Component {
     async submitSingleJobData(event){
         const params = formatPostData(this.singleJobItem);
         
-        const resp = await axios.post("/api/get_joblist.php", params);
+        // const resp = await axios.post("/api/get_joblist.php", params);
+        const resp = jobs;
         this.setState({
-            response:resp.data.jobs[0]});
+            response:resp.jobs[0]});
     }
 
     render(){
