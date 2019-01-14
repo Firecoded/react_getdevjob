@@ -66,7 +66,7 @@ class SearchResults extends Component {
 				this.searchParams.userLat = pos.lat;
 				this.searchParams.userLng = pos.lng;
 				await this.getJobData(0, this.searchParams);
-				this.populateCards(this.state.response.data.jobs);
+				this.populateCards(this.state.response.jobs);
 				if(localStorage.getItem('theme')){
 					this.props.setTheme(localStorage.getItem('theme'));
 				} else {
